@@ -1,58 +1,50 @@
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Github, Star, ArrowUp } from "lucide-react"
+import { ArrowUpRight, Github, Mail, MessageSquarePlus, Sparkles } from "lucide-react"
 
 export function CtaSection() {
   return (
-    <section id="suggest" className="relative overflow-hidden bg-muted/20 py-24 md:py-32 border-t border-border">
-      {/* Dynamic background glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 h-[400px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl" />
-      </div>
+    <section id="suggest" className="px-4 py-16 sm:px-6 sm:py-24">
+      <div className="mx-auto max-w-7xl">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/25 bg-gradient-to-br from-primary/18 via-background to-accent/16 p-7 sm:p-10 lg:p-12">
+          <div className="pointer-events-none absolute -right-12 -top-16 h-56 w-56 rounded-full bg-primary/20 blur-3xl" />
+          <div className="relative">
+            <p className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-background/70 px-3 py-1 font-mono text-xs uppercase tracking-[0.18em] text-primary">
+              <Sparkles className="size-3.5" />
+              Open Collaboration
+            </p>
+            <h2 className="forge-section-title mt-5 max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
+              Help choose the next legacy app to modernize.
+            </h2>
 
-      <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
-        <h2 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-          Got an app to reforge?
-        </h2>
-        <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground">
-          Whether you maintain a closed-source app that needs modernization,
-          or you have an open-source app you'd love to see reforged. We are
-          ready to build together. Star the repo, suggest an app, or contact me directly.
-        </p>
-
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href="https://github.com/nickthecoder/kotlin-reforge/issues/new?labels=app-suggestion&title=App+Suggestion:+"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "gap-2 px-8 text-base transition-transform duration-300 hover:scale-105 active:scale-95 will-change-transform"
-            )}
-          >
-            Suggest an App
-          </a>
-          <a
-            href="mailto:bernaferrari2+reforge@gmail.com"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "gap-2 px-8 text-base transition-transform duration-300 hover:scale-105 active:scale-95 will-change-transform"
-            )}
-          >
-            Contact Me
-          </a>
-          <a
-            href="https://github.com/nickthecoder/kotlin-reforge"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "lg" }),
-              "gap-2 px-8 text-base transition-transform duration-300 hover:bg-primary/10 hover:text-primary active:scale-95 will-change-transform"
-            )}
-          >
-            <Github className="size-5" />
-            Contribute
-          </a>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="https://github.com/nickthecoder/kotlin-reforge/issues/new?labels=app-suggestion&title=App+Suggestion:+"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants({ size: "lg" }), "h-11 gap-2 px-6")}
+              >
+                <MessageSquarePlus className="size-4" />
+                Suggest an App
+              </a>
+              <a
+                href="https://github.com/nickthecoder/kotlin-reforge"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
+              >
+                <Github className="size-4" />
+                Main Repo
+              </a>
+              <a
+                href="mailto:bernaferrari2+reforge@gmail.com"
+                className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "h-11 gap-2 px-6")}
+              >
+                <Mail className="size-4" />
+                Contact
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -61,40 +53,13 @@ export function CtaSection() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-card">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:px-6 md:flex-row">
-        <div className="flex items-center gap-2.5">
-          <div className="flex size-7 items-center justify-center rounded-md bg-primary">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              className="size-4 text-primary-foreground"
-              stroke="currentColor"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <span className="text-sm font-semibold text-foreground">
-            Kotlin Reforge
-          </span>
-        </div>
-
-        <p className="text-center text-sm text-muted-foreground">
-          An open-source initiative to modernize Android infrastructure.
-        </p>
-
-        <a
-          href="#"
-          className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          aria-label="Back to top"
-        >
-          Back to top
-          <ArrowUp className="size-3" />
+    <footer className="border-t border-border/70 bg-card/60 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-7 text-sm sm:px-6 md:flex-row">
+        <p className="text-muted-foreground">Kotlin Reforge</p>
+        <p className="text-muted-foreground">Modern Kotlin ports for critical Android apps.</p>
+        <a href="#" className="inline-flex min-h-11 items-center gap-1 text-muted-foreground hover:text-foreground">
+          Top
+          <ArrowUpRight className="size-3.5 -rotate-45" />
         </a>
       </div>
     </footer>

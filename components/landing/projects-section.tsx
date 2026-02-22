@@ -1,150 +1,89 @@
 import { ProjectCard, type ProjectData } from "./project-card"
 import { ComingSoonCard } from "./coming-soon-card"
-import { FileEdit, Shield, Wifi, Calculator } from "lucide-react"
 
 const projects: ProjectData[] = [
-    {
-        name: "Markor",
-        tagline: "Markdown Editor",
-        description:
-            "A beloved open-source Markdown editor reforged from its Java roots into a modern, expressive Kotlin application with Material 3 design, structured concurrency, and a plugin-ready architecture.",
-        icon: <FileEdit className="size-6 text-emerald-400" />,
-        accentClass: "text-emerald-400",
-        accentBg: "bg-emerald-400/10",
-        beforeImages: ["/images/markor-before.jpg", "/images/markor-before-2.jpg"],
-        afterImages: ["/images/markor-after.jpg", "/images/markor-after-2.jpg"],
-        repoUrl: "https://github.com/bernaferrari/Markor",
-        transformations: [
-            { label: "Rewrote Everything", description: "Complete rebuild" },
-            { label: "Kotlin Multiplatform", description: "KMP Foundation" },
-            { label: "Material 3", description: "Expressive design system" },
-            { label: "Coroutines", description: "Structured concurrency" },
-        ],
-        stats: {
-            languageBefore: "Java",
-            languageAfter: "Kotlin/KMP",
-            architectureBefore: "Monolith",
-            architectureAfter: "MVVM",
-        },
-    },
-    {
-        name: "RethinkDNS",
-        tagline: "DNS & Firewall Privacy",
-        description:
-            "A critical privacy infrastructure app reforged with modern Kotlin, replacing legacy networking code with coroutine-based flows, and delivering a completely reimagined Material 3 dashboard.",
-        icon: <Shield className="size-6 text-sky-400" />,
-        accentClass: "text-sky-400",
-        accentBg: "bg-sky-400/10",
-        beforeImages: ["/images/rethinkdns-before.jpg", "/images/rethinkdns-before-2.jpg"],
-        afterImages: ["/images/rethinkdns-after.jpg", "/images/rethinkdns-after-2.jpg"],
-        repoUrl: "https://github.com/bernaferrari/rethink-app",
-        transformations: [
-            { label: "Java → Kotlin", description: "Full language migration" },
-            { label: "Added Compose", description: "Modern UI layer" },
-            { label: "Full Redesign", description: "Material 3 dashboard" },
-            { label: "Coroutines + Flow", description: "Reactive networking" },
-            { label: "KMP", description: "Shared DNS logic" },
-        ],
-        stats: {
-            languageBefore: "Java",
-            languageAfter: "Kotlin/KMP",
-            architectureBefore: "Callbacks",
-            architectureAfter: "MVI + Flow",
-        },
-    },
-    {
-        name: "NetGuard",
-        tagline: "Network Firewall",
-        description:
-            "A foundational Android firewall reforged from legacy VPN-based Java code into an idiomatic Kotlin system with modern architecture, reactive state management, and a beautiful Material 3 interface.",
-        icon: <Wifi className="size-6 text-amber-400" />,
-        accentClass: "text-amber-400",
-        accentBg: "bg-amber-400/10",
-        beforeImages: ["/images/netguard-before.jpg", "/images/netguard-before-2.jpg"],
-        afterImages: ["/images/netguard-after.jpg", "/images/netguard-after-2.jpg"],
-        repoUrl: "https://github.com/bernaferrari/NetGuard",
-        transformations: [
-            { label: "Rewrote Everything", description: "Deep architectural rework" },
-            { label: "Java → Kotlin", description: "Full language migration" },
-            { label: "Compose", description: "Declarative UI" },
-            { label: "Material 3", description: "Expressive firewall UI" },
-        ],
-        stats: {
-            languageBefore: "Java",
-            languageAfter: "Kotlin",
-            architectureBefore: "God Activities",
-            architectureAfter: "MVVM + Compose",
-        },
-    },
-    {
-        name: "Calculator++",
-        tagline: "Scientific Calculator",
-        description:
-            "A powerful scientific calculator reborn in Kotlin with expression parsing rebuilt from scratch, a modern gesture-driven Material 3 UI, and Kotlin Multiplatform support for desktop targets.",
-        icon: <Calculator className="size-6 text-rose-400" />,
-        accentClass: "text-rose-400",
-        accentBg: "bg-rose-400/10",
-        beforeImages: ["/images/calculator-before.jpg", "/images/calculator-before-2.jpg"],
-        afterImages: ["/images/calculator-after.jpg", "/images/calculator-after-2.jpg"],
-        repoUrl: "https://github.com/bernaferrari/CalculatorPP",
-        transformations: [
-            { label: "Kotlin Multiplatform", description: "Desktop + Android" },
-            { label: "Java → Kotlin", description: "Full language migration" },
-            { label: "Compose", description: "Declarative UI layer" },
-            { label: "Material 3", description: "Expressive calculator UI" },
-        ],
-        stats: {
-            languageBefore: "Java",
-            languageAfter: "Kotlin/KMP",
-            architectureBefore: "Spaghetti",
-            architectureAfter: "MVVM + Compose",
-        },
-    },
+  {
+    name: "Markor",
+    category: "Markdown Editor",
+    summary:
+      "Modernized editor experience with architectural cleanup and a redesigned Material interface.",
+    repoUrl: "https://github.com/bernaferrari/Markor",
+    showcaseImages: ["/images/markor-after-2.jpg", "/images/markor-after.jpg"],
+    wins: [
+      "Refined editor and file-navigation flow",
+      "Cleaned module boundaries and state handling",
+      "Improved visual consistency across key screens",
+    ],
+  },
+  {
+    name: "RethinkDNS",
+    category: "DNS & Firewall Privacy",
+    summary:
+      "Kotlin-first modernization of critical networking paths with a clearer privacy dashboard.",
+    repoUrl: "https://github.com/bernaferrari/rethink-app",
+    showcaseImages: ["/images/rethinkdns-after-2.jpg", "/images/rethinkdns-after.jpg"],
+    wins: [
+      "Migrated key networking surfaces to Kotlin + Flow",
+      "Restructured DNS and privacy controls for clarity",
+      "Reduced callback-heavy legacy behavior",
+    ],
+  },
+  {
+    name: "NetGuard",
+    category: "Network Firewall",
+    summary:
+      "Firewall modernization focused on maintainability, interaction clarity, and redesigned control surfaces.",
+    repoUrl: "https://github.com/bernaferrari/NetGuard",
+    showcaseImages: ["/images/netguard-after-2.jpg", "/images/netguard-after.jpg"],
+    wins: [
+      "Simplified rule and state modeling",
+      "Improved daily-use interaction flow",
+      "Reshaped architecture for easier maintenance",
+    ],
+  },
+  {
+    name: "Calculator++",
+    category: "Scientific Calculator",
+    summary:
+      "UI migrated from legacy Kotlin views to Compose, with a full redesign for scientific workflows.",
+    repoUrl: "https://github.com/bernaferrari/CalculatorPP",
+    showcaseImages: ["/images/calculator-after-2.jpg", "/images/calculator-after.jpg"],
+    wins: [
+      "Moved existing Kotlin UI stack to Compose",
+      "Refined keypad, history, and expression interactions",
+      "Improved feedback for complex calculations",
+    ],
+  },
 ]
 
 export function ProjectsSection() {
-    return (
-        <section id="projects" className="py-24 md:py-32">
-            <div className="mx-auto max-w-6xl px-4 sm:px-6">
-                <div className="mb-20 text-center">
-                    <p className="mb-4 font-mono text-sm font-semibold uppercase tracking-widest text-primary">
-                        Showcase
-                    </p>
-                    <h2 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-                        Four apps. Four transformations.
-                    </h2>
-                    <p className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
-                        Each project undergoes a complete architectural rewrite &mdash; from
-                        legacy Java to idiomatic, modern Kotlin-first systems.
-                    </p>
-                </div>
+  return (
+    <section id="projects" className="px-4 py-16 sm:px-6 sm:py-24">
+      <div className="mx-auto max-w-7xl">
+        <header className="mb-12 sm:mb-14">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Case Studies</p>
+          <h2 className="forge-section-title mt-3 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl">
+            Each app follows a different modernization path.
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            Some projects are Java to Kotlin ports, others are Kotlin UI to Compose migrations.
+            All of them are redesigned.
+          </p>
+        </header>
 
-                <div className="flex flex-col gap-12 lg:gap-16">
-                    {projects.map((project, index) => (
-                        <ProjectCard
-                            key={project.name}
-                            project={project}
-                            reversed={index % 2 !== 0}
-                        />
-                    ))}
+        <div className="space-y-6 sm:space-y-8">
+          {projects.map((project, index) => (
+            <ProjectCard key={project.name} project={project} reversed={index % 2 === 1} />
+          ))}
 
-                    <ComingSoonCard
-                        name="ChangeDetection"
-                        tagline="Track website changes"
-                        description="An open-source app that monitors web pages for changes and notifies you. Next in line to be reforged with modern Kotlin, Coroutines-based polling, and a Material 3 interface."
-                        repoUrl="https://github.com/bernaferrari/ChangeDetection"
-                        accentClass="text-teal-400"
-                        accentBg="bg-teal-400/10"
-                        plannedTransformations={[
-                            "Java → Kotlin",
-                            "Material 3",
-                            "Coroutines",
-                            "Compose",
-                            "KMP Ready",
-                        ]}
-                    />
-                </div>
-            </div>
-        </section>
-    )
+          <ComingSoonCard
+            name="ChangeDetection"
+            summary="Planned Kotlin modernization focused on reliable polling, cleaner state updates, and improved readability."
+            repoUrl="https://github.com/bernaferrari/ChangeDetection"
+            planned={["Kotlin Port", "Compose UI", "Coroutines", "Material 3"]}
+          />
+        </div>
+      </div>
+    </section>
+  )
 }

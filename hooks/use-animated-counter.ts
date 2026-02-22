@@ -32,6 +32,11 @@ export function useAnimatedCounter(
     useEffect(() => {
         if (!inView) return
 
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            setCount(endValue)
+            return
+        }
+
         let startTime: number
         let animationFrame: number
 

@@ -1,35 +1,38 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Sora, IBM_Plex_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const inter = Inter({
+const sora = Sora({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-sora',
+  display: 'swap',
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
-  variable: '--font-jetbrains',
+  variable: '--font-ibm-plex-mono',
+  weight: ['400', '500', '600'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Kotlin Reforge - Modernizing Open-Source Android Infrastructure',
+  title: 'Kotlin Reforge | Rebuilding Android Open Source in Kotlin',
   description:
-    'Systematically rebuilding legacy Java Android apps in modern Kotlin and Kotlin Multiplatform. Transforming Markor, RethinkDNS, NetGuard, and Calculator++.',
+    'Kotlin Reforge modernizes legacy Android infrastructure through full Kotlin rewrites, Material 3 Expressive design, and Kotlin Multiplatform architecture.',
   openGraph: {
     title: 'Kotlin Reforge',
     description:
-      'Modernizing critical open-source Android infrastructure with Kotlin & KMP.',
+      'Architectural rewrites of critical open-source Android apps with Kotlin, Compose, and KMP.',
     type: 'website',
   },
 }
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f8f6f4' },
-    { media: '(prefers-color-scheme: dark)', color: '#1a1a2e' },
+    { media: '(prefers-color-scheme: light)', color: '#f6f4ef' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f1218' },
   ],
 }
 
@@ -41,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${sora.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
