@@ -19,7 +19,7 @@ export function CtaSection() {
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
-                href="https://github.com/nickthecoder/kotlin-reforge/issues/new?labels=app-suggestion&title=App+Suggestion:+"
+                href="https://github.com/bernaferrari/kotlin-reforge/issues/new?labels=app-suggestion&title=App+Suggestion:+"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(buttonVariants({ size: "lg" }), "h-11 gap-2 px-6")}
@@ -28,7 +28,7 @@ export function CtaSection() {
                 Suggest an App
               </a>
               <a
-                href="https://github.com/nickthecoder/kotlin-reforge"
+                href="https://github.com/bernaferrari/kotlin-reforge"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}

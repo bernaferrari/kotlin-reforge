@@ -19,7 +19,7 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="https://github.com/nickthecoder/kotlin-reforge"
+              href="https://github.com/bernaferrari/kotlin-reforge"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(buttonVariants({ size: "lg" }), "h-11 gap-2 px-6")}

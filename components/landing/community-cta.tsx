@@ -73,7 +73,7 @@ export function CommunityCta() {
 
         <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
-            href="https://github.com/nickthecoder/kotlin-reforge/issues/new?labels=app-suggestion&title=App+Suggestion:+"
+            href="https://github.com/bernaferrari/kotlin-reforge/issues/new?labels=app-suggestion&title=App+Suggestion:+"
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ size: "lg" }), "gap-2 px-8 text-base")}
@@ -82,7 +82,7 @@ export function CommunityCta() {
             Suggest an App
           </a>
           <a
-            href="https://github.com/nickthecoder/kotlin-reforge/discussions"
+            href="https://github.com/bernaferrari/kotlin-reforge/discussions"
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2 px-8 text-base")}

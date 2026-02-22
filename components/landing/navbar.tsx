@@ -34,7 +34,7 @@ export function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="min-h-11 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors duration-200 hover:bg-muted/70 hover:text-foreground"
+              className="inline-flex h-11 items-center rounded-lg px-3 text-sm text-muted-foreground transition-colors duration-200 hover:bg-muted/70 hover:text-foreground"
             >
               {item.label}
             </a>
@@ -53,7 +53,7 @@ export function Navbar() {
             <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           </Button>
           <a
-            href="https://github.com/nickthecoder/kotlin-reforge"
+            href="https://github.com/bernaferrari/kotlin-reforge"
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ size: "lg" }), "h-11 px-5")}
@@ -81,7 +81,7 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground"
+                className="inline-flex h-11 items-center rounded-lg px-3 text-sm text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground"
               >
                 {item.label}
               </a>
@@ -99,7 +99,7 @@ export function Navbar() {
               <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             </Button>
             <a
-              href="https://github.com/nickthecoder/kotlin-reforge"
+              href="https://github.com/bernaferrari/kotlin-reforge"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(buttonVariants({ size: "lg" }), "h-11 flex-1")}
