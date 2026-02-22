@@ -13,6 +13,7 @@ import {
   ExternalLink,
   Github,
 } from "lucide-react"
+import Link from "next/link"
 
 export interface ProjectData {
   name: string
@@ -187,7 +188,7 @@ export function ProjectCard({
             </div>
 
             {/* Repo link */}
-            <a
+            <Link
               href={project.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -199,7 +200,7 @@ export function ProjectCard({
               <Github className="size-4" />
               View on GitHub
               <ExternalLink className="size-3 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-            </a>
+            </Link>
           </div>
 
           {/* Before/After gallery side */}
