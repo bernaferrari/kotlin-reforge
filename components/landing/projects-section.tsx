@@ -8,7 +8,13 @@ const projects: ProjectData[] = [
     summary:
       "Modernized editor experience with architectural cleanup and a redesigned Material interface.",
     repoUrl: "https://github.com/bernaferrari/Markor",
-    showcaseImages: ["/images/markor-after-2.jpg", "/images/markor-after.jpg"],
+    showcaseImages: [
+      "/markor/onboarding.png",
+      "/markor/home.png",
+      "/markor/editor.png",
+      "/markor/settings.png",
+      "/markor/more.png",
+    ],
     wins: [
       "Refined editor and file-navigation flow",
       "Cleaned module boundaries and state handling",
@@ -34,7 +40,13 @@ const projects: ProjectData[] = [
     summary:
       "Firewall modernization focused on maintainability, interaction clarity, and redesigned control surfaces.",
     repoUrl: "https://github.com/bernaferrari/NetGuard",
-    showcaseImages: ["/images/netguard-after-2.jpg", "/images/netguard-after.jpg"],
+    showcaseImages: [
+      "/netguard/onboarding.png",
+      "/netguard/home.png",
+      "/netguard/editor.png",
+      "/netguard/settings.png",
+      "/netguard/more.png",
+    ],
     wins: [
       "Simplified rule and state modeling",
       "Improved daily-use interaction flow",

@@ -1,6 +1,9 @@
+"use client"
+
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Check } from "lucide-react"
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight } from "lucide-react"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -11,6 +14,86 @@ export interface ProjectData {
   repoUrl: string
   showcaseImages: string[]
   wins: string[]
+}
+
+function ProjectGallery({ images, projectName }: { images: string[]; projectName: string }) {
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const hasMultiple = images.length > 1
+  const activeImage = images[activeIndex] || images[0]
+
+  const goPrevious = () => {
+    setActiveIndex((current) => (current - 1 + images.length) % images.length)
+  }
+
+  const goNext = () => {
+    setActiveIndex((current) => (current + 1) % images.length)
+  }
+
+  return (
+    <div>
+      <div className="relative border-b border-border/70 bg-muted/25 px-2 py-2 sm:px-3 sm:py-3">
+        <div className="relative mx-auto aspect-video w-full max-w-[760px]">
+          <Image
+            src={activeImage}
+            alt={`${projectName} showcase screenshot ${activeIndex + 1}`}
+            fill
+            sizes="(max-width: 1024px) 100vw, 760px"
+            className="object-contain"
+          />
+        </div>
+
+        {hasMultiple && (
+          <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 sm:px-4">
+            <button
+              type="button"
+              onClick={goPrevious}
+              aria-label="Previous screenshot"
+              className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/90 bg-background/85 text-foreground backdrop-blur transition-colors hover:bg-background"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              aria-label="Next screenshot"
+              className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/90 bg-background/85 text-foreground backdrop-blur transition-colors hover:bg-background"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+        )}
+      </div>
+
+      {hasMultiple && (
+        <div className="px-2 py-2 sm:px-3 sm:py-3">
+          <div className="mx-auto flex w-full max-w-[760px] gap-2 overflow-x-auto sm:justify-center">
+            {images.map((src, index) => (
+              <button
+                key={src}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Show screenshot ${index + 1}`}
+                className={cn(
+                  "shrink-0 overflow-hidden border bg-card transition-colors",
+                  "size-12 rounded-md sm:size-14",
+                  index === activeIndex ? "border-primary" : "border-border/80 hover:border-border"
+                )}
+              >
+                <Image
+                  src={src}
+                  alt={`${projectName} thumbnail ${index + 1}`}
+                  width={160}
+                  height={160}
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
 }
 
 export function ProjectCard({
@@ -57,27 +140,11 @@ export function ProjectCard({
 
         <div
           className={cn(
-            "grid gap-0 border-t border-border/70 sm:grid-cols-2 lg:border-t-0 lg:border-l",
+            "border-t border-border/70 lg:border-t-0 lg:border-l",
             reversed && "lg:order-1 lg:border-l-0 lg:border-r"
           )}
         >
-          {project.showcaseImages.map((src, index) => (
-            <figure
-              key={src}
-              className={cn(
-                "overflow-hidden bg-card",
-                index % 2 === 1 && "sm:border-l sm:border-border/70"
-              )}
-            >
-              <Image
-                src={src}
-                alt={`${project.name} showcase screenshot ${index + 1}`}
-                width={900}
-                height={1600}
-                className="block h-auto w-full object-contain"
-              />
-            </figure>
-          ))}
+          <ProjectGallery images={project.showcaseImages} projectName={project.name} />
         </div>
       </div>
     </article>
