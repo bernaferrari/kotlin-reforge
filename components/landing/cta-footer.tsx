@@ -44,14 +44,25 @@ export function CtaSection() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/70 bg-card/60 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-7 text-sm sm:px-6 md:flex-row">
-        <p className="text-muted-foreground">Kotlin Reforge</p>
-        <p className="text-muted-foreground">Modern Kotlin ports for critical Android apps.</p>
-        <a href="#" className="inline-flex min-h-11 items-center gap-1 text-muted-foreground hover:text-foreground">
-          Top
-          <ArrowUpRight className="size-3.5 -rotate-45" />
-        </a>
+    <footer className="border-t border-border/70 px-4 pt-8 pb-10 sm:px-6 sm:pt-10 sm:pb-12">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex items-center justify-between gap-4">
+          <a
+            href="https://bernaferrari.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+          >
+            Bernardo Ferrari
+          </a>
+          <a
+            href="#"
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+          >
+            Top
+            <ArrowUpRight className="size-3.5 -rotate-45" />
+          </a>
+        </div>
       </div>
     </footer>
   )

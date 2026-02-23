@@ -110,11 +110,13 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
                 type="button"
                 onClick={() => setActiveIndex(index)}
                 aria-label={`Show screenshot ${index + 1}`}
-                className={cn(
-                  "shrink-0 overflow-hidden border bg-card transition-colors",
-                  "size-12 rounded-md sm:size-14",
-                  index === activeIndex ? "border-primary" : "border-border/80 hover:border-border"
-                )}
+                  className={cn(
+                    "relative shrink-0 overflow-hidden border bg-card transition",
+                    "size-12 rounded-md sm:size-14",
+                    index === activeIndex
+                      ? "border-primary shadow-[inset_0_0_0_2px_var(--color-primary)]"
+                      : "border-border/80 opacity-85 hover:border-border hover:opacity-100"
+                  )}
               >
                 <Image
                   src={src}
@@ -123,6 +125,11 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
                   height={160}
                   className="h-full w-full object-cover"
                 />
+                {index === activeIndex && (
+                  <span className="pointer-events-none absolute right-1 top-1 inline-flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+                    <Check className="size-2.5" />
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -193,9 +200,11 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
                       onClick={() => setActiveIndex(index)}
                       aria-label={`Show screenshot ${index + 1}`}
                       className={cn(
-                        "shrink-0 overflow-hidden border transition-colors",
+                        "relative shrink-0 overflow-hidden border transition",
                         "size-12 rounded-md sm:size-14",
-                        index === activeIndex ? "border-primary" : "border-white/20 hover:border-white/40"
+                        index === activeIndex
+                          ? "border-primary shadow-[inset_0_0_0_2px_var(--color-primary)]"
+                          : "border-white/20 opacity-80 hover:border-white/40 hover:opacity-100"
                       )}
                     >
                       <Image
@@ -205,6 +214,11 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
                         height={160}
                         className="h-full w-full object-cover"
                       />
+                      {index === activeIndex && (
+                        <span className="pointer-events-none absolute right-1 top-1 inline-flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+                          <Check className="size-2.5" />
+                        </span>
+                      )}
                     </button>
                   ))}
                 </div>
