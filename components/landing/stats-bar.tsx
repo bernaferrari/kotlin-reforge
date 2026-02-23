@@ -1,8 +1,8 @@
 const stats = [
   { value: "4", label: "Apps" },
   { value: "400K+", label: "LOC touched" },
-  { value: "4/4", label: "Redesigned" },
-  { value: "2 paths", label: "Java→Kotlin / Kotlin→Compose" },
+  { value: "14+", label: "Screens showcased" },
+  { value: "M3", label: "Design language" },
 ]
 
 export function StatsBar() {

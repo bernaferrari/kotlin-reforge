@@ -1,6 +1,6 @@
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ArrowUpRight, Github, Mail, MessageSquarePlus, Sparkles } from "lucide-react"
+import { ArrowUpRight, Mail, MessageSquarePlus, Sparkles } from "lucide-react"
 
 export function CtaSection() {
   return (
@@ -28,17 +28,8 @@ export function CtaSection() {
                 Suggest an App
               </a>
               <a
-                href="https://github.com/bernaferrari/kotlin-reforge"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
-              >
-                <Github className="size-4" />
-                Main Repo
-              </a>
-              <a
                 href="mailto:bernaferrari2+reforge@gmail.com"
-                className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "h-11 gap-2 px-6")}
+                className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
               >
                 <Mail className="size-4" />
                 Contact

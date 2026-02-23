@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Check, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight, X } from "lucide-react"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -18,6 +18,7 @@ export interface ProjectData {
 
 function ProjectGallery({ images, projectName }: { images: string[]; projectName: string }) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const hasMultiple = images.length > 1
   const activeImage = images[activeIndex] || images[0]
@@ -30,10 +31,45 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
     setActiveIndex((current) => (current + 1) % images.length)
   }
 
+  useEffect(() => {
+    if (!isDialogOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    const count = images.length
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsDialogOpen(false)
+      if (!hasMultiple) return
+
+      if (event.key === "ArrowLeft") {
+        event.preventDefault()
+        setActiveIndex((current) => (current - 1 + count) % count)
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault()
+        setActiveIndex((current) => (current + 1) % count)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [hasMultiple, images.length, isDialogOpen])
+
   return (
     <div>
       <div className="relative border-b border-border/70 bg-muted/25 px-2 py-2 sm:px-3 sm:py-3">
-        <div className="relative mx-auto aspect-video w-full max-w-[760px]">
+        <button
+          type="button"
+          onClick={() => setIsDialogOpen(true)}
+          aria-label={`Open ${projectName} gallery`}
+          className="relative mx-auto block aspect-video w-full max-w-[760px] overflow-hidden"
+        >
           <Image
             src={activeImage}
             alt={`${projectName} showcase screenshot ${activeIndex + 1}`}
@@ -41,7 +77,7 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
             sizes="(max-width: 1024px) 100vw, 760px"
             className="object-contain"
           />
-        </div>
+        </button>
 
         {hasMultiple && (
           <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 sm:px-4">
@@ -89,6 +125,91 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
                 />
               </button>
             ))}
+          </div>
+        </div>
+      )}
+
+      {isDialogOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${projectName} screenshot gallery`}
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/75 p-4 sm:p-6"
+          onClick={() => setIsDialogOpen(false)}
+        >
+          <div
+            className="w-full max-w-6xl overflow-hidden rounded-2xl border border-white/15 bg-black/60 text-white"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="relative border-b border-white/15 px-2 py-2 sm:px-3 sm:py-3">
+              <button
+                type="button"
+                onClick={() => setIsDialogOpen(false)}
+                aria-label="Close gallery"
+                className="absolute right-3 top-3 z-10 inline-flex size-9 items-center justify-center rounded-full border border-white/25 bg-black/45 transition-colors hover:bg-black/65"
+              >
+                <X className="size-4" />
+              </button>
+
+              <div className="relative mx-auto aspect-video w-full">
+                <Image
+                  src={activeImage}
+                  alt={`${projectName} gallery screenshot ${activeIndex + 1}`}
+                  fill
+                  sizes="(max-width: 1280px) 95vw, 1200px"
+                  className="object-contain"
+                />
+              </div>
+
+              {hasMultiple && (
+                <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 sm:px-4">
+                  <button
+                    type="button"
+                    onClick={goPrevious}
+                    aria-label="Previous screenshot"
+                    className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors hover:bg-black/65"
+                  >
+                    <ChevronLeft className="size-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goNext}
+                    aria-label="Next screenshot"
+                    className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors hover:bg-black/65"
+                  >
+                    <ChevronRight className="size-5" />
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {hasMultiple && (
+              <div className="px-2 py-2 sm:px-3 sm:py-3">
+                <div className="mx-auto flex w-full max-w-[900px] gap-2 overflow-x-auto sm:justify-center">
+                  {images.map((src, index) => (
+                    <button
+                      key={`dialog-${src}`}
+                      type="button"
+                      onClick={() => setActiveIndex(index)}
+                      aria-label={`Show screenshot ${index + 1}`}
+                      className={cn(
+                        "shrink-0 overflow-hidden border transition-colors",
+                        "size-12 rounded-md sm:size-14",
+                        index === activeIndex ? "border-primary" : "border-white/20 hover:border-white/40"
+                      )}
+                    >
+                      <Image
+                        src={src}
+                        alt={`${projectName} lightbox thumbnail ${index + 1}`}
+                        width={160}
+                        height={160}
+                        className="h-full w-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
