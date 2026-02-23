@@ -41,9 +41,9 @@ const projects: ProjectData[] = [
       "Firewall modernization focused on maintainability, interaction clarity, and redesigned control surfaces.",
     repoUrl: "https://github.com/bernaferrari/NetGuard",
     showcaseImages: [
-      "/netguard/onboarding.png",
       "/netguard/home.png",
-      "/netguard/editor.png",
+      "/netguard/firewall.png",
+      "/netguard/details.png",
       "/netguard/settings.png",
       "/netguard/more.png",
     ],
