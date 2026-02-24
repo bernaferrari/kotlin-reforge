@@ -39,7 +39,7 @@ export function Hero() {
 
         <div className="forge-panel overflow-hidden rounded-3xl animate-fade-up" style={{ animationDelay: "90ms" }}>
           <Image
-            src="/images/rethinkdns-after-2.jpg"
+            src="/rethink/home.png"
             alt="Modernized Android app preview"
             width={1600}
             height={980}

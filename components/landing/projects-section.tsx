@@ -27,7 +27,12 @@ const projects: ProjectData[] = [
     summary:
       "Kotlin-first modernization of critical networking paths with a clearer privacy dashboard.",
     repoUrl: "https://github.com/bernaferrari/rethink-app",
-    showcaseImages: ["/images/rethinkdns-after-2.jpg", "/images/rethinkdns-after.jpg"],
+    showcaseImages: [
+      "/rethink/home.png",
+      "/rethink/settings.png",
+      "/rethink/more-dark.png",
+      "/rethink/more-light.png",
+    ],
     wins: [
       "Migrated key networking surfaces to Kotlin + Flow",
       "Restructured DNS and privacy controls for clarity",
@@ -45,7 +50,8 @@ const projects: ProjectData[] = [
       "/netguard/firewall.png",
       "/netguard/details.png",
       "/netguard/settings.png",
-      "/netguard/more.png",
+      "/netguard/more%20-%20dark.png",
+      "/netguard/more%20-%20light.png",
     ],
     wins: [
       "Simplified rule and state modeling",
