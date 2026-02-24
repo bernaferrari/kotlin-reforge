@@ -160,6 +160,7 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
 
               <div className="relative mx-auto aspect-video w-full">
                 <Image
+                  key={`dialog-${activeImage}`}
                   src={activeImage}
                   alt={`${projectName} gallery screenshot ${activeIndex + 1}`}
                   fill

@@ -9,17 +9,21 @@ const projects: ProjectData[] = [
       "Modernized editor experience with architectural cleanup and a redesigned Material interface.",
     repoUrl: "https://github.com/bernaferrari/Markor",
     showcaseImages: [
+      "/markor/more.png",
       "/markor/onboarding.png",
       "/markor/home.png",
       "/markor/editor.png",
       "/markor/settings.png",
-      "/markor/more.png",
     ],
     wins: [
       "Refined editor and file-navigation flow",
       "Cleaned module boundaries and state handling",
       "Improved visual consistency across key screens",
     ],
+    comparisonImages: {
+      before: ["/images/markor-before.jpg", "/images/markor-before-2.jpg"],
+      after: ["/images/markor-after.jpg", "/images/markor-after-2.jpg"],
+    },
   },
   {
     name: "RethinkDNS",
@@ -28,9 +32,9 @@ const projects: ProjectData[] = [
       "Kotlin-first modernization of critical networking paths with a clearer privacy dashboard.",
     repoUrl: "https://github.com/bernaferrari/rethink-app",
     showcaseImages: [
+      "/rethink/more-dark.png",
       "/rethink/home.png",
       "/rethink/settings.png",
-      "/rethink/more-dark.png",
       "/rethink/more-light.png",
     ],
     wins: [
@@ -46,18 +50,22 @@ const projects: ProjectData[] = [
       "Firewall modernization focused on maintainability, interaction clarity, and redesigned control surfaces.",
     repoUrl: "https://github.com/bernaferrari/NetGuard",
     showcaseImages: [
+      "/netguard/more%20-%20light.png",
       "/netguard/home.png",
       "/netguard/firewall.png",
       "/netguard/details.png",
       "/netguard/settings.png",
       "/netguard/more%20-%20dark.png",
-      "/netguard/more%20-%20light.png",
     ],
     wins: [
       "Simplified rule and state modeling",
       "Improved daily-use interaction flow",
       "Reshaped architecture for easier maintenance",
     ],
+    comparisonImages: {
+      before: ["/images/netguard-before.jpg", "/images/netguard-before-2.jpg"],
+      after: ["/images/netguard-after.jpg", "/images/netguard-after-2.jpg"],
+    },
   },
   {
     name: "Calculator++",
@@ -71,6 +79,10 @@ const projects: ProjectData[] = [
       "Refined keypad, history, and expression interactions",
       "Improved feedback for complex calculations",
     ],
+    comparisonImages: {
+      before: ["/images/calculator-before.jpg", "/images/calculator-before-2.jpg"],
+      after: ["/images/calculator-after.jpg", "/images/calculator-after-2.jpg"],
+    },
   },
 ]
 
