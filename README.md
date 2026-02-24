@@ -1,114 +1,46 @@
-# Kotlin Reforge Landing Page
+# Kotlin Reforge
 
-Landing page for **Kotlin Reforge**, an initiative focused on modernizing legacy Android apps through Kotlin ports, architecture improvements, and redesign work.
+Kotlin Reforge is an initiative dedicated to transforming legacy Android apps into modern, maintainable products.
 
-This repository contains a Next.js site that showcases the initiative, project case studies, process, impact, and contribution paths.
+This project is the public-facing website for that initiative. It communicates:
 
-## Tech Stack
+- What Kotlin Reforge does
+- Why modernization matters for product teams
+- Real examples of migration and redesign outcomes
+- The process used to move from fragile legacy code to scalable Kotlin architecture
 
-- Next.js 16 (App Router)
-- React 19
-- Tailwind CSS 4
-- TypeScript
-- `next-themes` for light/dark mode
-- `lucide-react` for icons
+## What This Project Is About
 
-## Getting Started
+Many Android products still run on aging Java codebases with brittle architecture, slow delivery cycles, and high maintenance cost. Kotlin Reforge exists to fix that.
 
-### Prerequisites
+The core focus is practical modernization:
 
-- Node.js 20+
-- pnpm
+- Kotlin-first migrations from legacy Java
+- Architecture upgrades for long-term maintainability
+- UI/UX redesign aligned with modern Android standards
+- Clear, measurable product and engineering impact
 
-### Install and Run
+The website in this repository is meant to tell that story clearly for clients, partners, and contributors.
+
+## Who It Is For
+
+- Teams with legacy Android apps that are hard to evolve
+- Founders and product leads planning a technical refresh
+- Engineers interested in migration strategy and implementation quality
+- Collaborators who want to contribute to modernization work
+
+## Run Locally
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Open `http://localhost:3000`.
+Then open `http://localhost:3000`.
 
-### Production Build
+## Build for Production
 
 ```bash
 pnpm build
 pnpm start
 ```
-
-## Project Structure
-
-```text
-app/
-  layout.tsx        # global metadata, fonts, theme provider
-  page.tsx          # page composition
-  globals.css       # design tokens + global styles
-
-components/landing/
-  navbar.tsx
-  hero.tsx
-  projects-section.tsx
-  project-card.tsx
-  coming-soon-card.tsx
-  approach-section.tsx
-  stats-bar.tsx
-  cta-footer.tsx
-
-public/images/
-  *.jpg             # showcase screenshots used in cards/hero
-```
-
-## Content Editing Guide
-
-### Update project cards
-
-Edit `components/landing/projects-section.tsx`.
-
-- Project name/category/summary
-- Wins (bullet points)
-- Repository links
-- Screenshot arrays (`showcaseImages`)
-
-### Update stats
-
-Edit `components/landing/stats-bar.tsx`.
-
-### Update hero / messaging
-
-Edit `components/landing/hero.tsx`.
-
-### Update CTA and footer
-
-Edit `components/landing/cta-footer.tsx`.
-
-### Update theme and visual tokens
-
-Edit `app/globals.css`.
-
-### Update SEO metadata
-
-Edit `app/layout.tsx`.
-
-## Adding Screenshots
-
-1. Add files to `public/images/`.
-2. Reference them from `showcaseImages` in `components/landing/projects-section.tsx`.
-3. Keep clear naming and consistent dimensions when possible.
-
-## Implementation Notes
-
-- `next.config.mjs` currently has:
-  - `typescript.ignoreBuildErrors: true`
-  - `images.unoptimized: true`
-- The `lint` script exists (`eslint .`), but ESLint is not currently listed in `devDependencies`.
-
-## Scripts
-
-- `pnpm dev` - run development server
-- `pnpm build` - create production build
-- `pnpm start` - run production server
-- `pnpm lint` - run lint (requires ESLint setup)
-
-## License
-
-No license file is currently included in this repository.

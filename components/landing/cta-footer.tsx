@@ -1,3 +1,6 @@
+"use client"
+
+import posthog from "posthog-js"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { ArrowUpRight, Mail, MessageSquarePlus, Sparkles } from "lucide-react"
@@ -23,6 +26,7 @@ export function CtaSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(buttonVariants({ size: "lg" }), "h-11 gap-2 px-6")}
+                onClick={() => posthog.capture("suggest_app_clicked", { location: "cta_section" })}
               >
                 <MessageSquarePlus className="size-4" />
                 Suggest an App
@@ -30,6 +34,7 @@ export function CtaSection() {
               <a
                 href="mailto:bernaferrari2+reforge@gmail.com"
                 className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
+                onClick={() => posthog.capture("contact_clicked")}
               >
                 <Mail className="size-4" />
                 Contact

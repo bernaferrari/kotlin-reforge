@@ -3,14 +3,17 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { ArrowRight, Github } from "lucide-react"
+import posthog from "posthog-js"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 const heroFrames = [
+  { src: "/rethink/apps.png", label: "apps" },
+  { src: "/rethink/stats.png", label: "stats" },
+  { src: "/rethink/even-more-light.png", label: "even more light" },
   { src: "/rethink/more-light.png", label: "more light" },
   { src: "/rethink/more-dark.png", label: "more dark" },
   { src: "/rethink/home.png", label: "home" },
-  { src: "/rethink/editor.png", label: "editor" },
   { src: "/rethink/settings.png", label: "settings" },
 ]
 
@@ -152,6 +155,7 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(buttonVariants({ size: "lg" }), "h-11 gap-2 px-6")}
+              onClick={() => posthog.capture("hero_cta_clicked", { destination: "github" })}
             >
               <Github className="size-4" />
               View Initiative
@@ -159,6 +163,7 @@ export function Hero() {
             <a
               href="#projects"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
+              onClick={() => posthog.capture("hero_explore_ports_clicked")}
             >
               Explore Ports
               <ArrowRight className="size-4" />

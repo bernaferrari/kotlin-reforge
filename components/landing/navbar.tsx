@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useTheme } from "next-themes"
 import { Menu, Moon, Sparkles, Sun, X } from "lucide-react"
+import posthog from "posthog-js"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -35,6 +36,7 @@ export function Navbar() {
               key={item.href}
               href={item.href}
               className="inline-flex h-11 items-center rounded-lg px-3 text-sm text-muted-foreground transition-colors duration-200 hover:bg-muted/70 hover:text-foreground"
+              onClick={() => posthog.capture("nav_item_clicked", { label: item.label, href: item.href })}
             >
               {item.label}
             </a>
@@ -47,7 +49,11 @@ export function Navbar() {
             size="icon"
             className="size-11"
             aria-label="Toggle theme"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => {
+              const newTheme = theme === "dark" ? "light" : "dark"
+              setTheme(newTheme)
+              posthog.capture("theme_toggled", { theme: newTheme })
+            }}
           >
             <Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -57,6 +63,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ size: "lg" }), "h-11 px-5")}
+            onClick={() => posthog.capture("nav_github_clicked", { location: "navbar" })}
           >
             GitHub
           </a>
@@ -67,7 +74,11 @@ export function Navbar() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           className="inline-flex size-11 items-center justify-center rounded-lg border border-border md:hidden"
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => {
+            const next = !open
+            setOpen(next)
+            posthog.capture("nav_mobile_menu_toggled", { action: next ? "open" : "close" })
+          }}
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -80,7 +91,10 @@ export function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false)
+                  posthog.capture("nav_item_clicked", { label: item.label, href: item.href, location: "mobile" })
+                }}
                 className="inline-flex h-11 items-center rounded-lg px-3 text-sm text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground"
               >
                 {item.label}
@@ -93,7 +107,11 @@ export function Navbar() {
               size="icon"
               className="size-11"
               aria-label="Toggle theme"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() => {
+                const newTheme = theme === "dark" ? "light" : "dark"
+                setTheme(newTheme)
+                posthog.capture("theme_toggled", { theme: newTheme })
+              }}
             >
               <Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -103,6 +121,7 @@ export function Navbar() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(buttonVariants({ size: "lg" }), "h-11 flex-1")}
+              onClick={() => posthog.capture("nav_github_clicked", { location: "mobile_nav" })}
             >
               GitHub
             </a>

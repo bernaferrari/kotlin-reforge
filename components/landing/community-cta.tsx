@@ -1,5 +1,6 @@
 "use client"
 
+import posthog from "posthog-js"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { MessageSquarePlus, Heart, Send, Smartphone } from "lucide-react"
@@ -77,6 +78,7 @@ export function CommunityCta() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ size: "lg" }), "gap-2 px-8 text-base")}
+            onClick={() => posthog.capture("suggest_app_clicked", { location: "community_cta" })}
           >
             <MessageSquarePlus className="size-5" />
             Suggest an App
@@ -86,6 +88,7 @@ export function CommunityCta() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2 px-8 text-base")}
+            onClick={() => posthog.capture("start_discussion_clicked")}
           >
             Start a Discussion
           </a>

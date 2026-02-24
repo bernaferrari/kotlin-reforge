@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Check, ChevronLeft, ChevronRight, X } from "lucide-react"
+import posthog from "posthog-js"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -24,11 +25,19 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
   const activeImage = images[activeIndex] || images[0]
 
   const goPrevious = () => {
-    setActiveIndex((current) => (current - 1 + images.length) % images.length)
+    setActiveIndex((current) => {
+      const next = (current - 1 + images.length) % images.length
+      posthog.capture("project_gallery_navigated", { project: projectName, direction: "previous", screenshot_index: next })
+      return next
+    })
   }
 
   const goNext = () => {
-    setActiveIndex((current) => (current + 1) % images.length)
+    setActiveIndex((current) => {
+      const next = (current + 1) % images.length
+      posthog.capture("project_gallery_navigated", { project: projectName, direction: "next", screenshot_index: next })
+      return next
+    })
   }
 
   useEffect(() => {
@@ -66,7 +75,10 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
       <div className="relative border-b border-border/70 bg-muted/25 px-2 py-2 sm:px-3 sm:py-3">
         <button
           type="button"
-          onClick={() => setIsDialogOpen(true)}
+          onClick={() => {
+            setIsDialogOpen(true)
+            posthog.capture("project_gallery_opened", { project: projectName })
+          }}
           aria-label={`Open ${projectName} gallery`}
           className="relative mx-auto block aspect-video w-full max-w-[760px] overflow-hidden"
         >
@@ -108,7 +120,10 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
               <button
                 key={src}
                 type="button"
-                onClick={() => setActiveIndex(index)}
+                onClick={() => {
+                  setActiveIndex(index)
+                  posthog.capture("project_gallery_navigated", { project: projectName, direction: "thumbnail", screenshot_index: index })
+                }}
                 aria-label={`Show screenshot ${index + 1}`}
                   className={cn(
                     "relative shrink-0 overflow-hidden border bg-card transition",
@@ -268,6 +283,7 @@ export function ProjectCard({
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ size: "lg" }), "h-11 w-fit gap-2 px-5")}
+            onClick={() => posthog.capture("project_repo_clicked", { project: project.name, repo_url: project.repoUrl })}
           >
             Open Repository
             <ArrowUpRight className="size-4" />

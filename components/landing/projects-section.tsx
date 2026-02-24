@@ -6,7 +6,7 @@ const projects: ProjectData[] = [
     name: "Markor",
     category: "Markdown Editor",
     summary:
-      "Modernized editor experience with architectural cleanup and a redesigned Material interface.",
+      "Java-to-KMP migration with a redesigned Material editor experience.",
     repoUrl: "https://github.com/bernaferrari/Markor",
     showcaseImages: [
       "/markor/more.png",
@@ -16,8 +16,8 @@ const projects: ProjectData[] = [
       "/markor/settings.png",
     ],
     wins: [
+      "Migrated core app architecture from Java to Kotlin Multiplatform",
       "Refined editor and file-navigation flow",
-      "Cleaned module boundaries and state handling",
       "Improved visual consistency across key screens",
     ],
     comparisonImages: {
@@ -29,25 +29,28 @@ const projects: ProjectData[] = [
     name: "RethinkDNS",
     category: "DNS & Firewall Privacy",
     summary:
-      "Kotlin-first modernization of critical networking paths with a clearer privacy dashboard.",
+      "Full redesign with a Jetpack Compose port across core privacy and networking surfaces.",
     repoUrl: "https://github.com/bernaferrari/rethink-app",
     showcaseImages: [
       "/rethink/more-dark.png",
+      "/rethink/more-light.png",
+      "/rethink/even-more-light.png",
+      "/rethink/apps.png",
+      "/rethink/stats.png",
       "/rethink/home.png",
       "/rethink/settings.png",
-      "/rethink/more-light.png",
     ],
     wins: [
-      "Migrated key networking surfaces to Kotlin + Flow",
-      "Restructured DNS and privacy controls for clarity",
-      "Reduced callback-heavy legacy behavior",
+      "Ported major screens and flows to Jetpack Compose",
+      "Redesigned DNS and privacy controls for faster navigation",
+      "Improved dashboard clarity across app, stats, and settings surfaces",
     ],
   },
   {
     name: "NetGuard",
     category: "Network Firewall",
     summary:
-      "Firewall modernization focused on maintainability, interaction clarity, and redesigned control surfaces.",
+      "Java-to-Kotlin migration with a Compose-based redesign for clearer firewall control.",
     repoUrl: "https://github.com/bernaferrari/NetGuard",
     showcaseImages: [
       "/netguard/more%20-%20light.png",
@@ -58,9 +61,9 @@ const projects: ProjectData[] = [
       "/netguard/more%20-%20dark.png",
     ],
     wins: [
-      "Simplified rule and state modeling",
-      "Improved daily-use interaction flow",
-      "Reshaped architecture for easier maintenance",
+      "Migrated legacy Java layers to Kotlin",
+      "Rebuilt key user-facing surfaces with Jetpack Compose",
+      "Improved day-to-day firewall interaction flow",
     ],
     comparisonImages: {
       before: ["/images/netguard-before.jpg", "/images/netguard-before-2.jpg"],
@@ -96,8 +99,8 @@ export function ProjectsSection() {
             Each app follows a different modernization path.
           </h2>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Some projects are Java to Kotlin ports, others are Kotlin UI to Compose migrations.
-            All of them are redesigned.
+            Markor is a Java to KMP migration, RethinkDNS is a full redesign with a Compose
+            port, and NetGuard is a Java to Kotlin migration with Compose.
           </p>
         </header>
 
