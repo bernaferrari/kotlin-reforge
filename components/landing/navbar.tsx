@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useTheme } from "next-themes"
-import { Menu, Moon, Sparkles, Sun, X } from "lucide-react"
+import { Github, Menu, Moon, Sparkles, Sun, X } from "lucide-react"
 import posthog from "posthog-js"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -62,9 +62,10 @@ export function Navbar() {
             href="https://github.com/bernaferrari/kotlin-reforge"
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(buttonVariants({ size: "lg" }), "h-11 px-5")}
+            className={cn(buttonVariants({ size: "lg" }), "h-11 px-5 gap-2")}
             onClick={() => posthog.capture("nav_github_clicked", { location: "navbar" })}
           >
+            <Github className="size-5" />
             GitHub
           </a>
         </div>
@@ -120,9 +121,10 @@ export function Navbar() {
               href="https://github.com/bernaferrari/kotlin-reforge"
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ size: "lg" }), "h-11 flex-1")}
+              className={cn(buttonVariants({ size: "lg" }), "h-11 flex-1 gap-2")}
               onClick={() => posthog.capture("nav_github_clicked", { location: "mobile_nav" })}
             >
+              <Github className="size-5" />
               GitHub
             </a>
           </div>

@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Github } from "lucide-react"
 import posthog from "posthog-js"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -39,6 +39,7 @@ export function ExtraSection() {
                                 className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-5")}
                                 onClick={() => posthog.capture("extra_repo_clicked", { project: "Diagonal Wipe Icon" })}
                             >
+                                <Github className="size-4" />
                                 GitHub Repo
                             </Link>
                         </div>

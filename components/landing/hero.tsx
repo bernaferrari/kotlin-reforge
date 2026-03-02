@@ -150,16 +150,6 @@ export function Hero() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="https://github.com/bernaferrari/kotlin-reforge"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(buttonVariants({ size: "lg" }), "h-11 gap-2 px-6")}
-              onClick={() => posthog.capture("hero_cta_clicked", { destination: "github" })}
-            >
-              <Github className="size-4" />
-              View Initiative
-            </a>
-            <a
               href="#projects"
               className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
               onClick={() => posthog.capture("hero_explore_ports_clicked")}
