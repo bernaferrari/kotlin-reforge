@@ -98,7 +98,7 @@ export function ProjectsSection() {
           <ComingSoonCard
             name="Calculator++"
             summary="Compose redesign is in final polish and scheduled to ship in the next few days."
-            repoUrl="https://github.com/bernaferrari/CalculatorPP"
+            repoUrl="https://github.com/bernaferrari/android-calculatorpp"
             planned={["Compose UI", "Scientific Workflow", "History", "Material 3"]}
           />
 
