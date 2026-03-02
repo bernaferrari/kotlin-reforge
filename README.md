@@ -1,46 +1,45 @@
+<div align="center">
+  <a href="https://kotlin-reforge.vercel.app">
+    <img src="public/social.png" alt="Kotlin Reforge" />
+  </a>
+</div>
+
+<div align="center">
+  <strong><a href="https://kotlin-reforge.vercel.app">Live Preview</a></strong>
+</div>
+
+<br>
+
 # Kotlin Reforge
 
-Kotlin Reforge is an initiative dedicated to transforming legacy Android apps into modern, maintainable products.
+**Legacy code. Reforged.**
 
-This project is the public-facing website for that initiative. It communicates:
+Transforming fragile, aging Android apps into fast, maintainable, and scalable Kotlin products. This repository hosts the website telling that story.
 
-- What Kotlin Reforge does
-- Why modernization matters for product teams
-- Real examples of migration and redesign outcomes
-- The process used to move from fragile legacy code to scalable Kotlin architecture
+### The Focus
 
-## What This Project Is About
+* **Kotlin-First:** Seamless migrations from legacy Java.
+* **Modern Architecture:** Built to scale. Built to last.
+* **Flawless UI/UX:** Reimagined to modern standards.
 
-Many Android products still run on aging Java codebases with brittle architecture, slow delivery cycles, and high maintenance cost. Kotlin Reforge exists to fix that.
+### The Audience
 
-The core focus is practical modernization:
+* **Teams:** Stuck with hard-to-evolve apps.
+* **Founders:** Ready for a profound technical refresh.
+* **Engineers:** Passionate about migration quality.
 
-- Kotlin-first migrations from legacy Java
-- Architecture upgrades for long-term maintainability
-- UI/UX redesign aligned with modern Android standards
-- Clear, measurable product and engineering impact
+### Quick Start
 
-The website in this repository is meant to tell that story clearly for clients, partners, and contributors.
-
-## Who It Is For
-
-- Teams with legacy Android apps that are hard to evolve
-- Founders and product leads planning a technical refresh
-- Engineers interested in migration strategy and implementation quality
-- Collaborators who want to contribute to modernization work
-
-## Run Locally
-
-```bash
+```shell
 pnpm install
 pnpm dev
 ```
 
-Then open `http://localhost:3000`.
+Available at `http://localhost:3000`.
 
-## Build for Production
+### Deploy
 
-```bash
+```shell
 pnpm build
 pnpm start
 ```
