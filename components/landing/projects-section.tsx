@@ -17,9 +17,9 @@ const projects: ProjectData[] = [
       "/markor/settings.png",
     ],
     wins: [
-      "Migrated core app architecture from Java to Kotlin Multiplatform",
-      "Refined editor and file-navigation flow",
-      "Improved visual consistency across key screens",
+      "Migrated from Java to Kotlin Multiplatform",
+      "Redesigned every sigle component and screen",
+      "Improved visual consistency",
     ],
     comparisonImages: {
       before: ["/images/markor-before.jpg", "/images/markor-before-2.jpg"],
@@ -43,8 +43,8 @@ const projects: ProjectData[] = [
     ],
     wins: [
       "Ported major screens and flows to Jetpack Compose",
-      "Redesigned DNS and privacy controls for faster navigation",
-      "Improved dashboard clarity across app, stats, and settings surfaces",
+      "Redesigned controls for faster navigation",
+      "Improved dashboard clarity",
     ],
   },
   {
@@ -62,9 +62,9 @@ const projects: ProjectData[] = [
       "/netguard/more%20-%20dark.png",
     ],
     wins: [
-      "Migrated legacy Java layers to Kotlin",
-      "Rebuilt key user-facing surfaces with Jetpack Compose",
-      "Improved day-to-day firewall interaction flow",
+      "Convert from Java to Kotlin",
+      "Rebuilt UI with Compose + Material 3",
+      "Improved firewall interaction flow",
     ],
     comparisonImages: {
       before: ["/images/netguard-before.jpg", "/images/netguard-before-2.jpg"],
