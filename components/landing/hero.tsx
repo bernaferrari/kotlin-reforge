@@ -145,8 +145,7 @@ export function Hero() {
             Rebuilding legacy Android apps in modern Kotlin.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Different migration paths for different codebases: Java to Kotlin ports for some, Kotlin UI to Compose for others.
-            Every app gets a full redesign.
+            Breathing new life into open-source projects with Jetpack Compose, thoughtful architectures, and stunning visual redesigns.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

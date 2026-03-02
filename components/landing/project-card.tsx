@@ -15,6 +15,10 @@ export interface ProjectData {
   repoUrl: string
   showcaseImages: string[]
   wins: string[]
+  comparisonImages?: {
+    before: string[]
+    after: string[]
+  }
 }
 
 function ProjectGallery({ images, projectName }: { images: string[]; projectName: string }) {
@@ -125,13 +129,13 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
                   posthog.capture("project_gallery_navigated", { project: projectName, direction: "thumbnail", screenshot_index: index })
                 }}
                 aria-label={`Show screenshot ${index + 1}`}
-                  className={cn(
-                    "relative shrink-0 overflow-hidden border bg-card transition",
-                    "size-12 rounded-md sm:size-14",
-                    index === activeIndex
-                      ? "border-primary shadow-[inset_0_0_0_2px_var(--color-primary)]"
-                      : "border-border/80 opacity-85 hover:border-border hover:opacity-100"
-                  )}
+                className={cn(
+                  "relative shrink-0 overflow-hidden border bg-card transition",
+                  "size-12 rounded-md sm:size-14",
+                  index === activeIndex
+                    ? "border-primary shadow-[inset_0_0_0_2px_var(--color-primary)]"
+                    : "border-border/80 opacity-85 hover:border-border hover:opacity-100"
+                )}
               >
                 <Image
                   src={src}

@@ -1,5 +1,6 @@
 import { ProjectCard, type ProjectData } from "./project-card"
 import { ComingSoonCard } from "./coming-soon-card"
+import { ExtraSection } from "./extra-section"
 
 const projects: ProjectData[] = [
   {
@@ -91,6 +92,8 @@ export function ProjectsSection() {
           {projects.map((project, index) => (
             <ProjectCard key={project.name} project={project} reversed={index % 2 === 1} />
           ))}
+
+          <ExtraSection />
 
           <ComingSoonCard
             name="Calculator++"
