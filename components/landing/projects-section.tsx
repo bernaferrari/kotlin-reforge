@@ -70,23 +70,6 @@ const projects: ProjectData[] = [
       after: ["/images/netguard-after.jpg", "/images/netguard-after-2.jpg"],
     },
   },
-  {
-    name: "Calculator++",
-    category: "Scientific Calculator",
-    summary:
-      "UI migrated from legacy Kotlin views to Compose, with a full redesign for scientific workflows.",
-    repoUrl: "https://github.com/bernaferrari/CalculatorPP",
-    showcaseImages: ["/images/calculator-after-2.jpg", "/images/calculator-after.jpg"],
-    wins: [
-      "Moved existing Kotlin UI stack to Compose",
-      "Refined keypad, history, and expression interactions",
-      "Improved feedback for complex calculations",
-    ],
-    comparisonImages: {
-      before: ["/images/calculator-before.jpg", "/images/calculator-before-2.jpg"],
-      after: ["/images/calculator-after.jpg", "/images/calculator-after-2.jpg"],
-    },
-  },
 ]
 
 export function ProjectsSection() {
@@ -108,6 +91,13 @@ export function ProjectsSection() {
           {projects.map((project, index) => (
             <ProjectCard key={project.name} project={project} reversed={index % 2 === 1} />
           ))}
+
+          <ComingSoonCard
+            name="Calculator++"
+            summary="Compose redesign is in final polish and scheduled to ship in the next few days."
+            repoUrl="https://github.com/bernaferrari/CalculatorPP"
+            planned={["Compose UI", "Scientific Workflow", "History", "Material 3"]}
+          />
 
           <ComingSoonCard
             name="ChangeDetection"
