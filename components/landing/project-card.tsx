@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Check, ChevronLeft, ChevronRight, X } from "lucide-react"
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight } from "lucide-react"
 import posthog from "posthog-js"
+import { GitHubIcon } from "@/components/icons/github-icon"
 import { buttonVariants } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 
 export interface ProjectData {
@@ -13,6 +15,7 @@ export interface ProjectData {
   category: string
   summary: string
   repoUrl: string
+  stack?: string[]
   showcaseImages: string[]
   wins: string[]
   comparisonImages?: {
@@ -21,7 +24,13 @@ export interface ProjectData {
   }
 }
 
-function ProjectGallery({ images, projectName }: { images: string[]; projectName: string }) {
+function GalleryStage({
+  images,
+  projectName,
+}: {
+  images: string[]
+  projectName: string
+}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
@@ -31,7 +40,11 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
   const goPrevious = () => {
     setActiveIndex((current) => {
       const next = (current - 1 + images.length) % images.length
-      posthog.capture("project_gallery_navigated", { project: projectName, direction: "previous", screenshot_index: next })
+      posthog.capture("project_gallery_navigated", {
+        project: projectName,
+        direction: "previous",
+        screenshot_index: next,
+      })
       return next
     })
   }
@@ -39,270 +52,244 @@ function ProjectGallery({ images, projectName }: { images: string[]; projectName
   const goNext = () => {
     setActiveIndex((current) => {
       const next = (current + 1) % images.length
-      posthog.capture("project_gallery_navigated", { project: projectName, direction: "next", screenshot_index: next })
+      posthog.capture("project_gallery_navigated", {
+        project: projectName,
+        direction: "next",
+        screenshot_index: next,
+      })
       return next
     })
   }
 
   useEffect(() => {
     if (!isDialogOpen) return
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = "hidden"
     const count = images.length
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsDialogOpen(false)
       if (!hasMultiple) return
-
       if (event.key === "ArrowLeft") {
         event.preventDefault()
         setActiveIndex((current) => (current - 1 + count) % count)
       }
-
       if (event.key === "ArrowRight") {
         event.preventDefault()
         setActiveIndex((current) => (current + 1) % count)
       }
     }
-
     window.addEventListener("keydown", handleKeyDown)
-
     return () => {
-      document.body.style.overflow = previousOverflow
       window.removeEventListener("keydown", handleKeyDown)
     }
   }, [hasMultiple, images.length, isDialogOpen])
 
   return (
-    <div>
-      <div className="relative border-b border-border/70 bg-muted/25 px-2 py-2 sm:px-3 sm:py-3">
-        <button
-          type="button"
-          onClick={() => {
-            setIsDialogOpen(true)
-            posthog.capture("project_gallery_opened", { project: projectName })
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <div className="relative">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 70% at 50% 40%, color-mix(in oklab, var(--primary) 12%, transparent), transparent 70%)",
           }}
-          aria-label={`Open ${projectName} gallery`}
-          className="relative mx-auto block aspect-video w-full max-w-[760px] overflow-hidden"
-        >
-          <Image
-            src={activeImage}
-            alt={`${projectName} showcase screenshot ${activeIndex + 1}`}
-            fill
-            sizes="(max-width: 1024px) 100vw, 760px"
-            className="object-contain"
-          />
-        </button>
+        />
 
-        {hasMultiple && (
-          <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 sm:px-4">
-            <button
-              type="button"
-              onClick={goPrevious}
-              aria-label="Previous screenshot"
-              className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/90 bg-background/85 text-foreground backdrop-blur transition-colors hover:bg-background"
-            >
-              <ChevronLeft className="size-4" />
-            </button>
-            <button
-              type="button"
-              onClick={goNext}
-              aria-label="Next screenshot"
-              className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/90 bg-background/85 text-foreground backdrop-blur transition-colors hover:bg-background"
-            >
-              <ChevronRight className="size-4" />
-            </button>
-          </div>
-        )}
+        <div className="relative px-4 pt-6 pb-4 sm:px-8 sm:pt-8 sm:pb-5">
+          <DialogTrigger
+            render={
+              <button
+                type="button"
+                aria-label={`Open ${projectName} gallery`}
+                className="group relative mx-auto block aspect-[16/11] w-full max-w-[920px] overflow-hidden rounded-xl"
+                onClick={() => posthog.capture("project_gallery_opened", { project: projectName })}
+              />
+            }
+          >
+            <Image
+              src={activeImage}
+              alt={`${projectName} showcase ${activeIndex + 1}`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 920px"
+              className="object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
+            />
+          </DialogTrigger>
+
+          {hasMultiple && (
+            <>
+              <div className="pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-between px-2 sm:flex sm:px-4">
+                <button
+                  type="button"
+                  onClick={goPrevious}
+                  aria-label="Previous screenshot"
+                  className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_-6px_var(--color-primary)]"
+                >
+                  <ChevronLeft className="size-4 -translate-x-px" />
+                </button>
+                <button
+                  type="button"
+                  onClick={goNext}
+                  aria-label="Next screenshot"
+                  className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_-6px_var(--color-primary)]"
+                >
+                  <ChevronRight className="size-4 translate-x-px" />
+                </button>
+              </div>
+
+              <div className="mt-4 flex items-center justify-center gap-1.5">
+                {images.map((src, index) => (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => {
+                      setActiveIndex(index)
+                      posthog.capture("project_gallery_navigated", {
+                        project: projectName,
+                        direction: "indicator",
+                        screenshot_index: index,
+                      })
+                    }}
+                    aria-label={`Show screenshot ${index + 1}`}
+                    className={cn(
+                      "h-1 rounded-full transition-all duration-300",
+                      index === activeIndex
+                        ? "w-6 bg-primary shadow-[0_0_10px_0_var(--color-primary)]"
+                        : "w-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                    )}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
-      {hasMultiple && (
-        <div className="px-2 py-2 sm:px-3 sm:py-3">
-          <div className="mx-auto flex w-full max-w-[760px] gap-2 overflow-x-auto sm:justify-center">
-            {images.map((src, index) => (
-              <button
-                key={src}
-                type="button"
-                onClick={() => {
-                  setActiveIndex(index)
-                  posthog.capture("project_gallery_navigated", { project: projectName, direction: "thumbnail", screenshot_index: index })
-                }}
-                aria-label={`Show screenshot ${index + 1}`}
-                className={cn(
-                  "relative shrink-0 overflow-hidden border bg-card transition",
-                  "size-12 rounded-md sm:size-14",
-                  index === activeIndex
-                    ? "border-primary shadow-[inset_0_0_0_2px_var(--color-primary)]"
-                    : "border-border/80 opacity-85 hover:border-border hover:opacity-100"
-                )}
-              >
-                <Image
-                  src={src}
-                  alt={`${projectName} thumbnail ${index + 1}`}
-                  width={160}
-                  height={160}
-                  className="h-full w-full object-cover"
-                />
-                {index === activeIndex && (
-                  <span className="pointer-events-none absolute right-1 top-1 inline-flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
-                    <Check className="size-2.5" />
-                  </span>
-                )}
-              </button>
-            ))}
+      <DialogContent className="max-w-[calc(100%-2rem)] gap-0 overflow-hidden bg-black/80 p-0 text-white sm:max-w-6xl">
+        <DialogTitle className="sr-only">{projectName} screenshot gallery</DialogTitle>
+        <div className="relative border-b border-white/15 px-2 py-2 sm:px-3 sm:py-3">
+          <div className="relative mx-auto aspect-[16/11] w-full overflow-hidden">
+            <Image
+              key={`dialog-${activeImage}`}
+              src={activeImage}
+              alt={`${projectName} gallery screenshot ${activeIndex + 1}`}
+              fill
+              sizes="(max-width: 1280px) 95vw, 1200px"
+              className="object-contain"
+            />
           </div>
-        </div>
-      )}
 
-      {isDialogOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${projectName} screenshot gallery`}
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/75 p-4 sm:p-6"
-          onClick={() => setIsDialogOpen(false)}
-        >
-          <div
-            className="w-full max-w-6xl overflow-hidden rounded-2xl border border-white/15 bg-black/60 text-white"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="relative border-b border-white/15 px-2 py-2 sm:px-3 sm:py-3">
+          {hasMultiple && (
+            <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 sm:px-4">
               <button
                 type="button"
-                onClick={() => setIsDialogOpen(false)}
-                aria-label="Close gallery"
-                className="absolute right-3 top-3 z-10 inline-flex size-9 items-center justify-center rounded-full border border-white/25 bg-black/45 transition-colors hover:bg-black/65"
+                onClick={goPrevious}
+                aria-label="Previous screenshot"
+                className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_-6px_var(--color-primary)]"
               >
-                <X className="size-4" />
+                <ChevronLeft className="size-5 -translate-x-px" />
               </button>
-
-              <div className="relative mx-auto aspect-video w-full">
-                <Image
-                  key={`dialog-${activeImage}`}
-                  src={activeImage}
-                  alt={`${projectName} gallery screenshot ${activeIndex + 1}`}
-                  fill
-                  sizes="(max-width: 1280px) 95vw, 1200px"
-                  className="object-contain"
-                />
-              </div>
-
-              {hasMultiple && (
-                <div className="pointer-events-none absolute inset-y-0 left-0 right-0 flex items-center justify-between px-3 sm:px-4">
-                  <button
-                    type="button"
-                    onClick={goPrevious}
-                    aria-label="Previous screenshot"
-                    className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors hover:bg-black/65"
-                  >
-                    <ChevronLeft className="size-5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={goNext}
-                    aria-label="Next screenshot"
-                    className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors hover:bg-black/65"
-                  >
-                    <ChevronRight className="size-5" />
-                  </button>
-                </div>
-              )}
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label="Next screenshot"
+                className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_-6px_var(--color-primary)]"
+              >
+                <ChevronRight className="size-5 translate-x-px" />
+              </button>
             </div>
-
-            {hasMultiple && (
-              <div className="px-2 py-2 sm:px-3 sm:py-3">
-                <div className="mx-auto flex w-full max-w-[900px] gap-2 overflow-x-auto sm:justify-center">
-                  {images.map((src, index) => (
-                    <button
-                      key={`dialog-${src}`}
-                      type="button"
-                      onClick={() => setActiveIndex(index)}
-                      aria-label={`Show screenshot ${index + 1}`}
-                      className={cn(
-                        "relative shrink-0 overflow-hidden border transition",
-                        "size-12 rounded-md sm:size-14",
-                        index === activeIndex
-                          ? "border-primary shadow-[inset_0_0_0_2px_var(--color-primary)]"
-                          : "border-white/20 opacity-80 hover:border-white/40 hover:opacity-100"
-                      )}
-                    >
-                      <Image
-                        src={src}
-                        alt={`${projectName} lightbox thumbnail ${index + 1}`}
-                        width={160}
-                        height={160}
-                        className="h-full w-full object-cover"
-                      />
-                      {index === activeIndex && (
-                        <span className="pointer-events-none absolute right-1 top-1 inline-flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
-                          <Check className="size-2.5" />
-                        </span>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+          )}
         </div>
-      )}
-    </div>
+
+        {hasMultiple && (
+          <div className="px-2 py-2 sm:px-3 sm:py-3">
+            <div className="mx-auto flex w-full max-w-[900px] gap-2 overflow-x-auto sm:justify-center">
+              {images.map((src, index) => (
+                <button
+                  key={`dialog-${src}`}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`Show screenshot ${index + 1}`}
+                  className={cn(
+                    "relative shrink-0 overflow-hidden border transition",
+                    "size-12 rounded-sm sm:size-14",
+                    index === activeIndex
+                      ? "border-primary shadow-[inset_0_0_0_2px_var(--color-primary)]"
+                      : "border-white/20 opacity-80 hover:border-white/40 hover:opacity-100"
+                  )}
+                >
+                  <Image
+                    src={src}
+                    alt={`${projectName} lightbox thumbnail ${index + 1}`}
+                    width={160}
+                    height={160}
+                    className="h-full w-full object-cover"
+                  />
+                  {index === activeIndex && (
+                    <span className="pointer-events-none absolute right-1 top-1 inline-flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
+                      <Check className="size-2.5" />
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </DialogContent>
+    </Dialog>
   )
 }
 
 export function ProjectCard({
   project,
-  reversed = false,
+  reversed: _reversed = false,
+  index = 0,
 }: {
   project: ProjectData
   reversed?: boolean
+  index?: number
 }) {
+  const indexLabel = String(index + 1).padStart(2, "0")
+
   return (
-    <article className="forge-panel overflow-hidden rounded-3xl">
-      <div
-        className={cn(
-          "grid items-start gap-8 lg:grid-cols-[0.95fr_1.05fr]",
-          reversed && "lg:grid-cols-[1.05fr_0.95fr]"
-        )}
-      >
-        <div className={cn("space-y-5 p-5 sm:p-7 lg:p-8", reversed && "lg:order-2")}>
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.18em] text-primary">{project.category}</p>
-            <h3 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">{project.name}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">{project.summary}</p>
-          </div>
-
-          <ul className="space-y-2">
-            {project.wins.map((win) => (
-              <li key={win} className="flex items-start gap-2.5 text-sm sm:text-base">
-                <Check className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span>{win}</span>
-              </li>
-            ))}
-          </ul>
-
-          <Link
-            href={project.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(buttonVariants({ size: "lg" }), "h-11 w-fit gap-2 px-5")}
-            onClick={() => posthog.capture("project_repo_clicked", { project: project.name, repo_url: project.repoUrl })}
-          >
-            Open Repository
-            <ArrowUpRight className="size-4" />
-          </Link>
+    <article className="forge-panel group/card relative overflow-hidden rounded-2xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_30px_80px_-40px_color-mix(in_oklab,var(--primary)_40%,transparent)]">
+      <header className="flex items-center justify-between gap-4 border-b border-border/40 p-3.5 sm:p-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <span className="font-mono text-[11px] tabular-nums text-muted-foreground/80">
+            {indexLabel}
+          </span>
+          <span className="h-3 w-px bg-border/80" />
+          <h3 className="truncate text-base font-semibold tracking-tight sm:text-lg">
+            {project.name}
+          </h3>
+          <span className="hidden sm:inline-flex items-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            <span className="mx-2 size-1 rounded-full bg-muted-foreground/40" />
+            {project.category}
+          </span>
         </div>
 
-        <div
+        <Link
+          href={project.repoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${project.name} repository on GitHub`}
           className={cn(
-            "border-t border-border/70 lg:border-t-0 lg:border-l",
-            reversed && "lg:order-1 lg:border-l-0 lg:border-r"
+            buttonVariants({ size: "lg" }),
+            "h-9 shrink-0 gap-1.5 px-3.5 text-[13px]"
           )}
+          onClick={() =>
+            posthog.capture("project_repo_clicked", {
+              project: project.name,
+              repo_url: project.repoUrl,
+              location: "card_header",
+            })
+          }
         >
-          <ProjectGallery images={project.showcaseImages} projectName={project.name} />
-        </div>
-      </div>
+          <GitHubIcon className="size-3.5" />
+          <span className="hidden sm:inline">Source</span>
+          <ArrowUpRight className="size-3.5" />
+        </Link>
+      </header>
+
+      <GalleryStage images={project.showcaseImages} projectName={project.name} />
     </article>
   )
 }

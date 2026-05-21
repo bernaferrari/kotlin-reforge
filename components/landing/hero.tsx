@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { ArrowRight, Github } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import posthog from "posthog-js"
+import { GitHubIcon } from "@/components/icons/github-icon"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -137,56 +138,78 @@ export function Hero() {
   const outgoingTransition = `clip-path ${outgoingTransitionMs}ms cubic-bezier(0.2, 1, 0.2, 1)`
 
   return (
-    <section className="px-4 pt-36 pb-16 sm:px-6 sm:pt-44 sm:pb-24">
-      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-        <div className="animate-fade-up">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">Kotlin Reforge</p>
-          <h1 className="forge-section-title mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
-            Rebuilding legacy Android apps in modern Kotlin.
-          </h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Breathing new life into open-source projects with Jetpack Compose, thoughtful architectures, and stunning visual redesigns.
-          </p>
+    <section className="relative overflow-hidden px-4 pt-36 pb-12 sm:px-6 sm:pt-44 sm:pb-20">
+      <div
+        aria-hidden
+        className="forge-grid-bg pointer-events-none absolute inset-0 -z-10 opacity-[0.35] dark:opacity-25"
+      />
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href="#projects"
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
-              onClick={() => posthog.capture("hero_explore_ports_clicked")}
-            >
-              Explore Ports
-              <ArrowRight className="size-4" />
-            </a>
-          </div>
+      <div className="mx-auto max-w-5xl text-center animate-fade-up">
+
+
+        <h1 className="forge-section-title mt-6 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+          Rebuilding legacy Android apps
+          <span className="block bg-gradient-to-r from-[#7F52FF] via-[#E94392] to-[#FF7A1A] bg-clip-text text-transparent">
+            in modern Kotlin.
+          </span>
+        </h1>
+
+        <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          Breathing new life into open-source projects with Jetpack Compose,
+          thoughtful architectures, and visual redesigns.
+        </p>
+
+        <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href="#projects"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow-[0_10px_30px_-10px_var(--color-primary)] transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+            onClick={() => posthog.capture("hero_explore_ports_clicked")}
+          >
+            Explore Ports
+            <ArrowRight className="size-4" />
+          </a>
+          <a
+            href="https://github.com/bernaferrari/kotlin-reforge"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
+            onClick={() => posthog.capture("hero_github_clicked")}
+          >
+            <GitHubIcon className="size-4" />
+            View on GitHub
+          </a>
         </div>
+      </div>
 
-        <div className="forge-panel overflow-hidden rounded-3xl animate-fade-up" style={{ animationDelay: "90ms" }}>
-          <div className="relative aspect-[1600/1100] w-full">
+      <div
+        className="mx-auto mt-16 max-w-6xl animate-fade-up sm:mt-20"
+        style={{ animationDelay: "120ms" }}
+      >
+        <div className="relative aspect-[1600/1100] w-full overflow-hidden rounded-lg sm:rounded-xl">
+          <Image
+            key={activeFrameData.src}
+            src={activeFrameData.src}
+            alt={`Modernized Android app preview ${activeFrameData.label}`}
+            fill
+            sizes="(max-width: 1024px) 95vw, 1100px"
+            priority
+            className="absolute inset-0 z-0 object-cover [clip-path:inset(0%_0%_0%_0%)]"
+          />
+
+          {outgoingFrameData ? (
             <Image
-              key={activeFrameData.src}
-              src={activeFrameData.src}
-              alt={`Modernized Android app preview ${activeFrameData.label}`}
+              key={`${outgoingFrameData.src}-${activeFrame}`}
+              src={outgoingFrameData.src}
+              alt={`Transitioning Android app preview ${outgoingFrameData.label}`}
               fill
-              sizes="(max-width: 1024px) 95vw, 520px"
-              priority
-              className="absolute inset-0 z-0 object-cover [clip-path:inset(0%_0%_0%_0%)]"
+              sizes="(max-width: 1024px) 95vw, 1100px"
+              className={cn("absolute inset-0 z-10 object-cover will-change-[clip-path]")}
+              style={{
+                clipPath: outgoingClipPath,
+                transition: outgoingTransition,
+              }}
             />
-
-            {outgoingFrameData ? (
-              <Image
-                key={`${outgoingFrameData.src}-${activeFrame}`}
-                src={outgoingFrameData.src}
-                alt={`Transitioning Android app preview ${outgoingFrameData.label}`}
-                fill
-                sizes="(max-width: 1024px) 95vw, 520px"
-                className={cn("absolute inset-0 z-10 object-cover will-change-[clip-path]")}
-                style={{
-                  clipPath: outgoingClipPath,
-                  transition: outgoingTransition,
-                }}
-              />
-            ) : null}
-          </div>
+          ) : null}
         </div>
       </div>
     </section>

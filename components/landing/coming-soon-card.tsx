@@ -10,17 +10,20 @@ interface ComingSoonCardProps {
 
 export function ComingSoonCard({ name, summary, repoUrl, planned }: ComingSoonCardProps) {
   return (
-    <article className="forge-panel rounded-3xl border-dashed p-5 sm:p-7 lg:p-8">
-      <div className="flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-primary">
-        <Clock3 className="size-4" />
+    <article className="forge-panel relative overflow-hidden rounded-3xl border-dashed p-6 sm:p-8">
+      <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-primary">
+        <Clock3 className="size-3.5" />
         Next Candidate
       </div>
-      <h3 className="mt-3 text-2xl font-semibold tracking-tight">{name}</h3>
-      <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">{summary}</p>
+      <h3 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">{name}</h3>
+      <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{summary}</p>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-5 flex flex-wrap gap-1.5">
         {planned.map((item) => (
-          <span key={item} className="rounded-md bg-muted px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+          <span
+            key={item}
+            className="inline-flex items-center rounded-md border border-border/60 bg-muted/40 px-2.5 py-1 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted-foreground"
+          >
             {item}
           </span>
         ))}
@@ -30,7 +33,7 @@ export function ComingSoonCard({ name, summary, repoUrl, planned }: ComingSoonCa
         href={repoUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-5 inline-flex items-center gap-1.5 text-sm text-primary"
+        className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-opacity hover:opacity-80"
       >
         View current project
         <ArrowUpRight className="size-4" />

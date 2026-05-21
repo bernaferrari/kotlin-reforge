@@ -1,31 +1,47 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
-import { Github, Menu, Moon, Sparkles, Sun, X } from "lucide-react"
+import { Menu, Moon, Sparkles, Sun, X } from "lucide-react"
 import posthog from "posthog-js"
+import { GitHubIcon } from "@/components/icons/github-icon"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 const navItems = [
   { href: "#projects", label: "Projects" },
   { href: "#approach", label: "Approach" },
-  { href: "#impact", label: "Impact" },
   { href: "#suggest", label: "Contribute" },
 ]
 
 export function Navbar() {
   const { theme, setTheme } = useTheme()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
-      <div className="forge-panel mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-3 py-2 sm:px-4 sm:py-3">
-        <a href="#" className="flex h-11 items-center gap-3 rounded-lg px-1">
-          <span className="inline-flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-[0_8px_28px_-16px_var(--color-primary)]">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
+      <div
+        className={cn(
+          "mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 transition-all duration-300",
+          scrolled
+            ? "border border-border/70 bg-background/75 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] backdrop-blur-xl"
+            : "border border-transparent bg-transparent"
+        )}
+      >
+        <a href="#" className="flex h-10 items-center gap-2.5 rounded-lg px-1">
+          <span className="relative inline-flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/70 text-primary-foreground shadow-[0_8px_24px_-12px_var(--color-primary)]">
             <Sparkles className="size-4" />
+            <span aria-hidden className="absolute inset-0 rounded-lg ring-1 ring-inset ring-white/15" />
           </span>
-          <span className="inline-flex h-9 items-center text-sm font-semibold leading-none tracking-tight sm:text-base">
+          <span className="inline-flex h-9 items-center text-sm font-semibold tracking-tight sm:text-[15px]">
             Kotlin Reforge
           </span>
         </a>
@@ -35,7 +51,7 @@ export function Navbar() {
             <a
               key={item.href}
               href={item.href}
-              className="inline-flex h-11 items-center rounded-lg px-3 text-sm text-muted-foreground transition-colors duration-200 hover:bg-muted/70 hover:text-foreground"
+              className="inline-flex h-9 items-center rounded-md px-3 text-sm text-muted-foreground transition-colors duration-200 hover:bg-muted/60 hover:text-foreground"
               onClick={() => posthog.capture("nav_item_clicked", { label: item.label, href: item.href })}
             >
               {item.label}
@@ -43,11 +59,11 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-1.5 md:flex">
           <Button
             variant="ghost"
             size="icon"
-            className="size-11"
+            className="size-9"
             aria-label="Toggle theme"
             onClick={() => {
               const newTheme = theme === "dark" ? "light" : "dark"
@@ -62,10 +78,10 @@ export function Navbar() {
             href="https://github.com/bernaferrari/kotlin-reforge"
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(buttonVariants({ size: "lg" }), "h-11 px-5 gap-2")}
+            className={cn(buttonVariants({ size: "lg" }), "h-9 gap-2 px-4")}
             onClick={() => posthog.capture("nav_github_clicked", { location: "navbar" })}
           >
-            <Github className="size-5" />
+            <GitHubIcon className="size-4" />
             GitHub
           </a>
         </div>
@@ -74,7 +90,7 @@ export function Navbar() {
           aria-label="Toggle menu"
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="inline-flex size-11 items-center justify-center rounded-lg border border-border md:hidden"
+          className="inline-flex size-10 items-center justify-center rounded-lg border border-border/70 bg-background/60 backdrop-blur md:hidden"
           onClick={() => {
             const next = !open
             setOpen(next)
@@ -86,7 +102,10 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div id="mobile-nav" className="forge-panel mx-auto mt-2 max-w-7xl rounded-2xl p-3 md:hidden">
+        <div
+          id="mobile-nav"
+          className="forge-panel mx-auto mt-2 max-w-6xl rounded-2xl p-3 md:hidden"
+        >
           <div className="flex flex-col gap-1">
             {navItems.map((item) => (
               <a
@@ -124,7 +143,7 @@ export function Navbar() {
               className={cn(buttonVariants({ size: "lg" }), "h-11 flex-1 gap-2")}
               onClick={() => posthog.capture("nav_github_clicked", { location: "mobile_nav" })}
             >
-              <Github className="size-5" />
+              <GitHubIcon className="size-5" />
               GitHub
             </a>
           </div>
