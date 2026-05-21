@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState, type MouseEvent, type TouchEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Check, ChevronLeft, ChevronRight } from "lucide-react"
@@ -33,6 +33,8 @@ function GalleryStage({
 }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const suppressOpenRef = useRef(false)
 
   const hasMultiple = images.length > 1
   const activeImage = images[activeIndex] || images[0]
@@ -59,6 +61,50 @@ function GalleryStage({
       })
       return next
     })
+  }
+
+  const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
+    if (!hasMultiple) return
+
+    const touch = event.touches[0]
+    if (!touch) return
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY }
+  }
+
+  const handleTouchEnd = (
+    event: TouchEvent<HTMLElement>,
+    options: { suppressClick?: boolean } = {}
+  ) => {
+    if (!hasMultiple || !touchStartRef.current) return
+
+    const touch = event.changedTouches[0]
+    if (!touch) return
+
+    const deltaX = touch.clientX - touchStartRef.current.x
+    const deltaY = touch.clientY - touchStartRef.current.y
+    touchStartRef.current = null
+
+    if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.4) return
+
+    if (options.suppressClick) {
+      suppressOpenRef.current = true
+      window.setTimeout(() => {
+        suppressOpenRef.current = false
+      }, 0)
+    }
+
+    if (deltaX < 0) {
+      goNext()
+    } else {
+      goPrevious()
+    }
+  }
+
+  const handlePreviewClickCapture = (event: MouseEvent<HTMLButtonElement>) => {
+    if (!suppressOpenRef.current) return
+
+    event.preventDefault()
+    event.stopPropagation()
   }
 
   useEffect(() => {
@@ -101,7 +147,10 @@ function GalleryStage({
                 type="button"
                 aria-label={`Open ${projectName} gallery`}
                 className="group relative mx-auto block aspect-[16/11] w-full max-w-[920px] overflow-hidden rounded-xl"
+                onClickCapture={handlePreviewClickCapture}
                 onClick={() => posthog.capture("project_gallery_opened", { project: projectName })}
+                onTouchStart={handleTouchStart}
+                onTouchEnd={(event) => handleTouchEnd(event, { suppressClick: true })}
               />
             }
           >
@@ -167,14 +216,20 @@ function GalleryStage({
         <DialogTitle className="sr-only">{projectName} screenshot gallery</DialogTitle>
         <div className="relative border-b border-white/15 px-2 py-2 sm:px-3 sm:py-3">
           <div className="relative mx-auto aspect-[16/11] w-full overflow-hidden">
-            <Image
-              key={`dialog-${activeImage}`}
-              src={activeImage}
-              alt={`${projectName} gallery screenshot ${activeIndex + 1}`}
-              fill
-              sizes="(max-width: 1280px) 95vw, 1200px"
-              className="object-contain"
-            />
+            <div
+              className="absolute inset-0 touch-pan-y"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              <Image
+                key={`dialog-${activeImage}`}
+                src={activeImage}
+                alt={`${projectName} gallery screenshot ${activeIndex + 1}`}
+                fill
+                sizes="(max-width: 1280px) 95vw, 1200px"
+                className="object-contain"
+              />
+            </div>
           </div>
 
           {hasMultiple && (
@@ -200,8 +255,8 @@ function GalleryStage({
         </div>
 
         {hasMultiple && (
-          <div className="px-2 py-2 sm:px-3 sm:py-3">
-            <div className="mx-auto flex w-full max-w-[900px] gap-2 overflow-x-auto sm:justify-center">
+          <div className="min-w-0 overflow-hidden px-2 py-2 sm:px-3 sm:py-3">
+            <div className="mx-auto flex w-full max-w-[900px] min-w-0 gap-2 overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:justify-center">
               {images.map((src, index) => (
                 <button
                   key={`dialog-${src}`}
