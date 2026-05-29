@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, type MouseEvent, type TouchEvent } from "react"
+import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Check, ChevronLeft, ChevronRight } from "lucide-react"
@@ -33,70 +33,111 @@ function GalleryStage({
 }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const [dragOffset, setDragOffset] = useState(0)
+  const dragStateRef = useRef<{
+    x: number
+    y: number
+    width: number
+    suppressClick: boolean
+  } | null>(null)
   const suppressOpenRef = useRef(false)
 
   const hasMultiple = images.length > 1
-  const activeImage = images[activeIndex] || images[0]
+
+  const selectImage = (index: number, direction: "previous" | "next" | "indicator" | "keyboard") => {
+    setActiveIndex(index)
+    posthog.capture("project_gallery_navigated", {
+      project: projectName,
+      direction,
+      screenshot_index: index,
+    })
+  }
 
   const goPrevious = () => {
-    setActiveIndex((current) => {
-      const next = (current - 1 + images.length) % images.length
-      posthog.capture("project_gallery_navigated", {
-        project: projectName,
-        direction: "previous",
-        screenshot_index: next,
-      })
-      return next
-    })
+    const next = (activeIndex - 1 + images.length) % images.length
+    selectImage(next, "previous")
   }
 
   const goNext = () => {
-    setActiveIndex((current) => {
-      const next = (current + 1) % images.length
-      posthog.capture("project_gallery_navigated", {
-        project: projectName,
-        direction: "next",
-        screenshot_index: next,
-      })
-      return next
-    })
+    const next = (activeIndex + 1) % images.length
+    selectImage(next, "next")
   }
 
-  const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
-    if (!hasMultiple) return
-
-    const touch = event.touches[0]
-    if (!touch) return
-    touchStartRef.current = { x: touch.clientX, y: touch.clientY }
-  }
-
-  const handleTouchEnd = (
-    event: TouchEvent<HTMLElement>,
+  const handleDragStart = (
+    event: PointerEvent<HTMLElement>,
     options: { suppressClick?: boolean } = {}
   ) => {
-    if (!hasMultiple || !touchStartRef.current) return
+    if (!hasMultiple) return
+    if (event.pointerType === "mouse" && event.button !== 0) return
 
-    const touch = event.changedTouches[0]
-    if (!touch) return
+    dragStateRef.current = {
+      x: event.clientX,
+      y: event.clientY,
+      width: event.currentTarget.clientWidth,
+      suppressClick: Boolean(options.suppressClick),
+    }
+    setDragOffset(0)
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
 
-    const deltaX = touch.clientX - touchStartRef.current.x
-    const deltaY = touch.clientY - touchStartRef.current.y
-    touchStartRef.current = null
+  const handleDragMove = (event: PointerEvent<HTMLElement>) => {
+    if (!hasMultiple || !dragStateRef.current) return
 
-    if (Math.abs(deltaX) < 48 || Math.abs(deltaX) < Math.abs(deltaY) * 1.4) return
+    const deltaX = event.clientX - dragStateRef.current.x
+    const deltaY = event.clientY - dragStateRef.current.y
 
-    if (options.suppressClick) {
+    if (Math.abs(deltaX) < 8 && Math.abs(deltaY) > Math.abs(deltaX)) return
+
+    const maxOffset = dragStateRef.current.width * 0.38
+    setDragOffset(Math.max(-maxOffset, Math.min(maxOffset, deltaX)))
+  }
+
+  const handleDragEnd = (event: PointerEvent<HTMLElement>) => {
+    if (!hasMultiple || !dragStateRef.current) return
+
+    const deltaX = event.clientX - dragStateRef.current.x
+    const deltaY = event.clientY - dragStateRef.current.y
+    const threshold = Math.min(96, dragStateRef.current.width * 0.18)
+    const shouldSuppressClick = dragStateRef.current.suppressClick && Math.abs(deltaX) > 8
+    dragStateRef.current = null
+    setDragOffset(0)
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+
+    if (shouldSuppressClick) {
       suppressOpenRef.current = true
       window.setTimeout(() => {
         suppressOpenRef.current = false
-      }, 0)
+      }, 120)
     }
+
+    if (Math.abs(deltaX) < threshold || Math.abs(deltaX) < Math.abs(deltaY) * 1.25) return
 
     if (deltaX < 0) {
       goNext()
     } else {
       goPrevious()
+    }
+  }
+
+  const handleDragCancel = (event: PointerEvent<HTMLElement>) => {
+    if (!dragStateRef.current) return
+
+    const shouldSuppressClick = dragStateRef.current.suppressClick && Math.abs(dragOffset) > 8
+    dragStateRef.current = null
+    setDragOffset(0)
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+
+    if (shouldSuppressClick) {
+      suppressOpenRef.current = true
+      window.setTimeout(() => {
+        suppressOpenRef.current = false
+      }, 120)
     }
   }
 
@@ -107,6 +148,10 @@ function GalleryStage({
     event.stopPropagation()
   }
 
+  const trackStyle = {
+    transform: `translate3d(calc(${-activeIndex * 100}% + ${dragOffset}px), 0, 0)`,
+  }
+
   useEffect(() => {
     if (!isDialogOpen) return
     const count = images.length
@@ -115,18 +160,20 @@ function GalleryStage({
       if (!hasMultiple) return
       if (event.key === "ArrowLeft") {
         event.preventDefault()
-        setActiveIndex((current) => (current - 1 + count) % count)
+        const next = (activeIndex - 1 + count) % count
+        selectImage(next, "keyboard")
       }
       if (event.key === "ArrowRight") {
         event.preventDefault()
-        setActiveIndex((current) => (current + 1) % count)
+        const next = (activeIndex + 1) % count
+        selectImage(next, "keyboard")
       }
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [hasMultiple, images.length, isDialogOpen])
+  }, [activeIndex, hasMultiple, images.length, isDialogOpen])
 
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -149,18 +196,42 @@ function GalleryStage({
                 className="group relative mx-auto block aspect-[16/11] w-full max-w-[920px] overflow-hidden rounded-xl"
                 onClickCapture={handlePreviewClickCapture}
                 onClick={() => posthog.capture("project_gallery_opened", { project: projectName })}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={(event) => handleTouchEnd(event, { suppressClick: true })}
+                onPointerDown={(event) => handleDragStart(event, { suppressClick: true })}
+                onPointerMove={handleDragMove}
+                onPointerUp={handleDragEnd}
+                onPointerCancel={handleDragCancel}
               />
             }
           >
-            <Image
-              src={activeImage}
-              alt={`${projectName} showcase ${activeIndex + 1}`}
-              fill
-              sizes="(max-width: 1024px) 100vw, 920px"
-              className="object-contain transition-transform duration-500 ease-out group-hover:scale-[1.015]"
-            />
+            <div
+              className={cn(
+                "flex h-full touch-pan-y will-change-transform",
+                dragStateRef.current
+                  ? "transition-none"
+                  : "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+              )}
+              style={trackStyle}
+            >
+              {images.map((src, index) => (
+                <div key={`preview-${src}`} className="relative h-full min-w-full">
+                  <Image
+                    src={src}
+                    alt={
+                      index === activeIndex
+                        ? `${projectName} showcase ${index + 1}`
+                        : ""
+                    }
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 920px"
+                    priority={index === 0}
+                    loading={index === 0 ? undefined : "eager"}
+                    aria-hidden={index !== activeIndex}
+                    draggable={false}
+                    className="object-contain transition-transform duration-300 ease-out group-hover:scale-[1.015]"
+                  />
+                </div>
+              ))}
+            </div>
           </DialogTrigger>
 
           {hasMultiple && (
@@ -190,12 +261,7 @@ function GalleryStage({
                     key={src}
                     type="button"
                     onClick={() => {
-                      setActiveIndex(index)
-                      posthog.capture("project_gallery_navigated", {
-                        project: projectName,
-                        direction: "indicator",
-                        screenshot_index: index,
-                      })
+                      selectImage(index, "indicator")
                     }}
                     aria-label={`Show screenshot ${index + 1}`}
                     className={cn(
@@ -217,18 +283,41 @@ function GalleryStage({
         <div className="relative border-b border-white/15 px-2 py-2 sm:px-3 sm:py-3">
           <div className="relative mx-auto aspect-[16/11] w-full overflow-hidden">
             <div
-              className="absolute inset-0 touch-pan-y"
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
+              className="absolute inset-0 cursor-grab touch-pan-y active:cursor-grabbing"
+              onPointerDown={handleDragStart}
+              onPointerMove={handleDragMove}
+              onPointerUp={handleDragEnd}
+              onPointerCancel={handleDragCancel}
             >
-              <Image
-                key={`dialog-${activeImage}`}
-                src={activeImage}
-                alt={`${projectName} gallery screenshot ${activeIndex + 1}`}
-                fill
-                sizes="(max-width: 1280px) 95vw, 1200px"
-                className="object-contain"
-              />
+              <div
+                className={cn(
+                  "flex h-full will-change-transform",
+                  dragStateRef.current
+                    ? "transition-none"
+                    : "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                )}
+                style={trackStyle}
+              >
+                {images.map((src, index) => (
+                  <div key={`dialog-${src}`} className="relative h-full min-w-full">
+                    <Image
+                      src={src}
+                      alt={
+                        index === activeIndex
+                          ? `${projectName} gallery screenshot ${index + 1}`
+                          : ""
+                      }
+                      fill
+                      sizes="(max-width: 1280px) 95vw, 1200px"
+                      priority={index === 0}
+                      loading={index === 0 ? undefined : "eager"}
+                      aria-hidden={index !== activeIndex}
+                      draggable={false}
+                      className="object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -261,7 +350,7 @@ function GalleryStage({
                 <button
                   key={`dialog-${src}`}
                   type="button"
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => selectImage(index, "indicator")}
                   aria-label={`Show screenshot ${index + 1}`}
                   className={cn(
                     "relative shrink-0 overflow-hidden border transition",
