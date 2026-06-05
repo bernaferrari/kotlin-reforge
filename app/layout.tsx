@@ -22,6 +22,13 @@ export const metadata: Metadata = {
   title: 'Kotlin Reforge | Rebuilding Android Open Source in Kotlin',
   description:
     'Kotlin Reforge modernizes legacy Android infrastructure through full Kotlin rewrites, Material 3 Expressive design, and Kotlin Multiplatform architecture.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '650x650' },
+    ],
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     title: 'Kotlin Reforge',
     description:
@@ -59,7 +66,6 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="dark"
           enableSystem
-          disableTransitionOnChange
         >
           {children}
         </ThemeProvider>
