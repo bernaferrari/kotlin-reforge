@@ -10,7 +10,7 @@ export function CtaSection() {
   return (
     <section id="suggest" className="px-4 py-20 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-6xl">
-        <div className="relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br from-primary/[0.12] via-background to-accent/[0.10] p-8 sm:p-12 lg:p-16">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/[0.12] via-background to-accent/[0.10] p-8 sm:p-12 lg:p-16">
           <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/25 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
           <div
