@@ -14,7 +14,8 @@ const steps = [
   {
     icon: RefreshCw,
     title: "Modernize experience",
-    description: "Upgrade interaction patterns and visual language with pragmatic Material 3 updates.",
+    description:
+      "Upgrade interaction patterns and visual language with pragmatic Material 3 updates.",
   },
 ]
 
@@ -23,15 +24,13 @@ export function ApproachSection() {
     <section id="approach" className="relative px-4 py-20 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <header className="mb-12 max-w-3xl sm:mb-16">
-          <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">
-            Approach
-          </p>
+          <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">Approach</p>
           <h2 className="forge-section-title mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
             A repeatable modernization process.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Every project follows the same disciplined arc — preserve what works,
-            rebuild what doesn't, polish the surface.
+            Every project follows the same disciplined arc — preserve what works, rebuild what
+            doesn't, polish the surface.
           </p>
         </header>
 

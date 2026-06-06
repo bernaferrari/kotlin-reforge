@@ -24,13 +24,7 @@ export interface ProjectData {
   }
 }
 
-function GalleryStage({
-  images,
-  projectName,
-}: {
-  images: string[]
-  projectName: string
-}) {
+function GalleryStage({ images, projectName }: { images: string[]; projectName: string }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [dragOffset, setDragOffset] = useState(0)
@@ -44,7 +38,10 @@ function GalleryStage({
 
   const hasMultiple = images.length > 1
 
-  const selectImage = (index: number, direction: "previous" | "next" | "indicator" | "keyboard") => {
+  const selectImage = (
+    index: number,
+    direction: "previous" | "next" | "indicator" | "keyboard",
+  ) => {
     setActiveIndex(index)
     posthog.capture("project_gallery_navigated", {
       project: projectName,
@@ -65,7 +62,7 @@ function GalleryStage({
 
   const handleDragStart = (
     event: PointerEvent<HTMLElement>,
-    options: { suppressClick?: boolean } = {}
+    options: { suppressClick?: boolean } = {},
   ) => {
     if (!hasMultiple) return
     if (event.pointerType === "mouse" && event.button !== 0) return
@@ -208,7 +205,7 @@ function GalleryStage({
                 "flex h-full touch-pan-y will-change-transform",
                 dragStateRef.current
                   ? "transition-none"
-                  : "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                  : "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
               )}
               style={trackStyle}
             >
@@ -216,11 +213,7 @@ function GalleryStage({
                 <div key={`preview-${src}`} className="relative h-full min-w-full">
                   <Image
                     src={src}
-                    alt={
-                      index === activeIndex
-                        ? `${projectName} showcase ${index + 1}`
-                        : ""
-                    }
+                    alt={index === activeIndex ? `${projectName} showcase ${index + 1}` : ""}
                     fill
                     sizes="(max-width: 1024px) 100vw, 920px"
                     priority={index === 0}
@@ -268,7 +261,7 @@ function GalleryStage({
                       "h-1 rounded-full transition-all duration-300",
                       index === activeIndex
                         ? "w-6 bg-primary shadow-[0_0_10px_0_var(--color-primary)]"
-                        : "w-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                        : "w-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/60",
                     )}
                   />
                 ))}
@@ -294,7 +287,7 @@ function GalleryStage({
                   "flex h-full will-change-transform",
                   dragStateRef.current
                     ? "transition-none"
-                    : "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                    : "transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
                 )}
                 style={trackStyle}
               >
@@ -357,7 +350,7 @@ function GalleryStage({
                     "size-12 rounded-sm sm:size-14",
                     index === activeIndex
                       ? "border-primary shadow-[inset_0_0_0_2px_var(--color-primary)]"
-                      : "border-white/20 opacity-80 hover:border-white/40 hover:opacity-100"
+                      : "border-white/20 opacity-80 hover:border-white/40 hover:opacity-100",
                   )}
                 >
                   <Image
@@ -415,10 +408,7 @@ export function ProjectCard({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Open ${project.name} repository on GitHub`}
-          className={cn(
-            buttonVariants({ size: "lg" }),
-            "h-9 shrink-0 gap-1.5 px-3.5 text-[13px]"
-          )}
+          className={cn(buttonVariants({ size: "lg" }), "h-9 shrink-0 gap-1.5 px-3.5 text-[13px]")}
           onClick={() =>
             posthog.capture("project_repo_clicked", {
               project: project.name,

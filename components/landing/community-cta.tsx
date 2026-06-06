@@ -46,10 +46,9 @@ export function CommunityCta() {
             Got an app that needs reforging?
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-pretty text-lg text-muted-foreground">
-            Whether you love an open-source app and wish it got modernized, or
-            you maintain one and want help bringing it up to date &mdash;
-            this initiative is for you. All suggestions welcome,
-            all skill levels appreciated.
+            Whether you love an open-source app and wish it got modernized, or you maintain one and
+            want help bringing it up to date &mdash; this initiative is for you. All suggestions
+            welcome, all skill levels appreciated.
           </p>
         </div>
 
@@ -62,12 +61,8 @@ export function CommunityCta() {
               <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
                 {avenue.icon}
               </div>
-              <h3 className="text-lg font-semibold text-foreground">
-                {avenue.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {avenue.description}
-              </p>
+              <h3 className="text-lg font-semibold text-foreground">{avenue.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{avenue.description}</p>
             </div>
           ))}
         </div>
@@ -87,7 +82,10 @@ export function CommunityCta() {
             href="https://github.com/bernaferrari/kotlin-reforge/discussions"
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(buttonVariants({ variant: "outline", size: "lg" }), "gap-2 px-8 text-base")}
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "gap-2 px-8 text-base",
+            )}
             onClick={() => posthog.capture("start_discussion_clicked")}
           >
             Start a Discussion

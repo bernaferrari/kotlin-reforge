@@ -6,8 +6,7 @@ const projects: ProjectData[] = [
   {
     name: "Markor",
     category: "Markdown Editor",
-    summary:
-      "Java-to-KMP migration with a redesigned Material editor experience.",
+    summary: "Java-to-KMP migration with a redesigned Material editor experience.",
     repoUrl: "https://github.com/bernaferrari/Markor",
     stack: ["Kotlin", "KMP", "Compose", "Material 3"],
     showcaseImages: [
@@ -52,8 +51,7 @@ const projects: ProjectData[] = [
   {
     name: "NetGuard",
     category: "Network Firewall",
-    summary:
-      "Java-to-Kotlin migration with a Compose-based redesign for clearer firewall control.",
+    summary: "Java-to-Kotlin migration with a Compose-based redesign for clearer firewall control.",
     repoUrl: "https://github.com/bernaferrari/NetGuard",
     stack: ["Kotlin", "Compose", "Material 3", "VPN"],
     showcaseImages: [
@@ -81,21 +79,24 @@ export function ProjectsSection() {
     <section id="projects" className="px-4 py-20 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <header className="mb-12 max-w-3xl sm:mb-16">
-          <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">
-            Case Studies
-          </p>
+          <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">Case Studies</p>
           <h2 className="forge-section-title mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
             Each app follows a different modernization path.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Markor is a Java to KMP migration. RethinkDNS is a full redesign with
-            a Compose port. NetGuard is a Java to Kotlin migration with Compose.
+            Markor is a Java to KMP migration. RethinkDNS is a full redesign with a Compose port.
+            NetGuard is a Java to Kotlin migration with Compose.
           </p>
         </header>
 
         <div className="space-y-6 sm:space-y-8">
           {projects.map((project, index) => (
-            <ProjectCard key={project.name} project={project} reversed={index % 2 === 1} index={index} />
+            <ProjectCard
+              key={project.name}
+              project={project}
+              reversed={index % 2 === 1}
+              index={index}
+            />
           ))}
 
           <ExtraSection />

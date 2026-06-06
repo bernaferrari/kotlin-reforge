@@ -33,11 +33,31 @@ const diamondRevealClipPath = "polygon(50% 12%, 88% 50%, 50% 88%, 12% 50%)"
 
 const morphModes: MorphMode[] = [
   { label: "left wipe", fromClip: fullInsetClipPath, toClip: "inset(0% 100% 0% 0%)", kind: "wipe" },
-  { label: "right wipe", fromClip: fullInsetClipPath, toClip: "inset(0% 0% 0% 100%)", kind: "wipe" },
+  {
+    label: "right wipe",
+    fromClip: fullInsetClipPath,
+    toClip: "inset(0% 0% 0% 100%)",
+    kind: "wipe",
+  },
   { label: "top wipe", fromClip: fullInsetClipPath, toClip: "inset(100% 0% 0% 0%)", kind: "wipe" },
-  { label: "bottom wipe", fromClip: fullInsetClipPath, toClip: "inset(0% 0% 100% 0%)", kind: "wipe" },
-  { label: "diamond", fromClip: fullPolygonClipPath, toClip: diamondRevealClipPath, kind: "diamond-shrink" },
-  { label: "reverse diamond", fromClip: smallDiamondClipPath, toClip: fullPolygonClipPath, kind: "diamond-expand" },
+  {
+    label: "bottom wipe",
+    fromClip: fullInsetClipPath,
+    toClip: "inset(0% 0% 100% 0%)",
+    kind: "wipe",
+  },
+  {
+    label: "diamond",
+    fromClip: fullPolygonClipPath,
+    toClip: diamondRevealClipPath,
+    kind: "diamond-shrink",
+  },
+  {
+    label: "reverse diamond",
+    fromClip: smallDiamondClipPath,
+    toClip: fullPolygonClipPath,
+    kind: "diamond-expand",
+  },
 ]
 
 function getRandomMorph(previous?: MorphMode): MorphMode {
@@ -145,8 +165,6 @@ export function Hero() {
       />
 
       <div className="mx-auto max-w-5xl text-center animate-fade-up">
-
-
         <h1 className="forge-section-title mt-6 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
           Rebuilding legacy Android apps
           <span className="block bg-gradient-to-r from-[#7F52FF] via-[#E94392] to-[#FF7A1A] bg-clip-text text-transparent">
@@ -155,8 +173,8 @@ export function Hero() {
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Breathing new life into open-source projects with Jetpack Compose,
-          thoughtful architectures, and visual redesigns.
+          Breathing new life into open-source projects with Jetpack Compose, thoughtful
+          architectures, and visual redesigns.
         </p>
 
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">

@@ -27,8 +27,8 @@ export function CtaSection() {
               Help choose the next legacy app to modernize.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Suggest an open-source Android project you'd like to see rebuilt
-              in modern Kotlin. The most compelling ideas get queued up next.
+              Suggest an open-source Android project you'd like to see rebuilt in modern Kotlin. The
+              most compelling ideas get queued up next.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -36,7 +36,10 @@ export function CtaSection() {
                 href="https://github.com/bernaferrari/kotlin-reforge/issues/new?labels=app-suggestion&title=App+Suggestion:+"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn(buttonVariants({ size: "lg" }), "h-11 gap-2 px-6 shadow-[0_10px_30px_-10px_var(--color-primary)]")}
+                className={cn(
+                  buttonVariants({ size: "lg" }),
+                  "h-11 gap-2 px-6 shadow-[0_10px_30px_-10px_var(--color-primary)]",
+                )}
                 onClick={() => posthog.capture("suggest_app_clicked", { location: "cta_section" })}
               >
                 <MessageSquarePlus className="size-4" />
@@ -44,7 +47,10 @@ export function CtaSection() {
               </a>
               <a
                 href="mailto:bernaferrari2+reforge@gmail.com"
-                className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "h-11 gap-2 px-6",
+                )}
                 onClick={() => posthog.capture("contact_clicked")}
               >
                 <Mail className="size-4" />

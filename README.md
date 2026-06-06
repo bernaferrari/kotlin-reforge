@@ -18,15 +18,15 @@ Transforming fragile, aging Android apps into fast, maintainable, and scalable K
 
 ### The Focus
 
-* **Kotlin-First:** Seamless migrations from legacy Java.
-* **Modern Architecture:** Built to scale. Built to last.
-* **Flawless UI/UX:** Reimagined to modern standards.
+- **Kotlin-First:** Seamless migrations from legacy Java.
+- **Modern Architecture:** Built to scale. Built to last.
+- **Flawless UI/UX:** Reimagined to modern standards.
 
 ### The Audience
 
-* **Teams:** Stuck with hard-to-evolve apps.
-* **Founders:** Ready for a profound technical refresh.
-* **Engineers:** Passionate about migration quality.
+- **Teams:** Stuck with hard-to-evolve apps.
+- **Founders:** Ready for a profound technical refresh.
+- **Engineers:** Passionate about migration quality.
 
 ### Quick Start
 

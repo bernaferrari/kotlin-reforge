@@ -3,63 +3,63 @@
 import { useEffect, useState, useRef } from "react"
 
 export function useAnimatedCounter(
-    endValue: number,
-    durationMs: number = 2000,
-    decimals: number = 0
+  endValue: number,
+  durationMs: number = 2000,
+  decimals: number = 0,
 ) {
-    const [count, setCount] = useState(0)
-    const ref = useRef<HTMLSpanElement>(null)
-    const [inView, setInView] = useState(false)
+  const [count, setCount] = useState(0)
+  const ref = useRef<HTMLSpanElement>(null)
+  const [inView, setInView] = useState(false)
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setInView(true)
-                    observer.disconnect()
-                }
-            },
-            { threshold: 0.1 }
-        )
-
-        if (ref.current) {
-            observer.observe(ref.current)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true)
+          observer.disconnect()
         }
+      },
+      { threshold: 0.1 },
+    )
 
-        return () => observer.disconnect()
-    }, [])
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
 
-    useEffect(() => {
-        if (!inView) return
+    return () => observer.disconnect()
+  }, [])
 
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            setCount(endValue)
-            return
-        }
+  useEffect(() => {
+    if (!inView) return
 
-        let startTime: number
-        let animationFrame: number
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCount(endValue)
+      return
+    }
 
-        const updateCounter = (timestamp: number) => {
-            if (!startTime) startTime = timestamp
-            const progress = Math.min((timestamp - startTime) / durationMs, 1)
+    let startTime: number
+    let animationFrame: number
 
-            const easeOutQuint = 1 - Math.pow(1 - progress, 5)
-            const currentCount = endValue * easeOutQuint
+    const updateCounter = (timestamp: number) => {
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / durationMs, 1)
 
-            setCount(currentCount)
+      const easeOutQuint = 1 - Math.pow(1 - progress, 5)
+      const currentCount = endValue * easeOutQuint
 
-            if (progress < 1) {
-                animationFrame = requestAnimationFrame(updateCounter)
-            } else {
-                setCount(endValue)
-            }
-        }
+      setCount(currentCount)
 
+      if (progress < 1) {
         animationFrame = requestAnimationFrame(updateCounter)
+      } else {
+        setCount(endValue)
+      }
+    }
 
-        return () => cancelAnimationFrame(animationFrame)
-    }, [endValue, durationMs, inView])
+    animationFrame = requestAnimationFrame(updateCounter)
 
-    return { ref, count: count.toFixed(decimals) }
+    return () => cancelAnimationFrame(animationFrame)
+  }, [endValue, durationMs, inView])
+
+  return { ref, count: count.toFixed(decimals) }
 }

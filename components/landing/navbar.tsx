@@ -28,16 +28,11 @@ export function Navbar() {
             "group inline-flex h-12 min-w-0 items-center gap-2.5 rounded-2xl border px-3 pr-4 transition-[background,border-color,box-shadow,backdrop-filter] duration-300 hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/45",
             scrolled
               ? "border-border/70 bg-background/75 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] backdrop-blur-xl"
-              : "border-border/35 bg-background/35 backdrop-blur-sm"
+              : "border-border/35 bg-background/35 backdrop-blur-sm",
           )}
         >
           <span className="relative inline-flex size-6 shrink-0 items-center justify-center overflow-hidden">
-            <img
-              src="/icon.png"
-              alt=""
-              aria-hidden="true"
-              className="size-full object-contain"
-            />
+            <img src="/icon.png" alt="" aria-hidden="true" className="size-full object-contain" />
           </span>
           <span className="truncate text-sm font-semibold tracking-tight sm:text-[15px]">
             Kotlin Reforge
@@ -49,7 +44,7 @@ export function Navbar() {
             "inline-flex h-12 shrink-0 items-center gap-1.5 rounded-2xl border p-1 shadow-[0_1px_0_0_rgba(255,255,255,0.06)_inset] transition-[background,border-color,box-shadow,backdrop-filter] duration-300",
             scrolled
               ? "border-border/70 bg-background/75 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)] backdrop-blur-xl"
-              : "border-border/55 bg-card/55 backdrop-blur"
+              : "border-border/55 bg-card/55 backdrop-blur",
           )}
         >
           <Button
@@ -74,11 +69,12 @@ export function Navbar() {
             href="https://github.com/bernaferrari/kotlin-reforge"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Open Kotlin Reforge on GitHub"
             className={cn(buttonVariants({ size: "lg" }), "h-9 gap-2 px-3 sm:px-4")}
             onClick={() => posthog.capture("nav_github_clicked", { location: "navbar" })}
           >
             <GitHubIcon className="size-4" />
-            GitHub
+            <span className="hidden sm:inline">GitHub</span>
           </a>
         </div>
       </div>

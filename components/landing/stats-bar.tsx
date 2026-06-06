@@ -20,7 +20,9 @@ export function StatsBar() {
                 i > 1 ? "lg:border-l lg:border-border/80" : "",
               ].join(" ")}
             >
-              <p className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">{stat.value}</p>
+              <p className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                {stat.value}
+              </p>
               <p className="mt-2 text-sm text-muted-foreground">{stat.label}</p>
             </div>
           ))}

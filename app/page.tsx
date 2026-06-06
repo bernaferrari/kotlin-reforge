@@ -2,7 +2,6 @@ import { Navbar } from "@/components/landing/navbar"
 import { Hero } from "@/components/landing/hero"
 import { ProjectsSection } from "@/components/landing/projects-section"
 import { ApproachSection } from "@/components/landing/approach-section"
-import { StatsBar } from "@/components/landing/stats-bar"
 import { CtaSection, Footer } from "@/components/landing/cta-footer"
 
 export default function Home() {
