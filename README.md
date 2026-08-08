@@ -14,7 +14,7 @@
 
 **Legacy code. Reforged.**
 
-Transforming fragile, aging Android apps into fast, maintainable, and scalable Kotlin products. This repository hosts the website telling that story.
+Case-study site for Android modernization ports — Java-to-Kotlin migrations, Jetpack Compose redesigns, and pragmatic Material 3 upgrades. This repository is the marketing / index website only; each ported app lives in its own GitHub repository, with source and live web demos linked from the case studies.
 
 ### The Focus
 

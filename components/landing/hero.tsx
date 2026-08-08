@@ -174,7 +174,8 @@ export function Hero() {
 
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           Breathing new life into open-source projects with Jetpack Compose, thoughtful
-          architectures, and visual redesigns.
+          architectures, and visual redesigns. This site indexes those ports — source and live demos
+          live in each app&apos;s own repo.
         </p>
 
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -194,7 +195,7 @@ export function Hero() {
             onClick={() => posthog.capture("hero_github_clicked")}
           >
             <GitHubIcon className="size-4" />
-            View on GitHub
+            Site source
           </a>
         </div>
       </div>
