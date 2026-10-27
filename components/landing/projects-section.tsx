@@ -24,13 +24,13 @@ const projects: ProjectData[] = [
       "Full redesign with a Jetpack Compose port across core privacy and networking surfaces.",
     repoUrl: "https://github.com/bernaferrari/rethink-app",
     showcaseImages: [
-      "/rethink/more-dark.png",
-      "/rethink/more-light.png",
-      "/rethink/even-more-light.png",
-      "/rethink/apps.png",
-      "/rethink/stats.png",
-      "/rethink/home.png",
-      "/rethink/settings.png",
+      "/rethink/more-dark.webp",
+      "/rethink/more-light.webp",
+      "/rethink/even-more-light.webp",
+      "/rethink/apps.webp",
+      "/rethink/stats.webp",
+      "/rethink/home.webp",
+      "/rethink/settings.webp",
     ],
   },
   {
@@ -78,7 +78,6 @@ const projects: ProjectData[] = [
     category: "Remote Desktop",
     summary:
       "Built from scratch, not a port: a remote desktop for Omarchy and Hyprland, with one Compose Multiplatform viewer and a Rust host.",
-    repoUrl: "https://github.com/bernaferrari/lumina",
     showcaseImages: [
       "/lumina/hero.webp",
       "/lumina/session.webp",

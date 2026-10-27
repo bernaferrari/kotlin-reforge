@@ -14,7 +14,8 @@ export interface ProjectData {
   name: string
   category: string
   summary: string
-  repoUrl: string
+  /** Omit while the repository is private, so the card never links to a 404. */
+  repoUrl?: string
   demoUrl?: string
   showcaseImages: string[]
 }
@@ -185,7 +186,7 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
               <button
                 type="button"
                 aria-label={`Open ${projectName} gallery`}
-                className="group relative mx-auto block aspect-[16/11] w-full max-w-[920px] overflow-hidden rounded-xl"
+                className="group relative mx-auto block aspect-[40/21] w-full max-w-[920px] overflow-hidden rounded-xl"
                 onClickCapture={handlePreviewClickCapture}
                 onClick={() => posthog.capture("project_gallery_opened", { project: projectName })}
                 onPointerDown={(event) => handleDragStart(event, { suppressClick: true })}
@@ -269,7 +270,7 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
       <DialogContent className="max-w-[calc(100%-2rem)] gap-0 overflow-hidden bg-black/80 p-0 text-white sm:max-w-6xl">
         <DialogTitle className="sr-only">{projectName} screenshot gallery</DialogTitle>
         <div className="relative border-b border-white/15 px-2 py-2 sm:px-3 sm:py-3">
-          <div className="relative mx-auto aspect-[16/11] w-full overflow-hidden">
+          <div className="relative mx-auto aspect-[40/21] w-full overflow-hidden">
             <div
               className="absolute inset-0 cursor-grab touch-pan-y active:cursor-grabbing"
               onPointerDown={handleDragStart}
@@ -422,30 +423,32 @@ export function ProjectCard({
               <ArrowUpRight className="size-3.5" />
             </Link>
           ) : null}
-          <Link
-            href={project.repoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Open ${project.name} repository on GitHub`}
-            className={cn(
-              buttonVariants({
-                variant: project.demoUrl ? "outline" : "default",
-                size: "lg",
-              }),
-              "h-9 shrink-0 gap-1.5 px-3.5 text-[13px]",
-            )}
-            onClick={() =>
-              posthog.capture("project_repo_clicked", {
-                project: project.name,
-                repo_url: project.repoUrl,
-                location: "card_header",
-              })
-            }
-          >
-            <GitHubIcon className="size-3.5" />
-            <span className="hidden sm:inline">Source</span>
-            <ArrowUpRight className="size-3.5" />
-          </Link>
+          {project.repoUrl ? (
+            <Link
+              href={project.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${project.name} repository on GitHub`}
+              className={cn(
+                buttonVariants({
+                  variant: project.demoUrl ? "outline" : "default",
+                  size: "lg",
+                }),
+                "h-9 shrink-0 gap-1.5 px-3.5 text-[13px]",
+              )}
+              onClick={() =>
+                posthog.capture("project_repo_clicked", {
+                  project: project.name,
+                  repo_url: project.repoUrl,
+                  location: "card_header",
+                })
+              }
+            >
+              <GitHubIcon className="size-3.5" />
+              <span className="hidden sm:inline">Source</span>
+              <ArrowUpRight className="size-3.5" />
+            </Link>
+          ) : null}
         </div>
       </header>
 
