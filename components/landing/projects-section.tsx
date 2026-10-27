@@ -1,20 +1,20 @@
 import { ProjectCard, type ProjectData } from "./project-card"
-import { ComingSoonCard } from "./coming-soon-card"
 import { ExtraSection } from "./extra-section"
 
 const projects: ProjectData[] = [
   {
-    name: "Markor",
-    category: "Markdown Editor",
-    summary: "Java-to-KMP migration with a redesigned Material editor experience.",
-    repoUrl: "https://github.com/bernaferrari/Markor",
+    name: "Wordkeep",
+    category: "Markdown Notes",
+    summary:
+      "Markor reforged: Gregor Santner's Java Markdown editor, rebuilt with Kotlin Multiplatform and Compose as plain-file notes for Android, iOS and the web.",
+    repoUrl: "https://github.com/bernaferrari/markor",
     demoUrl: "https://markor-five.vercel.app/",
     showcaseImages: [
-      "/markor/more.png",
-      "/markor/onboarding.png",
-      "/markor/home.png",
-      "/markor/editor.png",
-      "/markor/settings.png",
+      "/wordkeep/hero.webp",
+      "/wordkeep/before-after.webp",
+      "/wordkeep/notes.webp",
+      "/wordkeep/organize.webp",
+      "/wordkeep/tablet.webp",
     ],
   },
   {
@@ -37,16 +37,65 @@ const projects: ProjectData[] = [
     name: "QuietGuard",
     category: "Network Firewall",
     summary:
-      "NetGuard modernization: Java-to-Kotlin migration with a Compose-based redesign for clearer firewall control.",
+      "NetGuard modernization: Marcel Bokhorst's Java firewall rewritten in Kotlin Multiplatform and Compose, with a packet engine in Rust.",
     repoUrl: "https://github.com/bernaferrari/QuietGuard",
     demoUrl: "https://quietguard.vercel.app/",
     showcaseImages: [
-      "/netguard/more%20-%20light.png",
-      "/netguard/home.png",
-      "/netguard/firewall.png",
-      "/netguard/details.png",
-      "/netguard/settings.png",
-      "/netguard/more%20-%20dark.png",
+      "/quietguard/hero.webp",
+      "/quietguard/before-after.webp",
+      "/quietguard/firewall.webp",
+      "/quietguard/rules.webp",
+      "/quietguard/tablet.webp",
+    ],
+  },
+  {
+    name: "Calcula",
+    category: "Scientific Calculator",
+    summary:
+      "Calculator++ reforged: Sergey Solovyev's Java swipe-key calculator, rebuilt with Kotlin Multiplatform and Compose for Android, iOS and the web.",
+    repoUrl: "https://github.com/bernaferrari/calcula",
+    showcaseImages: [
+      "/calcula/keys.webp",
+      "/calcula/before-after.webp",
+      "/calcula/tools.webp",
+      "/calcula/tablet.webp",
+    ],
+  },
+  {
+    name: "ChangeDetection",
+    category: "Website Monitor",
+    summary:
+      "A 2018 Android app rebuilt: Architecture Components and XML layouts replaced by Kotlin Multiplatform with a shared Compose UI.",
+    repoUrl: "https://github.com/bernaferrari/ChangeDetection",
+    showcaseImages: [
+      "/changedetection/changes.webp",
+      "/changedetection/watch.webp",
+      "/changedetection/tablet.webp",
+    ],
+  },
+  {
+    name: "Lumina",
+    category: "Remote Desktop",
+    summary:
+      "Built from scratch, not a port: a remote desktop for Omarchy and Hyprland, with one Compose Multiplatform viewer and a Rust host.",
+    repoUrl: "https://github.com/bernaferrari/lumina",
+    showcaseImages: [
+      "/lumina/hero.webp",
+      "/lumina/session.webp",
+      "/lumina/control.webp",
+      "/lumina/tablet.webp",
+    ],
+  },
+  {
+    name: "WiFi Weakspot",
+    category: "Wi-Fi Analyzer",
+    summary:
+      "Built from scratch, not a port: a Material 3 Expressive Wi-Fi analyzer for Android that maps where your signal gets weak.",
+    repoUrl: "https://github.com/bernaferrari/wifi-weakspot",
+    showcaseImages: [
+      "/wifi-weakspot/signal.webp",
+      "/wifi-weakspot/rooms.webp",
+      "/wifi-weakspot/tablet.webp",
     ],
   },
 ]
@@ -61,9 +110,11 @@ export function ProjectsSection() {
             Each app follows a different modernization path.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Markor is a Java to KMP migration. RethinkDNS is a full redesign with a Compose port.
-            QuietGuard modernizes NetGuard with Kotlin and Compose. App sources live in separate
-            repos — open Live Demo or Source on each card.
+            Wordkeep, QuietGuard and Calcula carry Java apps (Markor, NetGuard, Calculator++) into
+            Kotlin Multiplatform and Compose. RethinkDNS is a full redesign with a Compose port, and
+            ChangeDetection rebuilds an older Kotlin app. Lumina and WiFi Weakspot are new apps
+            built the same way. App sources live in separate repos — open Live Demo or Source on
+            each card.
           </p>
         </header>
 
@@ -78,22 +129,6 @@ export function ProjectsSection() {
           ))}
 
           <ExtraSection />
-
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
-            <ComingSoonCard
-              name="Calculator++"
-              summary="Compose redesign is in final polish and scheduled to ship in the next few days."
-              repoUrl="https://github.com/bernaferrari/android-calculatorpp"
-              planned={["Compose UI", "Scientific Workflow", "History", "Material 3"]}
-            />
-
-            <ComingSoonCard
-              name="ChangeDetection"
-              summary="Planned Kotlin modernization focused on reliable polling, cleaner state updates, and improved readability."
-              repoUrl="https://github.com/bernaferrari/ChangeDetection"
-              planned={["Kotlin Port", "Compose UI", "Coroutines", "Material 3"]}
-            />
-          </div>
         </div>
       </div>
     </section>

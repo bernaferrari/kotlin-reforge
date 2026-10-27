@@ -1,5 +1,5 @@
 const stats = [
-  { value: "4", label: "Apps" },
+  { value: "7", label: "Apps" },
   { value: "400K+", label: "LOC touched" },
   { value: "14+", label: "Screens showcased" },
   { value: "M3", label: "Design language" },
