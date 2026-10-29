@@ -115,7 +115,7 @@ export const apps: AppData[] = [
     images: [
       {
         file: "hero",
-        alt: "Programmer mode in hex, the keypad with a function on every key, and the color themes",
+        alt: "Programmer mode in hex, the 7 key mid-flick with sin chosen, and the color themes",
       },
       {
         file: "tools",
