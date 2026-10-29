@@ -86,6 +86,10 @@ export const apps: AppData[] = [
     demoUrl: "https://markor-five.vercel.app/",
     images: [
       {
+        file: "hero",
+        alt: "Wordkeep's notes grid, a Markdown note as you write it, and a to-do list",
+      },
+      {
         file: "notebook-1",
         alt: "Plain-file notes, a clean preview, checklists and search",
         backdrop: "#f8f0e5",
@@ -109,6 +113,10 @@ export const apps: AppData[] = [
     platforms: ["Android", "iPhone", "Web"],
     repoUrl: "https://github.com/bernaferrari/calcula",
     images: [
+      {
+        file: "hero",
+        alt: "A graph, the keypad with a function on every key, and unit conversion",
+      },
       {
         file: "tools",
         alt: "Graphing functions, converting temperature and working in hexadecimal",
