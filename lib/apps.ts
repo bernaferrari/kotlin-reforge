@@ -115,7 +115,7 @@ export const apps: AppData[] = [
     images: [
       {
         file: "hero",
-        alt: "Calcula's graph, keypad and unit converter on yellow with a soft sine wave",
+        alt: "Calcula's graph, keypad and unit converter with its scientific keys floating around the name",
       },
       {
         file: "tools",
