@@ -87,7 +87,7 @@ export const apps: AppData[] = [
     images: [
       {
         file: "hero",
-        alt: "A note written in plain Markdown, and the same note read clean",
+        alt: "The whole notebook on a tablet, and a note written in plain Markdown on a phone",
       },
       {
         file: "notebook-1",
