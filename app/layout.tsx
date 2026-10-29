@@ -19,9 +19,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kotlin-reforge.vercel.app"),
-  title: "Kotlin Reforge | Case studies of Android apps rebuilt in Kotlin",
+  title: "Kotlin Reforge: old Android apps, rebuilt to feel new",
   description:
-    "Case studies of open-source Android ports modernized with Kotlin, Compose, and KMP. Source and live demos live in each app's own repository.",
+    "Seven free, open-source Android apps, rewritten in Kotlin and redesigned screen by screen: Keepout, QuietGuard, Wordkeep, Calcula, ChangeDetection, WiFi Weakspot and Lumina.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Kotlin Reforge",
     description:
-      "A case-study index of Android modernization ports — Kotlin, Compose, and KMP. Source and live demos linked per app.",
+      "Seven free, open-source Android apps, rewritten in Kotlin and redesigned screen by screen.",
     images: ["/social.png"],
     type: "website",
   },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Kotlin Reforge",
     description:
-      "A case-study index of Android modernization ports — Kotlin, Compose, and KMP. Source and live demos linked per app.",
+      "Seven free, open-source Android apps, rewritten in Kotlin and redesigned screen by screen.",
     images: ["/social.png"],
   },
 }

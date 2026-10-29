@@ -3,24 +3,21 @@
 import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Check, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight, Globe, Play } from "lucide-react"
 import posthog from "posthog-js"
 import { GitHubIcon } from "@/components/icons/github-icon"
 import { buttonVariants } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
+import { type AppData, iconSrc, imageSrc } from "@/lib/apps"
 
-export interface ProjectData {
-  name: string
-  category: string
-  summary: string
-  /** Omit while the repository is private, so the card never links to a 404. */
-  repoUrl?: string
-  demoUrl?: string
-  showcaseImages: string[]
-}
-
-function GalleryStage({ images, projectName }: { images: string[]; projectName: string }) {
+function GalleryStage({
+  images,
+  projectName,
+}: {
+  images: { src: string; alt: string; backdrop?: string }[]
+  projectName: string
+}) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [dragOffset, setDragOffset] = useState(0)
@@ -186,7 +183,7 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
               <button
                 type="button"
                 aria-label={`Open ${projectName} gallery`}
-                className="group relative mx-auto block aspect-[40/21] w-full max-w-[920px] overflow-hidden rounded-xl"
+                className="group relative mx-auto block aspect-[40/21] w-full max-w-[1000px] cursor-zoom-in overflow-hidden rounded-xl"
                 onClickCapture={handlePreviewClickCapture}
                 onClick={() => posthog.capture("project_gallery_opened", { project: projectName })}
                 onPointerDown={(event) => handleDragStart(event, { suppressClick: true })}
@@ -205,13 +202,17 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
               )}
               style={trackStyle}
             >
-              {images.map((src, index) => (
-                <div key={`preview-${src}`} className="relative h-full min-w-full">
+              {images.map(({ src, alt, backdrop }, index) => (
+                <div
+                  key={`preview-${src}`}
+                  className="relative h-full min-w-full"
+                  style={{ background: backdrop }}
+                >
                   <Image
                     src={src}
-                    alt={index === activeIndex ? `${projectName} showcase ${index + 1}` : ""}
+                    alt={index === activeIndex ? alt : ""}
                     fill
-                    sizes="(max-width: 1024px) 100vw, 920px"
+                    sizes="(max-width: 1100px) 100vw, 1000px"
                     priority={index === 0}
                     loading={index === 0 ? undefined : "eager"}
                     aria-hidden={index !== activeIndex}
@@ -245,7 +246,7 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
               </div>
 
               <div className="mt-4 flex items-center justify-center gap-1.5">
-                {images.map((src, index) => (
+                {images.map(({ src }, index) => (
                   <button
                     key={src}
                     type="button"
@@ -287,15 +288,11 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
                 )}
                 style={trackStyle}
               >
-                {images.map((src, index) => (
+                {images.map(({ src, alt }, index) => (
                   <div key={`dialog-${src}`} className="relative h-full min-w-full">
                     <Image
                       src={src}
-                      alt={
-                        index === activeIndex
-                          ? `${projectName} gallery screenshot ${index + 1}`
-                          : ""
-                      }
+                      alt={index === activeIndex ? alt : ""}
                       fill
                       sizes="(max-width: 1280px) 95vw, 1200px"
                       priority={index === 0}
@@ -335,9 +332,9 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
         {hasMultiple && (
           <div className="min-w-0 overflow-hidden px-2 py-2 sm:px-3 sm:py-3">
             <div className="mx-auto flex w-full max-w-[900px] min-w-0 gap-2 overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:justify-center">
-              {images.map((src, index) => (
+              {images.map(({ src }, index) => (
                 <button
-                  key={`dialog-${src}`}
+                  key={`dialog-thumb-${src}`}
                   type="button"
                   onClick={() => selectImage(index, "indicator")}
                   aria-label={`Show screenshot ${index + 1}`}
@@ -351,7 +348,7 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
                 >
                   <Image
                     src={src}
-                    alt={`${projectName} lightbox thumbnail ${index + 1}`}
+                    alt=""
                     width={160}
                     height={160}
                     className="h-full w-full object-cover"
@@ -371,92 +368,113 @@ function GalleryStage({ images, projectName }: { images: string[]; projectName: 
   )
 }
 
-export function ProjectCard({
-  project,
-  reversed: _reversed = false,
-  index = 0,
-}: {
-  project: ProjectData
-  reversed?: boolean
-  index?: number
-}) {
-  const indexLabel = String(index + 1).padStart(2, "0")
+const linkClass = "h-9 shrink-0 gap-1.5 px-3.5 text-[13px]"
+
+export function ProjectCard({ app }: { app: AppData }) {
+  const track = (event: string, url: string) =>
+    posthog.capture(event, { project: app.name, url, location: "card_header" })
 
   return (
-    <article className="forge-panel group/card relative overflow-hidden rounded-2xl transition-all duration-500 hover:border-primary/30 hover:shadow-[0_30px_80px_-40px_color-mix(in_oklab,var(--primary)_40%,transparent)]">
-      <header className="flex items-center justify-between gap-4 border-b border-border/40 p-3.5 sm:p-4">
-        <div className="flex items-center gap-3 min-w-0">
-          <span className="font-mono text-[11px] tabular-nums text-muted-foreground/80">
-            {indexLabel}
-          </span>
-          <span className="h-3 w-px bg-border/80" />
-          <h3 className="truncate text-base font-semibold tracking-tight sm:text-lg">
-            {project.name}
-          </h3>
-          <span className="hidden sm:inline-flex items-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-            <span className="mx-2 size-1 rounded-full bg-muted-foreground/40" />
-            {project.category}
-          </span>
+    <article
+      id={app.slug}
+      className="forge-panel group/card relative scroll-mt-24 overflow-hidden rounded-2xl transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_30px_80px_-40px_color-mix(in_oklab,var(--primary)_40%,transparent)]"
+    >
+      <header className="flex flex-col gap-5 border-b border-border/40 p-5 sm:flex-row sm:items-start sm:justify-between sm:p-6">
+        <div className="min-w-0">
+          <div className="flex items-center gap-4">
+            <Image
+              src={iconSrc(app)}
+              alt=""
+              width={56}
+              height={56}
+              className="size-12 shrink-0 rounded-[14px] shadow-[0_8px_24px_-10px_rgba(0,0,0,0.5)] sm:size-14 sm:rounded-[16px]"
+            />
+            <div className="min-w-0">
+              <h3 className="text-xl font-semibold tracking-tight sm:text-2xl">{app.name}</h3>
+              <p className="mt-0.5 text-[13px] text-muted-foreground">
+                {app.origin ? (
+                  <>
+                    Rebuilt from{" "}
+                    <a
+                      href={app.origin.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-foreground/85 underline decoration-border underline-offset-2 transition-colors hover:text-foreground hover:decoration-foreground"
+                    >
+                      {app.origin.name}
+                    </a>
+                    {app.origin.author ? ` by ${app.origin.author}` : null}
+                  </>
+                ) : (
+                  <span className="font-medium text-primary">New app, built from scratch</span>
+                )}
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 sm:pl-[72px]">
+            <p className="text-[15px] font-medium text-foreground/90">{app.tagline}</p>
+            <p className="mt-1 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
+              {app.summary}
+            </p>
+            <p className="mt-2.5 text-xs text-muted-foreground/90">{app.platforms.join(" · ")}</p>
+          </div>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2">
-          {project.demoUrl ? (
+        <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
+          {app.playUrl ? (
             <Link
-              href={project.demoUrl}
+              href={app.playUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open ${project.name} live demo`}
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "h-9 shrink-0 gap-1.5 px-3.5 text-[13px]",
-              )}
-              onClick={() =>
-                posthog.capture("project_demo_clicked", {
-                  project: project.name,
-                  demo_url: project.demoUrl,
-                  location: "card_header",
-                })
-              }
+              className={cn(buttonVariants({ size: "lg" }), linkClass)}
+              onClick={() => track("project_play_clicked", app.playUrl!)}
             >
-              <span className="hidden sm:inline">Live Demo</span>
-              <span className="sm:hidden">Demo</span>
-              <ArrowUpRight className="size-3.5" />
+              <Play className="size-3.5" />
+              Google Play
             </Link>
           ) : null}
-          {project.repoUrl ? (
+          {app.demoUrl ? (
             <Link
-              href={project.repoUrl}
+              href={app.demoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open ${project.name} repository on GitHub`}
+              className={cn(
+                buttonVariants({ variant: app.playUrl ? "outline" : "default", size: "lg" }),
+                linkClass,
+              )}
+              onClick={() => track("project_demo_clicked", app.demoUrl!)}
+            >
+              <Globe className="size-3.5" />
+              Try it in your browser
+            </Link>
+          ) : null}
+          {app.repoUrl ? (
+            <Link
+              href={app.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${app.name} source code on GitHub`}
               className={cn(
                 buttonVariants({
-                  variant: project.demoUrl ? "outline" : "default",
+                  variant: app.demoUrl || app.playUrl ? "outline" : "default",
                   size: "lg",
                 }),
-                "h-9 shrink-0 gap-1.5 px-3.5 text-[13px]",
+                linkClass,
               )}
-              onClick={() =>
-                posthog.capture("project_repo_clicked", {
-                  project: project.name,
-                  repo_url: project.repoUrl,
-                  location: "card_header",
-                })
-              }
+              onClick={() => track("project_repo_clicked", app.repoUrl!)}
             >
               <GitHubIcon className="size-3.5" />
-              <span className="hidden sm:inline">Source</span>
+              Source
               <ArrowUpRight className="size-3.5" />
             </Link>
           ) : null}
         </div>
       </header>
 
-      <p className="border-b border-border/40 px-3.5 py-3 text-[15px] leading-relaxed text-muted-foreground sm:px-4 sm:py-3.5">
-        {project.summary}
-      </p>
-
-      <GalleryStage images={project.showcaseImages} projectName={project.name} />
+      <GalleryStage
+        images={app.images.map((image) => ({ ...image, src: imageSrc(app, image.file) }))}
+        projectName={app.name}
+      />
     </article>
   )
 }

@@ -12,7 +12,6 @@ export default function Home() {
         <Hero />
         <ProjectsSection />
         <ApproachSection />
-        {/* <StatsBar /> */}
         <CtaSection />
       </main>
       <Footer />

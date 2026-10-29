@@ -21,14 +21,14 @@ export function CtaSection() {
           <div className="relative max-w-3xl">
             <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">
               <Sparkles className="ml-0 mr-2 size-3.5" />
-              Open Collaboration
+              Your pick
             </p>
             <h2 className="forge-section-title mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
-              Help choose the next legacy app to modernize.
+              Which app should be next?
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Suggest an open-source Android project you'd like to see rebuilt in modern Kotlin. The
-              most compelling ideas get queued up next.
+              Name an open-source Android app that deserves a second life, and tell me what you
+              would love it to do better.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -43,7 +43,7 @@ export function CtaSection() {
                 onClick={() => posthog.capture("suggest_app_clicked", { location: "cta_section" })}
               >
                 <MessageSquarePlus className="size-4" />
-                Suggest an App
+                Suggest an app
               </a>
               <a
                 href="mailto:bernaferrari2+reforge@gmail.com"
@@ -54,7 +54,7 @@ export function CtaSection() {
                 onClick={() => posthog.capture("contact_clicked")}
               >
                 <Mail className="size-4" />
-                Contact
+                Email me
               </a>
             </div>
           </div>

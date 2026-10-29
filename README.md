@@ -12,21 +12,21 @@
 
 # Kotlin Reforge
 
-**Legacy code. Reforged.**
+**Old Android apps, rebuilt to feel new.**
 
-Case-study site for Android modernization ports — Java-to-Kotlin migrations, Jetpack Compose redesigns, and pragmatic Material 3 upgrades. This repository is the marketing / index website only; each ported app lives in its own GitHub repository, with source and live web demos linked from the case studies.
+The website for seven free, open-source apps, rewritten in Kotlin and redesigned screen by screen. Each app lives in its own repository; this one is only the site.
 
-### The Focus
+| App                                                                | What it does                            | Rebuilt from           |
+| ------------------------------------------------------------------ | --------------------------------------- | ---------------------- |
+| [Keepout](https://github.com/bernaferrari/rethink-app)             | Firewall, encrypted DNS and VPN         | Rethink DNS + Firewall |
+| [QuietGuard](https://github.com/bernaferrari/QuietGuard)           | Decide which apps reach the internet    | NetGuard               |
+| [Wordkeep](https://github.com/bernaferrari/markor)                 | Markdown notes kept as plain files      | Markor                 |
+| [Calcula](https://github.com/bernaferrari/calcula)                 | Calculator with functions a flick away  | Calculator++           |
+| [ChangeDetection](https://github.com/bernaferrari/ChangeDetection) | Alerts when a web page changes          | Its own 2018 app       |
+| [WiFi Weakspot](https://github.com/bernaferrari/wifi-weakspot)     | See where your Wi-Fi gets weak          | New app                |
+| Lumina                                                             | Remote desktop for Omarchy and Hyprland | New app                |
 
-- **Kotlin-First:** Seamless migrations from legacy Java.
-- **Modern Architecture:** Built to scale. Built to last.
-- **Flawless UI/UX:** Reimagined to modern standards.
-
-### The Audience
-
-- **Teams:** Stuck with hard-to-evolve apps.
-- **Founders:** Ready for a profound technical refresh.
-- **Engineers:** Passionate about migration quality.
+App details and screenshots live in [`lib/apps.ts`](lib/apps.ts) and `public/<app>/`. The screenshots are each app's README images, converted to WebP.
 
 ### Quick Start
 

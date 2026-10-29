@@ -47,6 +47,21 @@ export function Navbar() {
               : "border-border/55 bg-card/55 backdrop-blur",
           )}
         >
+          <nav className="hidden items-center sm:flex" aria-label="Sections">
+            {[
+              ["#apps", "Apps"],
+              ["#approach", "How it works"],
+              ["#suggest", "Suggest"],
+            ].map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                className="rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
           <Button
             variant="ghost"
             size="icon"

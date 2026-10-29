@@ -1,235 +1,170 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { ArrowDown } from "lucide-react"
 import posthog from "posthog-js"
-import { GitHubIcon } from "@/components/icons/github-icon"
+import { apps, iconSrc, imageSrc } from "@/lib/apps"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-const heroFrames = [
-  { src: "/rethink/apps.png", label: "apps" },
-  { src: "/rethink/stats.png", label: "stats" },
-  { src: "/rethink/even-more-light.png", label: "even more light" },
-  { src: "/rethink/more-light.png", label: "more light" },
-  { src: "/rethink/more-dark.png", label: "more dark" },
-  { src: "/rethink/home.png", label: "home" },
-  { src: "/rethink/settings.png", label: "settings" },
-]
-
-type MorphMode = {
-  label: string
-  fromClip: string
-  toClip: string
-  kind: "wipe" | "diamond-shrink" | "diamond-expand"
-}
-
-const fullInsetClipPath = "inset(0% 0% 0% 0%)"
-const fullPolygonClipPath = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
-const dissolveClipPath = "polygon(49.9% 49.9%, 50.1% 49.9%, 50.1% 50.1%, 49.9% 50.1%)"
-const smallDiamondClipPath = "polygon(50% 49.9%, 50.1% 50%, 50% 50.1%, 49.9% 50%)"
-const diamondRevealClipPath = "polygon(50% 12%, 88% 50%, 50% 88%, 12% 50%)"
-
-const morphModes: MorphMode[] = [
-  { label: "left wipe", fromClip: fullInsetClipPath, toClip: "inset(0% 100% 0% 0%)", kind: "wipe" },
-  {
-    label: "right wipe",
-    fromClip: fullInsetClipPath,
-    toClip: "inset(0% 0% 0% 100%)",
-    kind: "wipe",
-  },
-  { label: "top wipe", fromClip: fullInsetClipPath, toClip: "inset(100% 0% 0% 0%)", kind: "wipe" },
-  {
-    label: "bottom wipe",
-    fromClip: fullInsetClipPath,
-    toClip: "inset(0% 0% 100% 0%)",
-    kind: "wipe",
-  },
-  {
-    label: "diamond",
-    fromClip: fullPolygonClipPath,
-    toClip: diamondRevealClipPath,
-    kind: "diamond-shrink",
-  },
-  {
-    label: "reverse diamond",
-    fromClip: smallDiamondClipPath,
-    toClip: fullPolygonClipPath,
-    kind: "diamond-expand",
-  },
-]
-
-function getRandomMorph(previous?: MorphMode): MorphMode {
-  let next = morphModes[Math.floor(Math.random() * morphModes.length)]
-
-  if (!previous) return next
-  while (morphModes.length > 1 && next.label === previous.label) {
-    next = morphModes[Math.floor(Math.random() * morphModes.length)]
-  }
-
-  return next
-}
+const advanceMs = 6000
 
 export function Hero() {
-  const [activeFrame, setActiveFrame] = useState(0)
-  const [previousFrame, setPreviousFrame] = useState<number | null>(null)
-  const [activeMorph, setActiveMorph] = useState<MorphMode>(morphModes[0])
-  const activeMorphRef = useRef(activeMorph)
-  const [outgoingClipPath, setOutgoingClipPath] = useState(fullInsetClipPath)
-  const [outgoingTransitionMs, setOutgoingTransitionMs] = useState(1400)
-
-  const morphIntervalMs = 7000
-  const morphRevealMs = 1400
-  const morphDissolveMs = 800
-  const revealTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const dissolveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const rafRef = useRef<ReturnType<typeof requestAnimationFrame> | null>(null)
+  const [active, setActive] = useState(0)
+  const [paused, setPaused] = useState(false)
 
   useEffect(() => {
-    activeMorphRef.current = activeMorph
-  }, [activeMorph])
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const timer = window.setTimeout(() => setActive((i) => (i + 1) % apps.length), advanceMs)
+    return () => window.clearTimeout(timer)
+  }, [active, paused])
 
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
-    if (reducedMotion.matches) return
-
-    const timer = window.setInterval(() => {
-      setActiveFrame((current) => {
-        const next = (current + 1) % heroFrames.length
-        const nextMorph = getRandomMorph(activeMorphRef.current)
-
-        setActiveMorph(nextMorph)
-        setPreviousFrame(current)
-        setOutgoingClipPath(nextMorph.fromClip)
-        setOutgoingTransitionMs(morphRevealMs)
-
-        if (rafRef.current) {
-          cancelAnimationFrame(rafRef.current)
-          rafRef.current = null
-        }
-        if (revealTimeoutRef.current) {
-          clearTimeout(revealTimeoutRef.current)
-          revealTimeoutRef.current = null
-        }
-        if (dissolveTimeoutRef.current) {
-          clearTimeout(dissolveTimeoutRef.current)
-          dissolveTimeoutRef.current = null
-        }
-
-        rafRef.current = requestAnimationFrame(() => {
-          setOutgoingClipPath(nextMorph.toClip)
-        })
-
-        revealTimeoutRef.current = setTimeout(() => {
-          if (nextMorph.kind === "diamond-shrink") {
-            setOutgoingTransitionMs(morphDissolveMs)
-            setOutgoingClipPath(dissolveClipPath)
-            dissolveTimeoutRef.current = setTimeout(() => {
-              setPreviousFrame((value) => (value === current ? null : value))
-            }, morphDissolveMs)
-          } else {
-            setPreviousFrame((value) => (value === current ? null : value))
-          }
-        }, morphRevealMs)
-
-        return next
-      })
-    }, morphIntervalMs)
-
-    const syncWithPreference = (event: MediaQueryListEvent) => {
-      if (event.matches) {
-        window.clearInterval(timer)
-      }
-    }
-    reducedMotion.addEventListener("change", syncWithPreference)
-
-    return () => {
-      window.clearInterval(timer)
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-      if (revealTimeoutRef.current) clearTimeout(revealTimeoutRef.current)
-      if (dissolveTimeoutRef.current) clearTimeout(dissolveTimeoutRef.current)
-      reducedMotion.removeEventListener("change", syncWithPreference)
-    }
-  }, [morphDissolveMs, morphIntervalMs, morphRevealMs])
-
-  const activeFrameData = heroFrames[activeFrame]
-  const outgoingFrameData = previousFrame === null ? null : heroFrames[previousFrame]
-  const outgoingTransition = `clip-path ${outgoingTransitionMs}ms cubic-bezier(0.2, 1, 0.2, 1)`
+  const rebuilt = apps.filter((app) => app.origin).length
 
   return (
-    <section className="relative overflow-hidden px-4 pt-36 pb-12 sm:px-6 sm:pt-44 sm:pb-20">
+    <section className="relative overflow-hidden px-4 pt-32 pb-12 sm:px-6 sm:pt-40 sm:pb-20">
       <div
         aria-hidden
         className="forge-grid-bg pointer-events-none absolute inset-0 -z-10 opacity-[0.35] dark:opacity-25"
       />
 
-      <div className="mx-auto max-w-5xl text-center animate-fade-up">
-        <h1 className="forge-section-title mt-6 text-4xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-          Rebuilding legacy Android apps
-          <span className="block bg-gradient-to-r from-[#7F52FF] via-[#E94392] to-[#FF7A1A] bg-clip-text text-transparent">
-            in modern Kotlin.
+      <div className="mx-auto max-w-4xl text-center animate-fade-up">
+        <div className="inline-flex items-center gap-2.5 rounded-full border border-border/60 bg-card/60 py-1.5 pr-4 pl-1.5 backdrop-blur sm:gap-3">
+          <span className="flex -space-x-2.5 sm:-space-x-2">
+            {apps.map((app) => (
+              <Image
+                key={app.slug}
+                src={iconSrc(app)}
+                alt=""
+                width={28}
+                height={28}
+                className="size-6 rounded-[8px] ring-2 ring-background sm:size-7 sm:rounded-[9px]"
+              />
+            ))}
+          </span>
+          <span className="whitespace-nowrap text-[13px] text-muted-foreground sm:text-sm">
+            {apps.length} free, open-source apps
+          </span>
+        </div>
+
+        <h1 className="forge-section-title mt-7 text-4xl font-semibold leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl">
+          Old Android apps,
+          <span className="block bg-gradient-to-r from-[#7F52FF] via-[#E94392] to-[#FF7A1A] bg-clip-text pb-1 text-transparent">
+            rebuilt to feel new.
           </span>
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          Breathing new life into open-source projects with Jetpack Compose, thoughtful
-          architectures, and visual redesigns. This site indexes those ports — source and live demos
-          live in each app&apos;s own repo.
+          {rebuilt} well-loved open-source apps, rewritten in Kotlin and redesigned screen by
+          screen, plus {apps.length - rebuilt} new ones made the same way. Many now run on iPhone,
+          desktop and in the browser too.
         </p>
 
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
-            href="#projects"
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow-[0_10px_30px_-10px_var(--color-primary)] transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+            href="#apps"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "h-11 gap-2 px-6 shadow-[0_10px_30px_-10px_var(--color-primary)]",
+            )}
             onClick={() => posthog.capture("hero_explore_ports_clicked")}
           >
-            Explore Ports
-            <ArrowRight className="size-4" />
+            See the apps
+            <ArrowDown className="size-4" />
           </a>
           <a
-            href="https://github.com/bernaferrari/kotlin-reforge"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 gap-2 px-6")}
-            onClick={() => posthog.capture("hero_github_clicked")}
+            href="#suggest"
+            className={cn(buttonVariants({ variant: "outline", size: "lg" }), "h-11 px-6")}
+            onClick={() => posthog.capture("hero_suggest_clicked")}
           >
-            <GitHubIcon className="size-4" />
-            Site source
+            Suggest the next one
           </a>
         </div>
       </div>
 
       <div
-        className="mx-auto mt-16 max-w-6xl animate-fade-up sm:mt-20"
+        className="mx-auto mt-14 max-w-6xl animate-fade-up sm:mt-20"
         style={{ animationDelay: "120ms" }}
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onFocus={() => setPaused(true)}
+        onBlur={() => setPaused(false)}
       >
-        <div className="relative aspect-[1600/1100] w-full overflow-hidden rounded-lg sm:rounded-xl">
-          <Image
-            key={activeFrameData.src}
-            src={activeFrameData.src}
-            alt={`Modernized Android app preview ${activeFrameData.label}`}
-            fill
-            sizes="(max-width: 1024px) 95vw, 1100px"
-            priority
-            className="absolute inset-0 z-0 object-cover [clip-path:inset(0%_0%_0%_0%)]"
-          />
-
-          {outgoingFrameData ? (
-            <Image
-              key={`${outgoingFrameData.src}-${activeFrame}`}
-              src={outgoingFrameData.src}
-              alt={`Transitioning Android app preview ${outgoingFrameData.label}`}
-              fill
-              sizes="(max-width: 1024px) 95vw, 1100px"
-              className={cn("absolute inset-0 z-10 object-cover will-change-[clip-path]")}
-              style={{
-                clipPath: outgoingClipPath,
-                transition: outgoingTransition,
+        <div
+          role="tablist"
+          aria-label="Apps"
+          className="mx-auto mb-5 flex max-w-full gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none] sm:justify-center"
+        >
+          {apps.map((app, index) => (
+            <button
+              key={app.slug}
+              type="button"
+              role="tab"
+              aria-selected={index === active}
+              aria-controls="hero-showcase"
+              onClick={() => {
+                setActive(index)
+                posthog.capture("hero_app_selected", { project: app.name })
               }}
-            />
-          ) : null}
+              className={cn(
+                "relative inline-flex shrink-0 items-center gap-2 overflow-hidden rounded-full border py-1.5 pr-3.5 pl-1.5 text-sm font-medium transition-colors",
+                index === active
+                  ? "border-primary/50 bg-primary/10 text-foreground"
+                  : "border-border/50 text-muted-foreground hover:border-border hover:text-foreground",
+              )}
+            >
+              <Image
+                src={iconSrc(app)}
+                alt=""
+                width={24}
+                height={24}
+                className="size-6 rounded-[7px]"
+              />
+              {app.name}
+              {index === active && !paused ? (
+                <span
+                  key={active}
+                  aria-hidden
+                  className="forge-progress absolute inset-x-0 bottom-0 h-0.5 origin-left bg-primary/70"
+                  style={{ animationDuration: `${advanceMs}ms` }}
+                />
+              ) : null}
+            </button>
+          ))}
         </div>
+
+        <a
+          id="hero-showcase"
+          role="tabpanel"
+          href={`#${apps[active].slug}`}
+          aria-label={`${apps[active].name}: ${apps[active].tagline} Jump to details`}
+          className="forge-hero-frame relative block aspect-[40/21] w-full overflow-hidden rounded-xl sm:rounded-2xl"
+        >
+          {apps.map((app, index) => {
+            const image = app.images[0]
+            return (
+              <div
+                key={app.slug}
+                aria-hidden={index !== active}
+                className={cn(
+                  "absolute inset-0 transition-opacity duration-700 ease-out",
+                  index === active ? "opacity-100" : "opacity-0",
+                )}
+                style={{ background: image.backdrop }}
+              >
+                <Image
+                  src={imageSrc(app, image.file)}
+                  alt={index === active ? image.alt : ""}
+                  fill
+                  sizes="(max-width: 1200px) 95vw, 1152px"
+                  priority={index === 0}
+                  className="object-contain"
+                />
+              </div>
+            )
+          })}
+        </a>
       </div>
     </section>
   )

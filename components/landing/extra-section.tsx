@@ -16,18 +16,17 @@ export function ExtraSection() {
           <div className="flex flex-col justify-between gap-8 p-6 sm:p-8 lg:p-10">
             <div>
               <div className="flex items-center gap-3">
-                <span className="font-mono text-xs text-muted-foreground/80">EX</span>
-                <span className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
                 <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary">
-                  Library
+                  For developers
                 </p>
+                <span className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
               </div>
               <h3 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
                 Diagonal Wipe Icon
               </h3>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                A single-file icon transition component for Compose Multiplatform. Built to emulate
-                iOS-style wipe animations using two icons and a mask.
+                A small animation that swaps one icon for another with a diagonal wipe, like on
+                iPhone. One file you can drop into any Compose Multiplatform app.
               </p>
             </div>
 
@@ -57,7 +56,7 @@ export function ExtraSection() {
                 }
               >
                 <GitHubIcon className="size-4" />
-                GitHub Repo
+                Source
               </Link>
             </div>
           </div>
@@ -66,7 +65,7 @@ export function ExtraSection() {
             <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/60 bg-background/40">
               <Image
                 src="https://raw.githubusercontent.com/bernaferrari/diagonal-wipe-icon/main/assets/animated-icons.webp"
-                alt="Diagonal Wipe Icon Animation"
+                alt="Icons switching with a diagonal wipe"
                 fill
                 className="object-contain p-4"
                 unoptimized
