@@ -115,7 +115,7 @@ export const apps: AppData[] = [
     images: [
       {
         file: "hero",
-        alt: "Calcula's graph, keypad and unit converter each standing on a Calcula key labelled f(x), sin and °F",
+        alt: "Programmer mode in hex, the keypad with a function on every key, and the color themes",
       },
       {
         file: "tools",
