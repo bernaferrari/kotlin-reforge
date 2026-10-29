@@ -50,8 +50,10 @@ export function Hero() {
         </div>
 
         <h1 className="forge-section-title mt-7 text-4xl font-semibold leading-[1.04] tracking-tight sm:text-6xl lg:text-7xl">
-          <span className="text-muted-foreground/70">Old Android apps,</span>
-          <span className="block pb-1 text-foreground">rebuilt to feel new.</span>
+          Old Android apps,
+          <span className="block bg-gradient-to-r from-[#ffcf70] via-[#ff8f4a] to-[#ff5f5f] bg-clip-text pb-1 text-transparent">
+            rebuilt to feel new.
+          </span>
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
