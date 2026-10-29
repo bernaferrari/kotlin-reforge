@@ -87,7 +87,7 @@ export const apps: AppData[] = [
     images: [
       {
         file: "hero",
-        alt: "Wordkeep's notes grid, a Markdown note as you write it, and a to-do list",
+        alt: "A note written in plain Markdown, and the same note read clean",
       },
       {
         file: "notebook-1",
@@ -115,7 +115,7 @@ export const apps: AppData[] = [
     images: [
       {
         file: "hero",
-        alt: "A graph, the keypad with a function on every key, and unit conversion",
+        alt: "The 7 key lifted out of the keypad with sin on it, and a graph behind",
       },
       {
         file: "tools",
