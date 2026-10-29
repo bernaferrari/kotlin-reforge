@@ -115,7 +115,7 @@ export const apps: AppData[] = [
     images: [
       {
         file: "hero",
-        alt: "Calcula's keypad up close, the 7 key flicked up for sin",
+        alt: "A little flick: the keypad with the sin key off the 7. A lot more math: a graph",
       },
       {
         file: "tools",
