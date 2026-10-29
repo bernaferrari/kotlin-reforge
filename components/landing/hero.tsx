@@ -8,7 +8,8 @@ import { apps, iconSrc, imageSrc } from "@/lib/apps"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-const advanceMs = 6000
+const advanceMs = 5000
+const words = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]
 
 export function Hero() {
   const [active, setActive] = useState(0)
@@ -56,9 +57,9 @@ export function Hero() {
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          {rebuilt} well-loved open-source apps, rewritten in Kotlin and redesigned screen by
-          screen, plus {apps.length - rebuilt} new ones made the same way. Many now run on iPhone,
-          desktop and in the browser too.
+          {words[rebuilt]} well-loved open-source apps, rewritten in Kotlin and redesigned screen by
+          screen, plus {words[apps.length - rebuilt].toLowerCase()} new ones made the same way. Many
+          now run on iPhone, desktop and in the browser too.
         </p>
 
         <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -85,7 +86,7 @@ export function Hero() {
 
       <div
         className="mx-auto mt-14 max-w-6xl animate-fade-up sm:mt-20"
-        style={{ animationDelay: "120ms" }}
+        style={{ animationDelay: "60ms" }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
@@ -148,7 +149,7 @@ export function Hero() {
                 key={app.slug}
                 aria-hidden={index !== active}
                 className={cn(
-                  "absolute inset-0 transition-opacity duration-700 ease-out",
+                  "absolute inset-0 transition-opacity duration-[380ms] ease-out",
                   index === active ? "opacity-100" : "opacity-0",
                 )}
                 style={{ background: image.backdrop }}

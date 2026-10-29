@@ -40,7 +40,7 @@ export function ExtraSection() {
                   posthog.capture("extra_demo_clicked", { project: "Diagonal Wipe Icon" })
                 }
               >
-                Live Demo
+                Try it in your browser
                 <ArrowUpRight className="size-4" />
               </Link>
               <Link

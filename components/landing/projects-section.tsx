@@ -9,11 +9,11 @@ export function ProjectsSection() {
         <header className="mb-12 max-w-3xl sm:mb-16">
           <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">The apps</p>
           <h2 className="forge-section-title mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
-            Familiar apps, made new.
+            Seven apps so far.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
             Five apps people already rely on keep what made them useful and gain a cleaner design,
-            clearer words, dark mode and room for tablets. Their before-and-after pictures show
+            clearer words, dark mode and room for tablets. The before-and-after pictures show
             exactly what changed. WiFi Weakspot and Lumina are new, built the same way from day one.
           </p>
         </header>
