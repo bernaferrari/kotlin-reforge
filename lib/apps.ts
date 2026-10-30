@@ -34,7 +34,7 @@ export const apps: AppData[] = [
     platforms: ["Android"],
     repoUrl: "https://github.com/bernaferrari/rethink-app",
     images: [
-      { file: "hero", alt: "Keepout's network log, Home with protection on, and the app list" },
+      { file: "hero", alt: "Keepout's stats, Home with protection on, and settings" },
       {
         file: "tools",
         alt: "An app cut off on Wi-Fi and mobile data, DNS in use, and the most blocked apps",
