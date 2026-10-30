@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { ArrowDown } from "lucide-react"
 import posthog from "posthog-js"
@@ -14,11 +14,46 @@ const words = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "E
 export function Hero() {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
+  const tabs = useRef<HTMLDivElement>(null)
+  const progress = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
     const timer = window.setTimeout(() => setActive((i) => (i + 1) % apps.length), advanceMs)
     return () => window.clearTimeout(timer)
+  }, [active, paused])
+
+  // On narrow screens the tabs scroll sideways; keep the active one in the middle of the row.
+  useEffect(() => {
+    const list = tabs.current
+    const tab = list?.children[active]
+    if (!list || !tab || list.scrollWidth <= list.clientWidth) return
+    const offset = tab.getBoundingClientRect().left - list.getBoundingClientRect().left
+    list.scrollTo({
+      left: list.scrollLeft + offset - (list.clientWidth - tab.clientWidth) / 2,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    })
+  }, [active])
+
+  // The bar fills while the timer runs and drains back to empty from wherever it is on pause.
+  useEffect(() => {
+    const bar = progress.current
+    if (!bar || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (paused) {
+      const from = getComputedStyle(bar).transform
+      bar.getAnimations().forEach((animation) => animation.cancel())
+      bar.animate([{ transform: from }, { transform: "scaleX(0)" }], {
+        duration: 320,
+        easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        fill: "forwards",
+      })
+    } else {
+      bar.getAnimations().forEach((animation) => animation.cancel())
+      bar.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], {
+        duration: advanceMs,
+        fill: "forwards",
+      })
+    }
   }, [active, paused])
 
   const rebuilt = apps.filter((app) => app.origin).length
@@ -93,6 +128,7 @@ export function Hero() {
         onBlur={() => setPaused(false)}
       >
         <div
+          ref={tabs}
           role="tablist"
           aria-label="Apps"
           className="mx-auto mb-5 flex max-w-full gap-1.5 overflow-x-auto px-1 pb-1 [scrollbar-width:none] sm:justify-center"
@@ -123,12 +159,12 @@ export function Hero() {
                 className="size-6 rounded-[7px]"
               />
               {app.name}
-              {index === active && !paused ? (
+              {index === active ? (
                 <span
-                  key={active}
+                  ref={progress}
                   aria-hidden
-                  className="forge-progress absolute inset-x-0 bottom-0 h-0.5 origin-left bg-primary/70"
-                  style={{ animationDuration: `${advanceMs}ms` }}
+                  className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-primary/70"
+                  style={{ transform: "scaleX(0)" }}
                 />
               ) : null}
             </button>
