@@ -26,6 +26,8 @@ The website for seven free, open-source apps, rewritten in Kotlin and redesigned
 | [WiFi Weakspot](https://github.com/bernaferrari/wifi-weakspot)     | See where your Wi-Fi gets weak          | New app                |
 | Lumina                                                             | Remote desktop for Omarchy and Hyprland | New app                |
 
+For developers, the site also features two Kotlin Multiplatform libraries: [KMPwright](https://github.com/bernaferrari/kmpwright), browser automation for Android, iOS and JVM, and [Diagonal Wipe Icon](https://github.com/bernaferrari/diagonal-wipe-icon).
+
 App details and screenshots live in [`lib/apps.ts`](lib/apps.ts) and `public/<app>/`. The screenshots are each app's README images, converted to WebP.
 
 ### Quick Start
