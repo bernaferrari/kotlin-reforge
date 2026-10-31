@@ -150,6 +150,25 @@ export const apps: AppData[] = [
     ],
   },
   {
+    slug: "sdkmonitor",
+    name: "SDK Monitor",
+    tagline: "See which apps keep up with Android.",
+    summary:
+      "Shows the target SDK of every app on your phone and logs each change, so you know which apps get Android's newest privacy and security protections.",
+    origin: {
+      name: "its own 2018 app",
+      url: "https://github.com/bernaferrari/SDKMonitor/tree/0.98",
+    },
+    platforms: ["Android", "Web"],
+    repoUrl: "https://github.com/bernaferrari/SDKMonitor",
+    demoUrl: "https://sdkmonitor.vercel.app/",
+    images: [
+      { file: "hero", alt: "The change log, the app list with target SDKs, and an app's version history" },
+      { file: "tools", alt: "An app's version history, the change log, and offline settings" },
+      { file: "big-screen", alt: "SDK Monitor on a tablet" },
+    ],
+  },
+  {
     slug: "wifi-weakspot",
     name: "WiFi Weakspot",
     tagline: "See where your Wi-Fi gets weak, room by room.",
