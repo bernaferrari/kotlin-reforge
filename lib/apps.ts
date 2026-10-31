@@ -163,9 +163,10 @@ export const apps: AppData[] = [
     repoUrl: "https://github.com/bernaferrari/SDKMonitor",
     demoUrl: "https://sdkmonitor.vercel.app/",
     images: [
-      { file: "hero", alt: "The change log, the app list with target SDKs, and an app's version history" },
-      { file: "tools", alt: "An app's version history, the change log, and offline settings" },
-      { file: "big-screen", alt: "SDK Monitor on a tablet" },
+      { file: "hero", alt: "SDK analytics, the app list with every app's target SDK, and an app's details" },
+      { file: "tools", alt: "SDK analytics by Android version, the change log, and an app's version history" },
+      { file: "tablet", alt: "SDK analytics and the change log on a tablet, beside a phone" },
+      { file: "big-screen", alt: "The app list on a tablet, and an app's details in dark mode on a phone" },
     ],
   },
   {
