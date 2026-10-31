@@ -28,7 +28,7 @@ const libraries: Library[] = [
     icon: "/kmpwright/icon.png",
     image: {
       src: "/kmpwright/header.webp",
-      alt: "One Kotlin workflow, the same finished sign-up form on an iPad and an iPhone",
+      alt: "One Kotlin workflow, the same finished sign-up form on an Android phone, an iPad and an iPhone",
       fill: true,
     },
   },
