@@ -166,7 +166,7 @@ export const apps: AppData[] = [
       { file: "hero", alt: "SDK analytics, the app list with every app's target SDK, and an app's details" },
       { file: "tools", alt: "SDK analytics by Android version, the change log, and an app's version history" },
       { file: "before-after", alt: "SDK Monitor in 2019 beside today: the app list and an app's details" },
-      { file: "big-screen", alt: "SDK analytics on a tablet, and the app list in dark mode on a phone" },
+      { file: "big-screen", alt: "SDK analytics on a tablet, and the app list in light and dark on phones" },
     ],
   },
   {
