@@ -53,6 +53,7 @@ const libraries: Library[] = [
       url: "https://bernaferrari.github.io/diagonal-wipe-icon/",
     },
     repoUrl: "https://github.com/bernaferrari/diagonal-wipe-icon",
+    icon: "/diagonal-wipe-icon/icon.png",
     image: {
       src: "https://raw.githubusercontent.com/bernaferrari/diagonal-wipe-icon/main/assets/animated-icons.webp",
       alt: "Icons switching with a diagonal wipe",
