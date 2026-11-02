@@ -33,6 +33,18 @@ const libraries: Library[] = [
     },
   },
   {
+    name: "Screenshot Studio",
+    summary:
+      "Turns real captures of an app into Google Play and App Store screenshots and README art, in every language, checked like a reviewer would. Every app here makes its store art with it, and Claude can too.",
+    demo: { label: "Try it on npm", url: "https://www.npmjs.com/package/screenshot-studio" },
+    repoUrl: "https://github.com/bernaferrari/screenshot-studio",
+    image: {
+      src: "/screenshot-studio/header.webp",
+      alt: "Plain screenshots of ChangeDetection made into a checked Google Play set, and the same cards in German, Chinese and Hindi",
+      fill: true,
+    },
+  },
+  {
     name: "Diagonal Wipe Icon",
     summary:
       "A small animation that swaps one icon for another with a diagonal wipe, like on iPhone. One file you can drop into any Compose Multiplatform app.",
