@@ -38,6 +38,7 @@ const libraries: Library[] = [
       "Turns real captures of an app into Google Play and App Store screenshots and README art, in every language, checked like a reviewer would. Every app here makes its store art with it, and Claude can too.",
     demo: { label: "Try it on npm", url: "https://www.npmjs.com/package/screenshot-studio" },
     repoUrl: "https://github.com/bernaferrari/screenshot-studio",
+    icon: "/screenshot-studio/icon.png",
     image: {
       src: "/screenshot-studio/header.webp",
       alt: "Plain screenshots of ChangeDetection made into a checked Google Play set, and the same cards in German, Chinese and Hindi",
