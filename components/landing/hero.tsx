@@ -102,7 +102,8 @@ export function Hero() {
             href="#apps"
             className={cn(
               buttonVariants({ size: "lg" }),
-              "h-11 gap-2 px-6 shadow-[0_10px_30px_-10px_var(--color-primary)]",
+              // No border: its transparent 1px shows the page around the fill, a pale ring against the glow.
+              "h-11 gap-2 border-0 px-6 shadow-[0_10px_30px_-10px_var(--color-primary)]",
             )}
             onClick={() => posthog.capture("hero_explore_ports_clicked")}
           >
