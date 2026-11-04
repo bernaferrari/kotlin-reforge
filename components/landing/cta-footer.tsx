@@ -4,25 +4,24 @@ import posthog from "posthog-js"
 import { GitHubIcon } from "@/components/icons/github-icon"
 import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { ArrowUpRight, Mail, MessageSquarePlus, Sparkles } from "lucide-react"
+import { ArrowUpRight, Mail, MessageSquarePlus } from "lucide-react"
 
 export function CtaSection() {
   return (
     <section id="suggest" className="px-4 py-20 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-6xl">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/[0.12] via-background to-accent/[0.10] p-8 sm:p-12 lg:p-16">
-          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/25 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+        <div className="forge-panel relative overflow-hidden rounded-3xl p-8 sm:p-12 lg:p-16">
           <div
             aria-hidden
-            className="forge-grid-bg pointer-events-none absolute inset-0 opacity-30 dark:opacity-20"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 90% at 100% 0%, color-mix(in oklab, var(--primary) 14%, transparent), transparent 65%)",
+            }}
           />
 
           <div className="relative max-w-3xl">
-            <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">
-              <Sparkles className="ml-0 mr-2 size-3.5" />
-              Your pick
-            </p>
+            <p className="forge-eyebrow">Your pick</p>
             <h2 className="forge-section-title mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
               Which app should be next?
             </h2>

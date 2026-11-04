@@ -51,7 +51,10 @@ const libraries: Library[] = [
     name: "Diagonal Wipe Icon",
     summary:
       "Swaps one icon for another with a diagonal wipe, like on iPhone. One file you can drop into any Compose Multiplatform app.",
-    demo: { label: "Try it in your browser", url: "https://bernaferrari.github.io/diagonal-wipe-icon/" },
+    demo: {
+      label: "Try it in your browser",
+      url: "https://bernaferrari.github.io/diagonal-wipe-icon/",
+    },
     repoUrl: "https://github.com/bernaferrari/diagonal-wipe-icon",
     icon: "/diagonal-wipe-icon/icon.png",
     image: {
@@ -66,7 +69,7 @@ export function ExtraSection() {
   return (
     <section id="extra" className="scroll-mt-20 pt-14 sm:pt-20">
       <header className="mb-8 max-w-3xl sm:mb-10">
-        <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">For developers</p>
+        <p className="forge-eyebrow">For developers</p>
         <h3 className="forge-section-title mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
           The tools behind these apps.
         </h3>
@@ -95,10 +98,17 @@ function Title({ library, size }: { library: Library; size: "lg" | "md" }) {
         height={56}
         className={cn(
           "shrink-0 shadow-[0_8px_24px_-10px_rgba(0,0,0,0.5)]",
-          size === "lg" ? "size-12 rounded-[14px] sm:size-14 sm:rounded-[16px]" : "size-10 rounded-[12px]",
+          size === "lg"
+            ? "size-12 rounded-[14px] sm:size-14 sm:rounded-[16px]"
+            : "size-10 rounded-[12px]",
         )}
       />
-      <h4 className={cn("font-semibold tracking-tight", size === "lg" ? "text-3xl sm:text-4xl" : "text-2xl")}>
+      <h4
+        className={cn(
+          "font-semibold tracking-tight",
+          size === "lg" ? "text-3xl sm:text-4xl" : "text-2xl",
+        )}
+      >
         {library.name}
       </h4>
     </div>
@@ -133,10 +143,23 @@ function Actions({ library }: { library: Library }) {
   )
 }
 
-function Picture({ library, className }: { library: Library; className?: string }) {
+/** bleed: fill the top of its card edge to edge, with only a hairline below. */
+function Picture({
+  library,
+  bleed = false,
+  className,
+}: {
+  library: Library
+  bleed?: boolean
+  className?: string
+}) {
   return (
     <div
-      className={cn("relative w-full overflow-hidden rounded-xl border border-border/60 bg-background/40 aspect-[40/21]", className)}
+      className={cn(
+        "relative aspect-[40/21] w-full overflow-hidden bg-background/40",
+        bleed ? "border-b border-border/60" : "rounded-xl border border-border/60",
+        className,
+      )}
       style={library.image.background ? { background: library.image.background } : undefined}
     >
       <Image
@@ -146,7 +169,12 @@ function Picture({ library, className }: { library: Library; className?: string 
         className={library.image.fill ? "object-cover" : "object-contain px-5"}
         unoptimized
       />
-      <span aria-hidden className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/5" />
+      {bleed ? null : (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/5"
+        />
+      )}
     </div>
   )
 }
@@ -171,9 +199,7 @@ function FeaturedCard({ library }: { library: Library }) {
 function LibraryCard({ library }: { library: Library }) {
   return (
     <article className="forge-panel flex flex-col overflow-hidden rounded-3xl">
-      <div className="bg-gradient-to-br from-muted/40 via-transparent to-muted/20 p-4 sm:p-5">
-        <Picture library={library} />
-      </div>
+      <Picture library={library} bleed />
       <div className="flex flex-1 flex-col gap-4 p-6 pt-5 sm:p-8 sm:pt-6">
         <Title library={library} size="md" />
         <p className="flex-1 text-base leading-relaxed text-muted-foreground">{library.summary}</p>

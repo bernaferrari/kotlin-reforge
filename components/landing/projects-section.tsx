@@ -7,7 +7,7 @@ export function ProjectsSection() {
     <section id="apps" className="scroll-mt-20 px-4 py-20 sm:px-6 sm:py-28">
       <div className="mx-auto max-w-6xl">
         <header className="mb-12 max-w-3xl sm:mb-16">
-          <p className="forge-eyebrow forge-eyebrow-dot inline-flex items-center">The apps</p>
+          <p className="forge-eyebrow">The apps</p>
           <h2 className="forge-section-title mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
             Seven apps so far.
           </h2>

@@ -3,7 +3,15 @@
 import { useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowUpRight, Check, ChevronLeft, ChevronRight, Globe, Play } from "lucide-react"
+import {
+  ArrowUpRight,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Globe,
+  Maximize2,
+  Play,
+} from "lucide-react"
 import posthog from "posthog-js"
 import { GitHubIcon } from "@/components/icons/github-icon"
 import { buttonVariants } from "@/components/ui/button"
@@ -217,11 +225,18 @@ function GalleryStage({
                     loading={index === 0 ? undefined : "eager"}
                     aria-hidden={index !== activeIndex}
                     draggable={false}
-                    className="object-contain transition-transform duration-300 ease-out group-hover:scale-[1.015]"
+                    className="object-contain"
                   />
                 </div>
               ))}
             </div>
+            {/* The frame stays still on hover; only this hint says it opens larger. */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute right-3 bottom-3 inline-flex size-8 items-center justify-center rounded-full bg-black/55 text-white opacity-0 backdrop-blur transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-visible:opacity-100"
+            >
+              <Maximize2 className="size-3.5" />
+            </span>
           </DialogTrigger>
 
           {hasMultiple && (
@@ -231,7 +246,7 @@ function GalleryStage({
                   type="button"
                   onClick={goPrevious}
                   aria-label="Previous screenshot"
-                  className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_-6px_var(--color-primary)]"
+                  className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground"
                 >
                   <ChevronLeft className="size-4 -translate-x-px" />
                 </button>
@@ -239,7 +254,7 @@ function GalleryStage({
                   type="button"
                   onClick={goNext}
                   aria-label="Next screenshot"
-                  className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_-6px_var(--color-primary)]"
+                  className="pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/80 text-foreground backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground"
                 >
                   <ChevronRight className="size-4 translate-x-px" />
                 </button>
@@ -255,9 +270,9 @@ function GalleryStage({
                     }}
                     aria-label={`Show screenshot ${index + 1}`}
                     className={cn(
-                      "h-1 rounded-full transition-all duration-300",
+                      "h-1 rounded-full transition-[width,background-color] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
                       index === activeIndex
-                        ? "w-6 bg-primary shadow-[0_0_10px_0_var(--color-primary)]"
+                        ? "w-6 bg-primary"
                         : "w-2.5 bg-muted-foreground/30 hover:bg-muted-foreground/60",
                     )}
                   />
@@ -313,7 +328,7 @@ function GalleryStage({
                 type="button"
                 onClick={goPrevious}
                 aria-label="Previous screenshot"
-                className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_-6px_var(--color-primary)]"
+                className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground"
               >
                 <ChevronLeft className="size-5 -translate-x-px" />
               </button>
@@ -321,7 +336,7 @@ function GalleryStage({
                 type="button"
                 onClick={goNext}
                 aria-label="Next screenshot"
-                className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_24px_-6px_var(--color-primary)]"
+                className="pointer-events-auto inline-flex size-10 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white backdrop-blur transition-colors duration-200 ease-out hover:border-primary/60 hover:bg-primary hover:text-primary-foreground"
               >
                 <ChevronRight className="size-5 translate-x-px" />
               </button>
@@ -377,7 +392,7 @@ export function ProjectCard({ app }: { app: AppData }) {
   return (
     <article
       id={app.slug}
-      className="forge-panel group/card relative scroll-mt-24 overflow-hidden rounded-2xl transition-[border-color,box-shadow] duration-500 hover:border-primary/30 hover:shadow-[0_30px_80px_-40px_color-mix(in_oklab,var(--primary)_40%,transparent)]"
+      className="forge-panel group/card relative scroll-mt-24 overflow-hidden rounded-2xl"
     >
       <header className="flex flex-col gap-5 border-b border-border/40 p-5 sm:flex-row sm:items-start sm:justify-between sm:p-6">
         <div className="min-w-0">
