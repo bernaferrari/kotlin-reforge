@@ -197,7 +197,7 @@ export function Hero() {
                   fill
                   sizes="(max-width: 1200px) 95vw, 1152px"
                   priority={index === 0}
-                  className="object-contain"
+                  className="object-cover"
                 />
               </div>
             )
