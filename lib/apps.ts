@@ -83,6 +83,7 @@ export const apps: AppData[] = [
     },
     platforms: ["Android", "iPhone", "Web"],
     repoUrl: "https://github.com/bernaferrari/markor",
+    playUrl: "https://play.google.com/store/apps/details?id=com.bernaferrari.wordkeep",
     demoUrl: "https://markor-five.vercel.app/",
     images: [
       {
@@ -112,6 +113,7 @@ export const apps: AppData[] = [
     },
     platforms: ["Android", "iPhone", "Web"],
     repoUrl: "https://github.com/bernaferrari/calcula",
+    playUrl: "https://play.google.com/store/apps/details?id=com.bernaferrari.calcula",
     images: [
       {
         file: "hero",
@@ -177,6 +179,7 @@ export const apps: AppData[] = [
       "A Wi-Fi analyzer that draws every nearby network as a wave, suggests a quieter channel and maps your home from weak to strong.",
     platforms: ["Android"],
     repoUrl: "https://github.com/bernaferrari/wifi-weakspot",
+    playUrl: "https://play.google.com/store/apps/details?id=com.bernaferrari.wifiweakspot",
     images: [
       { file: "channels", alt: "Nearby networks drawn as waves across 2.4, 5 and 6 GHz" },
       { file: "tools", alt: "Router check and the devices on your Wi-Fi" },
