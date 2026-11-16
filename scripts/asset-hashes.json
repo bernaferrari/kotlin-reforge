@@ -1,0 +1,242 @@
+{
+  "calcula/before-after.webp": {
+    "source": "store-listing/en-US/readme/before-after.jpg",
+    "sourceHash": "029418f6790b952ef13007a679eedcfcde55f33cd8fdf1f8970a6fc3ce9d2d69",
+    "outputHash": "9238544b090645791fc177dae476b3a90e03cd0cde31a45d2d574bdb8d3e9d4f",
+    "provenance": "generated"
+  },
+  "calcula/big-screen.webp": {
+    "source": "store-listing/en-US/readme/big-screen.jpg",
+    "sourceHash": "29b9d2088d455bff23f620ca41878dc32d9b6690e58dfe35d0ef55070b12f849",
+    "outputHash": "f700c31c2e60c6ea2d80faeda928ef2ec647811e441fa3bfc1d2431a43d1826b",
+    "provenance": "generated"
+  },
+  "calcula/customize.webp": {
+    "source": "store-listing/en-US/readme/customize.jpg",
+    "sourceHash": "8a798f04ea170922d9814beb193137b86237dfbb20527c85f68eeced978d0619",
+    "outputHash": "7cebf4e30bd1ac3a9ea1046b602540aa12840b79541b6b21899cecf423e8cad3",
+    "provenance": "generated"
+  },
+  "calcula/hero.webp": {
+    "source": "store-listing/en-US/readme/hero.jpg",
+    "sourceHash": "673f93d4bd1295fdfee66dcc8257eccbf1adbc37bad53d683ca759af5476d30e",
+    "outputHash": "2c7df36ea5933217fc29903e60e5236a5447aa903f387ba9815131aa2872c799",
+    "provenance": "generated"
+  },
+  "calcula/icon.png": {
+    "source": "store-listing/brand/icon.png",
+    "sourceHash": "a24b92cebda28f0a447a2fd5c34eeab1d638e3957c8aa56657c5a6bcede3e620",
+    "outputHash": "a24b92cebda28f0a447a2fd5c34eeab1d638e3957c8aa56657c5a6bcede3e620",
+    "provenance": "generated"
+  },
+  "calcula/tools.webp": {
+    "source": "store-listing/en-US/readme/tools.jpg",
+    "sourceHash": "808b81b3e6a688de2bf7ef8bebea5754cbbeba6482e1dd9a4bb0d97a942561a8",
+    "outputHash": "d3429e8ecee5cb7f22f712872a95daf5ec8023bff81c226b3128c6f67a44533a",
+    "provenance": "generated"
+  },
+  "changedetection/banner.webp": {
+    "source": "store-listing/en-US/readme/banner.jpg",
+    "sourceHash": "3e925def531b88a995bb68c5ea7d6e76e106ca39cb6f54398abd2340793372d5",
+    "outputHash": "f86a2495e6e87eedb066eccc9b51185b8cf5017ce76c513f181b53c066a96f31",
+    "provenance": "baseline"
+  },
+  "changedetection/big-screen.webp": {
+    "source": "store-listing/en-US/readme/big-screen.jpg",
+    "sourceHash": "3822a06a22b8c78d1d6816534015cd8e1a3ba5229aa4b963da91645f03ce8106",
+    "outputHash": "dfbc4d8a9f93b8b43853edbf339d9e67f2d39bd8106d3bb88b63f2bcec2623d8",
+    "provenance": "baseline"
+  },
+  "changedetection/icon.png": {
+    "source": "website/app/icon.png",
+    "sourceHash": "d65690ede7f63e507ab38cd9f92f13b0e0f9f8ba0da10a29f6887f77ac098044",
+    "outputHash": "0a38816ab6a640f639a93410497afae636e2d6a0b79d31163b211380b24beca5",
+    "provenance": "baseline"
+  },
+  "changedetection/tools.webp": {
+    "source": "store-listing/en-US/readme/tools.jpg",
+    "sourceHash": "8620a3cbc03852720163a015e3c2207979fe23c6058a532229b2c0e3746c0a0f",
+    "outputHash": "dfe5a973dcc8d492cf583ba39a0e39455d25388c9f995d2585552ed86fa469b9",
+    "provenance": "baseline"
+  },
+  "changedetection/what-changed.webp": {
+    "source": "store-listing/en-US/readme/what-changed.jpg",
+    "sourceHash": "0ad0d7bbabd60da85e675829320b0b773b42e9a2e91763c7f382f4389dbda980",
+    "outputHash": "724c5696ef88cafc347e88981c7af080af7f1ee71cb9feb2fd0268e0ab9b6ad0",
+    "provenance": "baseline"
+  },
+  "keepout/before-after.webp": {
+    "source": "store-listing/en-US/readme/before-after.jpg",
+    "sourceHash": "5f5ebb2e9ab1f7b7ac3b579ab9e8a500adfb67f6386b5a0795c9a7d762970295",
+    "outputHash": "376ab41c69d50fefe28cd9c7494a165c7d6646b5229f53fc7c591b38344ce6db",
+    "provenance": "baseline"
+  },
+  "keepout/big-screen.webp": {
+    "source": "store-listing/en-US/readme/big-screen.jpg",
+    "sourceHash": "665c423590b360db2d83674d4640f0b5ed0e5d3fef841e7783842644a3a3741f",
+    "outputHash": "3f6c1c2ca834a359dbb1afbc045178dc1cadd7c3d9e05a79a89fd426942a663c",
+    "provenance": "baseline"
+  },
+  "keepout/hero.webp": {
+    "source": "store-listing/en-US/readme/hero.jpg",
+    "sourceHash": "f3a9f6cb8e592704c3baa25226620fa954fcb1d09600c7302a90df7621f2ab08",
+    "outputHash": "2cfc665e992d58da713a3b9ac473a965d02410fc32fd29de336375b0c5e970a8",
+    "provenance": "baseline"
+  },
+  "keepout/icon.png": {
+    "source": "store-listing/brand/icon.png",
+    "sourceHash": "146a13e253df24ac46c14da0a0e6d2897a22583684f87684c8605f0fb01ea720",
+    "outputHash": "4de9a96174847101170f7477c7ffd3a6cb501ad21adffc45251b5ae477b75494",
+    "provenance": "baseline"
+  },
+  "keepout/tools.webp": {
+    "source": "store-listing/en-US/readme/tools.jpg",
+    "sourceHash": "f5b9013508ff089ed7325ce42605031cd236a7af70516823a0b9cb15e30d72c6",
+    "outputHash": "dbc39ff5b289fe12a51b6449877c58575c48825b5a8489e4779990e6f7406fb3",
+    "provenance": "baseline"
+  },
+  "lumina/big-screen.webp": {
+    "source": "store-listing/en-US/readme/big-screen.jpg",
+    "sourceHash": "e87529b9f59d3274b51be5f943970036c93b1cc95e2ce39adea928d66b43166c",
+    "outputHash": "2e034cca4122e75bc83d4c884a9b4cbca83422546dd29cd48148f3badab27b1b",
+    "provenance": "baseline"
+  },
+  "lumina/hero.webp": {
+    "source": "store-listing/en-US/readme/hero.jpg",
+    "sourceHash": "6ee5c25187971087a2c4babada3fb250a9b5fe02f6c3919cc73f869727ed39dd",
+    "outputHash": "a862ef73c95e0828d76532e6fc75ba15c22759117f39b86f4dfa247b51875c5a",
+    "provenance": "baseline"
+  },
+  "lumina/icon.png": {
+    "source": "store-listing/brand/icon.png",
+    "sourceHash": "ffc1f100651ce85ed54b73b1ee8e5aefd4a4a6eb3335f234c0de3f01561bf48c",
+    "outputHash": "17a5d6576a6dc05922eb0404b0dd09914f0d1a163fb8b08f56b23dafacb4c128",
+    "provenance": "baseline"
+  },
+  "lumina/tools.webp": {
+    "source": "store-listing/en-US/readme/tools.jpg",
+    "sourceHash": "fef7ee2b8c8f0506be4b3758b1451ca3a2e1bc5cba40dada7c82acdb473623b9",
+    "outputHash": "cb7e01fc34615117c54323c7f45ed289018bd33097675ef9bd94c17b4196b132",
+    "provenance": "baseline"
+  },
+  "quietguard/before-after.webp": {
+    "source": "store-listing/en-US/readme/before-after.jpg",
+    "sourceHash": "c01650737c3c94b4dd24f423fcb117ac9d75529b53258a1ddd938f3ca67aee7d",
+    "outputHash": "f71704a4f3c6454d00f6dad0d1ce458b0ae8ea8bd62a07fb50a0ab64046ba6f4",
+    "provenance": "baseline"
+  },
+  "quietguard/big-screen.webp": {
+    "source": "store-listing/en-US/readme/big-screen.jpg",
+    "sourceHash": "bc53f284c8f133ff029f54aa20837bbabf5c9eff06523ea24b3e4e67c4fdf6fb",
+    "outputHash": "2a0076c4aaa21fef6748aa4756beb7befad292e2634ffc5de0e83f0e50d7c0a7",
+    "provenance": "baseline"
+  },
+  "quietguard/hero.webp": {
+    "source": "store-listing/en-US/readme/hero.jpg",
+    "sourceHash": "658b900e97a0de3491e1d8a018a55c7f40bfa214dd02b1bb9f468ab09c6cccb2",
+    "outputHash": "fde0141d7fb0d42897502daaed00756de7c7000773c8b2823928296b84bfb108",
+    "provenance": "baseline"
+  },
+  "quietguard/icon.png": {
+    "source": "store-listing/brand/icon.png",
+    "sourceHash": "a4ce7e2addefd6001c4f438b47076a09625a738364b7ea663e4b2daf90169873",
+    "outputHash": "6a702ea854b2e09398b0ce6b3f037c561b4d2b8e98bf2722bfe5c114d0236b49",
+    "provenance": "baseline"
+  },
+  "quietguard/rules.webp": {
+    "source": "store-listing/en-US/readme/rules.jpg",
+    "sourceHash": "afe38f749cd92a879e0b07c85589f4157ade1ec39868998f8db3a700dcc21f79",
+    "outputHash": "4dcd1238f0efd4c899777a3af49c1f107ed5c4441a5144669fb75feea51b2cf2",
+    "provenance": "baseline"
+  },
+  "sdkmonitor/before-after.webp": {
+    "source": "store-listing/en-US/readme/before-after.jpg",
+    "sourceHash": "f3c126098d1bef76c904049e78e3ade81af92be81c0255096dcfcba95c983cf2",
+    "outputHash": "427bef608bfce6bd23a053eccdbe8caa9c0de9ce1b6b85d0b167d1319d92b29b",
+    "provenance": "baseline"
+  },
+  "sdkmonitor/big-screen.webp": {
+    "source": "store-listing/en-US/readme/big-screen.jpg",
+    "sourceHash": "15f2be11f1e4dcb8cecef8f6ba946f67b0424901e6f0e1d43c62c2f32c4c9064",
+    "outputHash": "8aadeb499042f37f0855ca52f25927b029ca8fdfa5a2f6b7035762e750c4cc7c",
+    "provenance": "baseline"
+  },
+  "sdkmonitor/hero.webp": {
+    "source": "store-listing/en-US/readme/header.jpg",
+    "sourceHash": "8d47d6f60f1186929dc9d2bde2fe16ed61dddbc7ac824410504266656df03269",
+    "outputHash": "cb12b4cff582049cf40115e7b02ff7bfb6f0fc97ab468627a3b8180999a58338",
+    "provenance": "baseline"
+  },
+  "sdkmonitor/icon.png": {
+    "source": "store-listing/brand/icon.png",
+    "sourceHash": "729e68cf6463357bf64f57319ed8b1bae4a00c6792cd860cf1bfe635ef7778c6",
+    "outputHash": "7797d23dfe0805e866df2d2738c5458bb0a184887e1de8c1896a50b9c4fa2076",
+    "provenance": "baseline"
+  },
+  "sdkmonitor/tools.webp": {
+    "source": "store-listing/en-US/readme/tools.jpg",
+    "sourceHash": "b0f9b8775e0ae66104a65365585acf615763b4f5bb3d651afb77c92da9fcd080",
+    "outputHash": "a2e71dbcf3d5ad240234fd697c325f1410b7799843d86f1167ebbe2237158d87",
+    "provenance": "baseline"
+  },
+  "wifi-weakspot/big-screen.webp": {
+    "source": "store-listing/en-US/readme/big-screen.jpg",
+    "sourceHash": "1139cf003b21ff355afa207f3ac5041c4d077c2ddcc0c538a7088924e678e7ce",
+    "outputHash": "14e0b4510ed3cc231e8322589ad81d3d339e6457981c6e10574f5f2eaef72317",
+    "provenance": "baseline"
+  },
+  "wifi-weakspot/channels.webp": {
+    "source": "store-listing/en-US/readme/channels.jpg",
+    "sourceHash": "a6e41f4d2a5024ac8cc712b9669d536730eca2e52555c22062d628e84322a2e4",
+    "outputHash": "90d73946bfe25d00ae2c14ae3bddc8cbfa7dee3eda00a322ed99e804210e990f",
+    "provenance": "baseline"
+  },
+  "wifi-weakspot/icon.png": {
+    "source": "store-listing/brand/icon.png",
+    "sourceHash": "d84cd9c59e4616818999eba25e8f4a0f66a1a9e19630e098842599445c05ec44",
+    "outputHash": "63536f9be89e0d8189f21ae5545050ba9e9df772abe448b9e6da665d0bd9c149",
+    "provenance": "baseline"
+  },
+  "wifi-weakspot/tools.webp": {
+    "source": "store-listing/en-US/readme/tools.jpg",
+    "sourceHash": "0601962a2466df0db60b705232f3604b348b13bfb6540e204f19437802342721",
+    "outputHash": "1192637963d3f55535e6a482cc6131f6a01a000317cbc1ec8a3a139f297c9d9b",
+    "provenance": "baseline"
+  },
+  "wordkeep/before-after.webp": {
+    "source": "store-listing/en-US/readme/before-after.jpg",
+    "sourceHash": "deb223cce2581fb6b479f0c095f97b875fb9cdfc138fe3c16479929d1ad05cbe",
+    "outputHash": "1ab746a09089de3e920506eef8dda981b3f4b4a06a3599afe008deed667657bc",
+    "provenance": "baseline"
+  },
+  "wordkeep/big-screen.webp": {
+    "source": "store-listing/en-US/readme/big-screen.jpg",
+    "sourceHash": "2b519964e0b61be151b8fece562d67689599bd8bd4520fe8a092e3da5d98cdc8",
+    "outputHash": "67a228fb0288c65e5538e346c2f880f3899144e9845d6b2880a6fbc6fec934a1",
+    "provenance": "baseline"
+  },
+  "wordkeep/hero.webp": {
+    "source": "store-listing/en-US/readme/hero.jpg",
+    "sourceHash": "2c2af3b15c73bf91a33d8465ea1ee96b69fb1744deea4d834af6a07f78c3fc8c",
+    "outputHash": "b88c86ae2db62fc95a8c35f6294d3f47b9ec20b29c0de9430a6ff7dd207ec3f7",
+    "provenance": "baseline"
+  },
+  "wordkeep/icon.png": {
+    "source": "store-listing/brand/icon.png",
+    "sourceHash": "7323b92d3d3cf9c549806a3c3fea8b8191204f5f4092606a16a4c8e7645901b6",
+    "outputHash": "3c512ca9d46557dbe74c517d1c96e62ba2dc7f20df1888efd06b544a56e7e8c6",
+    "provenance": "baseline"
+  },
+  "wordkeep/notebook-1.webp": {
+    "source": "store-listing/en-US/readme/notebook-1.jpg",
+    "sourceHash": "d92f9b96803805583213e0e69bf31cfdcad1c8f5fa13799f8c2ab8630a04d42f",
+    "outputHash": "57321cd28e33041832affb51b2338a4cd85bed39e714eaf7069a53f796051671",
+    "provenance": "baseline"
+  },
+  "wordkeep/notebook-2.webp": {
+    "source": "store-listing/en-US/readme/notebook-2.jpg",
+    "sourceHash": "319dab68b4a4f53c78a9c4c24548947c60c13dc1ea13defdc7aeea9b408da024",
+    "outputHash": "d70be9add81efdb81570cd83b005f25023c4e3a4be9aa1ad7415e5b7ad46486f",
+    "provenance": "baseline"
+  }
+}

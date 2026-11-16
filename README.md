@@ -30,6 +30,20 @@ For developers, the site also features two Kotlin Multiplatform libraries, [KMPw
 
 App details and screenshots live in [`lib/apps.ts`](lib/apps.ts) and `public/<app>/`. The screenshots are each app's README images, converted to WebP.
 
+### Refresh app images
+
+The asset map in [`scripts/asset-sources.json`](scripts/asset-sources.json) points to each app's icon and README artwork. By default the scripts look for checkouts under `~/Documents/android`; set `ANDROID_PROJECTS_DIR` to use another folder.
+
+```shell
+pnpm assets:check                 # report source and site image changes across all apps
+pnpm assets:check calcula         # check one app
+pnpm assets:sync calcula          # convert its current README art to WebP and copy its icon
+```
+
+When an icon or screenshot changes, first regenerate that app's README artwork using its own Screenshot Studio workflow, then run the sync command. The sync reads the working tree, including uncommitted changes. Review and commit the source artwork in its app repository as well as the site images.
+
+[`scripts/asset-hashes.json`](scripts/asset-hashes.json) records SHA-256 hashes of both the source and site files. A check reports missing files, changed sources, and site images edited since the last sync. Entries marked `baseline` record the files that already existed when tracking was introduced; they do not assert that the old site image was generated from the current source. Sync an app to establish verified generated entries. The check requires the app checkouts and is separate from the site build.
+
 ### Quick Start
 
 ```shell

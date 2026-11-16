@@ -1,0 +1,74 @@
+{
+  "calcula": {
+    "project": "Calcula",
+    "icon": "store-listing/brand/icon.png",
+    "images": {
+      "hero": "hero",
+      "tools": "tools",
+      "customize": "customize",
+      "before-after": "before-after",
+      "big-screen": "big-screen"
+    }
+  },
+  "changedetection": {
+    "project": "ChangeDetection",
+    "icon": "website/app/icon.png",
+    "images": {
+      "banner": "banner",
+      "what-changed": "what-changed",
+      "tools": "tools",
+      "big-screen": "big-screen"
+    }
+  },
+  "keepout": {
+    "project": "Keepout",
+    "icon": "store-listing/brand/icon.png",
+    "images": {
+      "hero": "hero",
+      "tools": "tools",
+      "before-after": "before-after",
+      "big-screen": "big-screen"
+    }
+  },
+  "lumina": {
+    "project": "Lumina",
+    "icon": "store-listing/brand/icon.png",
+    "images": { "hero": "hero", "tools": "tools", "big-screen": "big-screen" }
+  },
+  "quietguard": {
+    "project": "QuietGuard",
+    "icon": "store-listing/brand/icon.png",
+    "images": {
+      "hero": "hero",
+      "rules": "rules",
+      "before-after": "before-after",
+      "big-screen": "big-screen"
+    }
+  },
+  "sdkmonitor": {
+    "project": "SDKMonitor",
+    "icon": "store-listing/brand/icon.png",
+    "images": {
+      "hero": "header",
+      "tools": "tools",
+      "before-after": "before-after",
+      "big-screen": "big-screen"
+    }
+  },
+  "wifi-weakspot": {
+    "project": "WiFiWeakspot",
+    "icon": "store-listing/brand/icon.png",
+    "images": { "channels": "channels", "tools": "tools", "big-screen": "big-screen" }
+  },
+  "wordkeep": {
+    "project": "Wordkeep",
+    "icon": "store-listing/brand/icon.png",
+    "images": {
+      "hero": "hero",
+      "notebook-1": "notebook-1",
+      "notebook-2": "notebook-2",
+      "before-after": "before-after",
+      "big-screen": "big-screen"
+    }
+  }
+}
