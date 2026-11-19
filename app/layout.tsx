@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Sora, IBM_Plex_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
+import { apps } from "@/lib/apps"
 import "./globals.css"
 
 const sora = Sora({
@@ -17,11 +18,15 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: "swap",
 })
 
+const siteDescription = `${apps.length} free, open-source Android apps built with Kotlin.`
+const appNames = new Intl.ListFormat("en", { type: "conjunction" }).format(
+  apps.map((app) => app.name),
+)
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://kotlin-reforge.vercel.app"),
   title: "Kotlin Reforge: old Android apps, rebuilt to feel new",
-  description:
-    "Seven free, open-source Android apps, rewritten in Kotlin and redesigned screen by screen: Keepout, QuietGuard, Wordkeep, Calcula, ChangeDetection, WiFi Weakspot and Lumina.",
+  description: `${siteDescription} ${appNames}.`,
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -31,16 +36,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Kotlin Reforge",
-    description:
-      "Seven free, open-source Android apps, rewritten in Kotlin and redesigned screen by screen.",
+    description: siteDescription,
     images: ["/social.png"],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Kotlin Reforge",
-    description:
-      "Seven free, open-source Android apps, rewritten in Kotlin and redesigned screen by screen.",
+    description: siteDescription,
     images: ["/social.png"],
   },
 }

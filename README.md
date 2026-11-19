@@ -14,7 +14,7 @@
 
 **Old Android apps, rebuilt to feel new.**
 
-The website for seven free, open-source apps, rewritten in Kotlin and redesigned screen by screen. Each app lives in its own repository; this one is only the site.
+The website for eight free, open-source apps built with Kotlin. Each app lives in its own repository.
 
 | App                                                                | What it does                            | Rebuilt from           |
 | ------------------------------------------------------------------ | --------------------------------------- | ---------------------- |
@@ -23,6 +23,7 @@ The website for seven free, open-source apps, rewritten in Kotlin and redesigned
 | [Wordkeep](https://github.com/bernaferrari/markor)                 | Markdown notes kept as plain files      | Markor                 |
 | [Calcula](https://github.com/bernaferrari/calcula)                 | Calculator with functions a flick away  | Calculator++           |
 | [ChangeDetection](https://github.com/bernaferrari/ChangeDetection) | Alerts when a web page changes          | Its own 2018 app       |
+| [SDK Monitor](https://github.com/bernaferrari/SDKMonitor)           | Tracks the Android SDK version apps target | Its own 2018 app    |
 | [WiFi Weakspot](https://github.com/bernaferrari/wifi-weakspot)     | See where your Wi-Fi gets weak          | New app                |
 | Lumina                                                             | Remote desktop for Omarchy and Hyprland | New app                |
 

@@ -33,6 +33,7 @@ export const apps: AppData[] = [
     },
     platforms: ["Android"],
     repoUrl: "https://github.com/bernaferrari/rethink-app",
+    demoUrl: "https://bernaferrari.github.io/keepout/",
     images: [
       { file: "hero", alt: "Keepout's stats, Home with protection on, and settings" },
       {
@@ -56,7 +57,7 @@ export const apps: AppData[] = [
     },
     platforms: ["Android", "Web"],
     repoUrl: "https://github.com/bernaferrari/QuietGuard",
-    demoUrl: "https://quietguard.vercel.app/",
+    demoUrl: "https://bernaferrari.github.io/quietguard/",
     images: [
       { file: "hero", alt: "QuietGuard's firewall with apps allowed and blocked" },
       {
@@ -84,7 +85,7 @@ export const apps: AppData[] = [
     platforms: ["Android", "iPhone", "Web"],
     repoUrl: "https://github.com/bernaferrari/markor",
     playUrl: "https://play.google.com/store/apps/details?id=com.bernaferrari.wordkeep",
-    demoUrl: "https://markor-five.vercel.app/",
+    demoUrl: "https://bernaferrari.github.io/wordkeep/",
     images: [
       {
         file: "hero",
@@ -114,6 +115,7 @@ export const apps: AppData[] = [
     platforms: ["Android", "iPhone", "Web"],
     repoUrl: "https://github.com/bernaferrari/calcula",
     playUrl: "https://play.google.com/store/apps/details?id=com.bernaferrari.calcula",
+    demoUrl: "https://bernaferrari.github.io/calcula/",
     images: [
       {
         file: "hero",
@@ -163,7 +165,7 @@ export const apps: AppData[] = [
     },
     platforms: ["Android", "Web"],
     repoUrl: "https://github.com/bernaferrari/SDKMonitor",
-    demoUrl: "https://sdkmonitor.vercel.app/",
+    demoUrl: "https://bernaferrari.github.io/sdkmonitor/",
     images: [
       { file: "hero", alt: "SDK analytics, the app list with every app's target SDK, and an app's details" },
       { file: "tools", alt: "SDK analytics by Android version, the change log, and an app's version history" },
@@ -180,6 +182,7 @@ export const apps: AppData[] = [
     platforms: ["Android"],
     repoUrl: "https://github.com/bernaferrari/wifi-weakspot",
     playUrl: "https://play.google.com/store/apps/details?id=com.bernaferrari.wifiweakspot",
+    demoUrl: "https://bernaferrari.github.io/wifi-weakspot/",
     images: [
       { file: "channels", alt: "Nearby networks drawn as waves across 2.4, 5 and 6 GHz" },
       { file: "tools", alt: "Router check and the devices on your Wi-Fi" },
